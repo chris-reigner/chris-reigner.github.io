@@ -1,0 +1,164 @@
+site_name: AI Engineering Handbook
+site_description: Handbook covering ML, LLM, GenAI and Agentic AI
+site_dir: site
+
+repo_name: chris-reigner.github.io
+repo_url: https://github.com/chris-reigner/chris-reigner.github.io
+
+theme:
+  name: material
+  custom_dir: overrides
+  logo: assets/logo-light.svg  # Safari doesn't support <style> tags inside SVGs so we need to a light and a dark SVG
+  logo_dark: assets/logo-dark.svg  # Safari doesn't support <style> tags inside SVGs so we need to a light and a dark SVG
+  favicon: assets/logo-auto.svg
+  favicon_png: assets/logo-light.png  # Safari doesn't support SVG favicons
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      primary: custom
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      primary: custom
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.code.copy
+    - content.code.select
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.highlight
+  - pymdownx.tabbed
+  - pymdownx.details
+  - pymdownx.emoji
+  - tables
+  - pymdownx.superfences:
+      custom_fences:
+          - name: mermaid
+            class: mermaid
+            format: !!python/name:pymdownx.superfences.fence_code_format
+  - toc:
+      title: On this page
+      permalink: true
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Welcome: 
+    - Introduction: Introduction.md
+    - Resources: Resources.md
+  - ML Engineering:
+    - Concepts:
+      - Chapter 1 - Engineering:
+          - Async: ML Engineering/Chapter 1 - Engineering/Async.md
+          - Docker: ML Engineering/Chapter 1 - Engineering/Docker.md
+          - UV: ML Engineering/Chapter 1 - Engineering/uv.md
+          - Resources: ML Engineering/Chapter 1 - Engineering/resources.md
+  - GenAI Engineering:
+      - Chapter 1 - Deep Learning:
+          - CPU vs GPU vs TPU: GenAI Engineering/Chapter 1 - Deep Learning/CPU vs GPU vs TPU.md
+          - Pytorch GPU Setup: GenAI Engineering/Chapter 1 - Deep Learning/Pytorch GPU Setup.md
+          - Debugging Pytorch: GenAI Engineering/Chapter 1 - Deep Learning/Debugging Pytorch.md
+          - GPU Optimization: GenAI Engineering/Chapter 1 - Deep Learning/GPU Optimization.md
+          - Deep Learning Overview: GenAI Engineering/Chapter 1 - Deep Learning/Deep Learning Overview.md
+          - Deep Learning Optimization: GenAI Engineering/Chapter 1 - Deep Learning/Deep Learning Optimization.md
+          - Numerical representations: GenAI Engineering/Chapter 1 - Deep Learning/Numerical representations.md
+          - Entropy: GenAI Engineering/Chapter 1 - Deep Learning/Entropy.md
+      - Chapter 2 - LLM Pipeline:
+          - Tokenizers: GenAI Engineering/Chapter 2 - LLM Pipeline/Tokenizers.md
+          - Overview of embedding model: GenAI Engineering/Chapter 2 - LLM Pipeline/Overview of embedding model.md
+          - Encoding and Decoding: GenAI Engineering/Chapter 2 - LLM Pipeline/Encoding and Decoding.md
+          - Transformers: GenAI Engineering/Chapter 2 - LLM Pipeline/Transformers.md
+          - LLM Architecture: GenAI Engineering/Chapter 2 - LLM Pipeline/LLM Architecture.md
+      - Chapter 3 - Fine Tuning techniques:
+          - Fine tuning overview: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Fine tuning overview.md
+          - Training: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Training.md
+          - Training Optimization techniques: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Training Optimization techniques.md
+          - Quantization: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Quantization.md
+          - Supervised Fine Tuning: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Supervised_fine_tuning.md
+          - Model Choice: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Model_choice.md
+          - Frameworks: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Frameworks.md
+          - Inference Optimizations: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Inference Optimizations.md
+      - Chapter 4 - LLM based solutions:
+          - RAG Overview: GenAI Engineering/Chapter 4 - LLM based solutions/6.0 RAG Overview.md
+          - RAG Optimization techniques: GenAI Engineering/Chapter 4 - LLM based solutions/6.1 RAG Optimization techniques.md
+          - Parser methods: GenAI Engineering/Chapter 4 - LLM based solutions/6.2 Parser methods.md
+          - Chunking strategies: GenAI Engineering/Chapter 4 - LLM based solutions/6.3 Chunking strategies.md
+          - Vector Similarity Search Methods: GenAI Engineering/Chapter 4 - LLM based solutions/6.4 Vector Similarity Search Methods.md
+          - Retriever and re-ranker: GenAI Engineering/Chapter 4 - LLM based solutions/6.5 Retriever and re-ranker.md
+      - Chapter 5 - Evaluation:
+          - Evaluation for NLP: GenAI Engineering/Chapter 5 - Evaluation/Evaluation for NLP.md
+          - Evaluation in LLM training and fine-tuning: GenAI Engineering/Chapter 5 - Evaluation/Evaluation in LLM training and fine-tuning.md
+          - Red Teaming: GenAI Engineering/Chapter 5 - Evaluation/Red Teaming.md
+          - Responsible AI: GenAI Engineering/Chapter 5 - Evaluation/Responsible AI.md
+      - Chapter 6 - Other type of models:
+          - Generative modelling beyond sequences: GenAI Engineering/Chapter 6 - Other type of models/Generative modelling beyond sequences.md
+          - Multimodal models: GenAI Engineering/Chapter 6 - Other type of models/multimodal_models.md
+      - Chapter 7 - LLMOps:
+          - AI system architecture: GenAI Engineering/Chapter 7 - LLMOps/AI system architecture.md
+          - Data for LLM: GenAI Engineering/Chapter 7 - LLMOps/Data for LLM.md
+          - Guardrails: GenAI Engineering/Chapter 7 - LLMOps/Guardrails.md
+          - LLMSECOps: GenAI Engineering/Chapter 7 - LLMOps/LLMSECOps.md
+          - Observability: GenAI Engineering/Chapter 7 - LLMOps/Observability.md
+          - Prompt Engineering Optimization: GenAI Engineering/Chapter 7 - LLMOps/Prompt Engineering Optimization.md
+          - Serving Frameworks: GenAI Engineering/Chapter 7 - LLMOps/Serving Frameworks.md
+  - AI Agents Engineering:
+    - Resources: AI Agents Engineering/Resources.md
+    - Concepts:
+      - Introduction: AI Agents Engineering/introduction.md
+  - About me: About the Author.md
+  - Contribute ❤️: https://github.com/chris-reigner/chris-reigner.github.io
+
+exclude_docs: |
+  node_modules
+  .venv
+  _dependencies
+
+plugins:
+  - search
+  - privacy
+  - macros
+  - mike:
+      alias_type: symlink
+      canonical_version: latest
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_root_heading: true
+            show_source: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+  version:
+    provider: mike
+
+validation:
+  nav:
+    omitted_files: info
+    not_found: warn
+    absolute_links: warn
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: warn
+    unrecognized_links: warn

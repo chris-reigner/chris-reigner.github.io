@@ -1,0 +1,28 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# environment variables
+.env
+
+# ml stuff
+mlartifacts/
+mlruns/
+wandb/
+
+# checkpoints
+.ipynb_checkpoints
+
+# models
+SmolLM2-360M/
+
+# perSonal
+wip/
+RagProject/
