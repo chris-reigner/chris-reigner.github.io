@@ -1,0 +1,2905 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+      <meta name="description" content="Handbook covering ML, LLM, GenAI and Agentic AI">
+    
+    
+    
+    
+      <link rel="prev" href="../Quantization/">
+    
+    
+      <link rel="next" href="../Model_choice/">
+    
+    
+    <link rel="icon" href="../../../assets/logo-light.png" sizes="any">
+    <link rel="icon" href="../../../assets/logo-auto.svg" type="image/svg+xml">
+    <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+
+    
+      
+        <title>Supervised Fine Tuning - AI Engineering Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#peft" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="AI Engineering Handbook" class="md-header__button md-logo" aria-label="AI Engineering Handbook" data-md-component="logo">
+      <!-- Logo -->
+
+  <img src="../../../assets/logo-light.svg" alt="logo" class="logo-light" />
+  <img src="../../../assets/logo-dark.svg" alt="logo" class="logo-dark" />
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Engineering Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Supervised Fine Tuning
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/chris-reigner/chris-reigner.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    chris-reigner.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Introduction/" class="md-tabs__link">
+          
+  
+  
+  Welcome
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ML%20Engineering/Chapter%201%20-%20Engineering/Async/" class="md-tabs__link">
+          
+  
+  
+  ML Engineering
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../Chapter%201%20-%20Deep%20Learning/CPU%20vs%20GPU%20vs%20TPU/" class="md-tabs__link">
+          
+  
+  
+  GenAI Engineering
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../AI%20Agents%20Engineering/Resources/" class="md-tabs__link">
+          
+  
+  
+  AI Agents Engineering
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../About%20the%20Author/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About me
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://github.com/chris-reigner/chris-reigner.github.io" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contribute ❤️
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AI Engineering Handbook" class="md-nav__button md-logo" aria-label="AI Engineering Handbook" data-md-component="logo">
+      <!-- Logo -->
+
+  <img src="../../../assets/logo-light.svg" alt="logo" class="logo-light" />
+  <img src="../../../assets/logo-dark.svg" alt="logo" class="logo-dark" />
+
+    </a>
+    AI Engineering Handbook
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/chris-reigner/chris-reigner.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    chris-reigner.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Welcome
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Welcome
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ML Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ML Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1 - Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 1 - Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML%20Engineering/Chapter%201%20-%20Engineering/Async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML%20Engineering/Chapter%201%20-%20Engineering/Docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML%20Engineering/Chapter%201%20-%20Engineering/uv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    UV
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML%20Engineering/Chapter%201%20-%20Engineering/resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    GenAI Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            GenAI Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1 - Deep Learning
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 1 - Deep Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%201%20-%20Deep%20Learning/CPU%20vs%20GPU%20vs%20TPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU vs GPU vs TPU
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%201%20-%20Deep%20Learning/Pytorch%20GPU%20Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pytorch GPU Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%201%20-%20Deep%20Learning/Debugging%20Pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging Pytorch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%201%20-%20Deep%20Learning/GPU%20Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPU Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%201%20-%20Deep%20Learning/Deep%20Learning%20Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deep Learning Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%201%20-%20Deep%20Learning/Deep%20Learning%20Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deep Learning Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%201%20-%20Deep%20Learning/Numerical%20representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Numerical representations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%201%20-%20Deep%20Learning/Entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Entropy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2 - LLM Pipeline
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2 - LLM Pipeline
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%202%20-%20LLM%20Pipeline/Tokenizers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tokenizers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%202%20-%20LLM%20Pipeline/Overview%20of%20embedding%20model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview of embedding model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%202%20-%20LLM%20Pipeline/Encoding%20and%20Decoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Encoding and Decoding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%202%20-%20LLM%20Pipeline/Transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transformers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%202%20-%20LLM%20Pipeline/LLM%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LLM Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3 - Fine Tuning techniques
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3 - Fine Tuning techniques
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fine%20tuning%20overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fine tuning overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Training%20Optimization%20techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Optimization techniques
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Quantization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quantization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Supervised Fine Tuning
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supervised Fine Tuning
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-it-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      How does it work ?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-should-i-use-peft-over-other-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      When should I use PEFT over other methods ?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soft-prompt-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soft prompt techniques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Soft prompt techniques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-should-i-use-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      When should I use it ?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ia3" class="md-nav__link">
+    <span class="md-ellipsis">
+      IA3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loraqlora-which-is-one-of-the-most-used-techniques-to-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lora/QLora which is one of the most used techniques to date
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lora/QLora which is one of the most used techniques to date">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-should-i-use-it_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      When should I use it ?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serving-loraqlora" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serving Lora/Qlora
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-qlora" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is QLora ?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tips-for-fine-tuning-llms-using-lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips for fine tuning LLMs using LoRA
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Model_choice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Choice
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Frameworks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Frameworks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Inference%20Optimizations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inference Optimizations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4 - LLM based solutions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4 - LLM based solutions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.0%20RAG%20Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RAG Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.1%20RAG%20Optimization%20techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RAG Optimization techniques
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.2%20Parser%20methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parser methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.3%20Chunking%20strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chunking strategies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.4%20Vector%20Similarity%20Search%20Methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vector Similarity Search Methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.5%20Retriever%20and%20re-ranker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Retriever and re-ranker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5 - Evaluation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5 - Evaluation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%205%20-%20Evaluation/Evaluation%20for%20NLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Evaluation for NLP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%205%20-%20Evaluation/Evaluation%20in%20LLM%20training%20and%20fine-tuning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Evaluation in LLM training and fine-tuning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%205%20-%20Evaluation/Red%20Teaming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Red Teaming
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%205%20-%20Evaluation/Responsible%20AI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Responsible AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6 - Other type of models
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6 - Other type of models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%206%20-%20Other%20type%20of%20models/Generative%20modelling%20beyond%20sequences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Generative modelling beyond sequences
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%206%20-%20Other%20type%20of%20models/multimodal_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multimodal models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7 - LLMOps
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7 - LLMOps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/AI%20system%20architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI system architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/Data%20for%20LLM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data for LLM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/Guardrails/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guardrails
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/LLMSECOps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LLMSECOps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/Observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Observability
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/Prompt%20Engineering%20Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prompt Engineering Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/Serving%20Frameworks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Serving Frameworks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    AI Agents Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            AI Agents Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../AI%20Agents%20Engineering/Resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../AI%20Agents%20Engineering/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../About%20the%20Author/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About me
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/chris-reigner/chris-reigner.github.io" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribute ❤️
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-it-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      How does it work ?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-should-i-use-peft-over-other-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      When should I use PEFT over other methods ?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soft-prompt-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soft prompt techniques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Soft prompt techniques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-should-i-use-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      When should I use it ?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ia3" class="md-nav__link">
+    <span class="md-ellipsis">
+      IA3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loraqlora-which-is-one-of-the-most-used-techniques-to-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lora/QLora which is one of the most used techniques to date
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lora/QLora which is one of the most used techniques to date">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-should-i-use-it_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      When should I use it ?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serving-loraqlora" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serving Lora/Qlora
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-qlora" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is QLora ?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tips-for-fine-tuning-llms-using-lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips for fine tuning LLMs using LoRA
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="peft">PEFT<a class="headerlink" href="#peft" title="Permanent link">&para;</a></h1>
+<p>Parameter-efficient fine-tuning is particularly used in the context of large-scale pre-trained models (such as in NLP), to adapt that pre-trained model to a new task without drastically increasing the number of parameters.
+It arises because regular fine-tuning can be costly, time consuming, require great amount of data, can lead to overfitting.
+Moreover, introducing additional layers or parameters during fine-tuning can drastically increase computational requirements and memory consumption.</p>
+<h2 id="how-does-it-work">How does it work ?<a class="headerlink" href="#how-does-it-work" title="Permanent link">&para;</a></h2>
+<p>PEFT works by freezing most of the pretrained language model’s parameters and layers while adding a few trainable parameters, known as adapters, to the final layers for predetermined downstream tasks.
+PEFT adapts a pre-trained model to downstream tasks more efficiently. It reduces the # of trainable parameters reducing the memory needed by introducing adapters
+(More details on HF courses)</p>
+<p>PEFT is often used during transfer learning, where models trained in one task are applied to a second related task. For example, a model trained in image classification might be put to work on object detection. If a base model is too large to completely retrain or if the new task is different from the original, PEFT can be an ideal solution</p>
+<p>What are the available PEFT techniques ?
+<img alt="Peft techniques" src="../../../assets/external/vinija.ai/nlp/assets/parameter-efficient-fine-tuning/peft.jpeg.jpg">
+Source: <a href="https://vinija.ai/nlp/parameter-efficient-fine-tuning/#which-peft-technique-to-choose-a-mental-model">https://vinija.ai/nlp/parameter-efficient-fine-tuning/#which-peft-technique-to-choose-a-mental-model</a></p>
+<h2 id="when-should-i-use-peft-over-other-methods">When should I use PEFT over other methods ?<a class="headerlink" href="#when-should-i-use-peft-over-other-methods" title="Permanent link">&para;</a></h2>
+<p>Parameter-efficient fine-tuning is useful due the following reasons:</p>
+<ul>
+<li>Reduced computational costs (requires fewer GPUs and GPU time).</li>
+<li>Faster training times (finishes training faster).</li>
+<li>Lower hardware requirements (works with cheaper GPUs with less VRAM).</li>
+<li>Better modeling performance. It allows the model to adjust for the most relevant parameters</li>
+<li>Less storage (majority of weights can be shared across different tasks).</li>
+<li>no catastrophic forgetting. Catastrophic forgetting happens when LLMs lose or “forget” the knowledge gained during the initial training process as they are retrained or tuned for new use cases. Because PEFT preserves most of the initial parameters, it also safeguards against catastrophic forgetting.</li>
+<li>Transformer models tuned with PEFT are much less prone to overfitting as most of their parameters remain static.</li>
+<li>Lower data need than full fine tuning (you can use 1 000 observations and already engage with improvement)</li>
+</ul>
+<p>The next sections describe the main PEFT families.</p>
+<h2 id="soft-prompt-techniques">Soft prompt techniques<a class="headerlink" href="#soft-prompt-techniques" title="Permanent link">&para;</a></h2>
+<p>As opposed to hard prompt (user input going into the model) soft prompt modifies how the model processes input tokens.
+Hard prompts are manually handcrafted text prompts with discrete input tokens; the downside is that it requires a lot of effort to create a good prompt. soft prompts are learnable tensors concatenated with the input embeddings that can be optimized to a dataset; the downside is that they aren’t human readable because you aren’t matching these “virtual tokens” to the embeddings of a real word
+If you want to know more about these techniques, Hugging Face has some fundamentals about it <a href="https://huggingface.co/docs/peft/conceptual_guides/prompting">PEFT Prompting Guide</a></p>
+<h3 id="when-should-i-use-it">When should I use it ?<a class="headerlink" href="#when-should-i-use-it" title="Permanent link">&para;</a></h3>
+<p>Prompt Tuning is a good choice when you have a large pre-trained LLM but want to fine-tune it for multiple different downstream tasks at inference time with minimal computational resources. It is also useful when you want to generate diverse and high-quality text outputs based on specific prompts
+When you want to fine-tune a pre-trained LLM for a specific downstream task and have limited computational resources when you want to modify the representation learned by the pre-trained model for a particular task.</p>
+<h2 id="ia3">IA3<a class="headerlink" href="#ia3" title="Permanent link">&para;</a></h2>
+<p>(useful for multi-task fine tuning )</p>
+<h2 id="loraqlora-which-is-one-of-the-most-used-techniques-to-date">Lora/QLora which is one of the most used techniques to date<a class="headerlink" href="#loraqlora-which-is-one-of-the-most-used-techniques-to-date" title="Permanent link">&para;</a></h2>
+<p>It decomposes Weights matrices into 2 matrices of lower dimension. Rank r the smaller the better optimized but the potentially higher loss of information —&gt; Lora is not applied at pre-training yet only in FT. it is applied to all query, key, value and output projection. Usually r between 4 and 64 is efficient ; also need to parameter alpha = how much the product should contribute to the new metric during merging. Merging is necessary either prior to inference or during inference to serve the new combined weights. If you have multi-lora serving it’s better to serve at runtime but that means more latency (merging on the run)
+Another great explanation for LoRA can be found here : <a href="https://lightning.ai/pages/community/tutorial/lora-llm/">https://lightning.ai/pages/community/tutorial/lora-llm/</a></p>
+<h3 id="when-should-i-use-it_1">When should I use it ?<a class="headerlink" href="#when-should-i-use-it_1" title="Permanent link">&para;</a></h3>
+<p>LoRA is a good choice when you want to fine-tune a pre-trained LLM for a specific downstream task that requires task-specific attention patterns. It is also useful when you have limited computational resources and want to reduce the number of trainable parameters in the model. Specifically:</p>
+<ul>
+<li>Memory Efficiency is Desired but Not Critical: LoRA offers substantial savings in terms of parameters and computational requirements. If you’re looking to achieve a balanced reduction in trainable parameters without diving into the complexities of quantization, LoRA is an ideal choice.</li>
+<li>Real-time Application: LoRA ensures no added inference latency, making it suitable for real-time applications.</li>
+<li>Task-Switching is Required: LoRA can share the pretrained model across multiple tasks, reducing the need for maintaining separate models for each task.</li>
+</ul>
+<h3 id="serving-loraqlora">Serving Lora/Qlora<a class="headerlink" href="#serving-loraqlora" title="Permanent link">&para;</a></h3>
+<p>In short, LoRA, short for Low-Rank Adaptation (Hu et al 2021), adds a small number of trainable parameters to the model while the original model parameters remain frozen.</p>
+<p>Lora/QLora decompose Weights matrices into 2 matrices of lower dimension. Rank r the smaller the better optimized but the potentially higher loss of information —&gt; Lora is not applied at pre-training yet only in FT. it is applied to all query, key, value and output projection. Usually r between 4 and 64 is efficient ; also need to parameter alpha = how much the product should contribute to the new metric during merging. Merging is necessary either prior to inference or during inference to serve the new combined weights. If you have multi-lora serving it’s better to serve at runtime but that means more latency (merging on the run)</p>
+<p><a href="https://aws.amazon.com/fr/blogs/machine-learning/efficient-and-cost-effective-multi-tenant-lora-serving-with-amazon-sagemaker/">https://aws.amazon.com/fr/blogs/machine-learning/efficient-and-cost-effective-multi-tenant-lora-serving-with-amazon-sagemaker/</a>
+<a href="https://github.com/predibase/lorax">https://github.com/predibase/lorax</a></p>
+<p>Source from Lora paper <a href="https://github.com/microsoft/LoRA?tab=readme-ov-file">https://github.com/microsoft/LoRA?tab=readme-ov-file</a></p>
+<h3 id="what-is-qlora">What is QLora ?<a class="headerlink" href="#what-is-qlora" title="Permanent link">&para;</a></h3>
+<p>Quantized-LoRA takes LoRA a step further by also quantizing the weights of the LoRA adapters (smaller matrices) to lower precision (e.g., 4-bit instead of 8-bit). This further reduces the memory footprint and storage requirements.
+The aim is to achieve similar effectiveness (i.e. model performance) while reducing even more the memory needed.
+The downside is that it requires more training time than LoRA method.</p>
+<p><img alt="LoRA Diagram" src="../../../img/lora_qlora.png" />
+Source: <a href="https://arxiv.org/pdf/2305.14314.pdf">https://arxiv.org/pdf/2305.14314.pdf</a></p>
+<p>I like this deep dive in the paper and explanations about QLoRA: <a href="https://mccormickml.com/2024/09/14/qlora-and-4bit-quantization/">https://mccormickml.com/2024/09/14/qlora-and-4bit-quantization/</a>
+In summary:</p>
+<ul>
+<li>the 4-bit quantization does not exactly mean that your weights go 4bits. It is a compression technique that allows us to store using less memory.
+It is used during fine tuning and inference. However, you still need to decompress the weights back to 16-bit to run the model. It doesn’t make the forward or backward calculations any easier or faster, or require any less memory. Math is still done at 16-bit precision, and all of the activations, gradients, and other optimizer states are all still stored as 16-bit floats.</li>
+<li>because of that, we have to store metadata which forces us to store more data. So it rathers achieve a 3.76x compression rate</li>
+<li>It works by leveraging three key aspects of neural network weights:</li>
+<li>Weight values are normally distributed.</li>
+<li>Large weight values are the most important (and 4Q preserves large weight values with high precision).</li>
+<li>Tiny weight values are irrelevant (and 4Q just rounds these to zero).</li>
+</ul>
+<p>The vanilla formula to estimate the amount of GPU required to serve an LLM:
+( A Number of parameters in the model * 4Bytes) / (32 / amount of bits that should be used for loading i.e. 16, 8 or 4) * 1.2
+Note that 1.2 represents only a 20% overhead of loading additional metadata in the GPU memory</p>
+<p>For instance, a 7 Billion parameter model using 4 bytes (32-bits) needs around 17 GB of memory.</p>
+<h3 id="tips-for-fine-tuning-llms-using-lora">Tips for fine tuning LLMs using LoRA<a class="headerlink" href="#tips-for-fine-tuning-llms-using-lora" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Consistency in LLM Training: Despite the inherent randomness in training models on GPUs, the outcomes of LoRA experiments remain consistent across multiple runs, which is promising for comparative studies.</li>
+<li>QLoRA Compute-Memory Trade-offs: Quantized LoRA (QLoRA) offers a 33% reduction in GPU memory usage at the cost of a 33% increase in runtime, proving to be a viable alternative to regular LoRA when facing GPU memory constraints.</li>
+<li>Learning Rate Schedulers: Using learning rate schedulers like cosine annealing can optimize convergence during training and avoid overshooting the loss minima. While it has a notable impact on SGD optimizer performance, it makes less difference when using Adam or AdamW optimizers.</li>
+<li>Choice of Optimizers: The optimizer choice (Adam vs. SGD) doesn’t significantly impact the peak memory demands of LLM training, and swapping Adam for SGD may not provide substantial memory savings, especially with a small LoRA rank (r).</li>
+<li>Impact of Multiple Training Epochs: Iterating multiple times over a static dataset in multi-epoch training may not be beneficial and could deteriorate model performance, possibly due to overfitting.</li>
+<li>Applying LoRA Across Layers: Enabling LoRA across all layers, not just the Key and Value matrices, can significantly increase model performance, though it also increases the number of trainable parameters and memory requirements.</li>
+<li>LoRA Hyperparameters: Adjusting the LoRA rank (r) and selecting an appropriate alpha value are crucial. A heuristic that yielded good results was setting alpha at twice the rank’s value, with r=256 and alpha=512 being the best setting in one particular case.</li>
+<li>Fine-tuning Large Models: LoRA allows for fine-tuning 7 billion parameter LLMs on a single GPU with 14 GB of RAM within a few hours. However, optimizing an LLM to excel across all benchmark tasks may be unattainable with a static dataset.</li>
+<li>Importance of Dataset: The dataset used for fine-tuning is critical, and data quality is very important. Experiments showed that a curated dataset with fewer examples (like LIMA) could yield better performance than larger datasets (like Alpaca).</li>
+<li>Avoiding Overfitting: To prevent overfitting, one could decrease the rank or increase the dataset size, adjust the weight decay rate, or consider increasing the dropout value for LoRA layers.</li>
+<li>Factors Influencing Memory Usage: Model size, batch size, the number of trainable LoRA parameters, and dataset size can influence memory usage. Shorter training sequences can lead to substantial memory savings.</li>
+</ul>
+<p>Sources:
+<a href="https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms">https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms</a>
+<a href="https://lightning.ai/pages/community/lora-insights/">https://lightning.ai/pages/community/lora-insights/</a></p>
+<h1 id="rlhf">RLHF<a class="headerlink" href="#rlhf" title="Permanent link">&para;</a></h1>
+<p>Reinforcement Learning from Human Feedback (RLHF) comes first from Reinforcement learning fields.
+It composes with a try and error process where, given an environment, an agent makes some predefined actions in this environment based on observations.
+Actions are defined through a policy and will imply consequences which will be a reward (positive or negative) that will modify the state of the environment.</p>
+<ul>
+<li>A reward model is learnt from the human feedback</li>
+<li>Policy optimization: with the learned reward model, standard RM algos (PPO for instance) are used to optimize the policy which generates new behavior</li>
+<li>Iterative improvement: new behaviors lead to refinement of the reward model
+PB: computationnaly expensive and unstable leading to a simpler approach: direct preference optimization
+-</li>
+</ul>
+<h3 id="reinforcement-learning-through-human-feedback-rlhf-a-crash-course">Reinforcement Learning through Human Feedback (RLHF) - A Crash Course<a class="headerlink" href="#reinforcement-learning-through-human-feedback-rlhf-a-crash-course" title="Permanent link">&para;</a></h3>
+<h4 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h4>
+<p>Reinforcement Learning through Human Feedback (RLHF) is a technique that integrates human input to align AI models with human preferences, particularly effective for tasks where defining clear metrics is challenging. Unlike Direct Preference Optimization (DPO), which directly uses preference data, RLHF involves training a reward model based on human feedback, which is then used in reinforcement learning to optimize the model.</p>
+<h4 id="key-components-of-rlhf">Key Components of RLHF<a class="headerlink" href="#key-components-of-rlhf" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Reward Model Training</strong>: Humans provide feedback on AI-generated outputs, which is used to train a reward model. This model assigns scores to the outputs, indicating how well they meet human preferences.</li>
+<li><strong>Reinforcement Learning</strong>: The reward model guides the AI's learning process, often using algorithms like Proximal Policy Optimization (PPO), to improve the model's performance iteratively.</li>
+<li><strong>Iterative Process</strong>: The model generates outputs, receives feedback, and refines its behavior based on the reward model, continuing until desired performance is achieved.</li>
+</ol>
+<h4 id="advantages-of-rlhf">Advantages of RLHF<a class="headerlink" href="#advantages-of-rlhf" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Generalization</strong>: RLHF is effective across diverse tasks, capturing human nuances that are hard to encode algorithmically.</li>
+<li><strong>Rich Feedback</strong>: It leverages human expertise to refine AI outputs, ensuring alignment with complex, context-dependent preferences.</li>
+<li><strong>Versatility</strong>: Suitable for tasks like text generation, where human judgment is essential for evaluating quality.</li>
+<li><strong>Better control</strong>: we can discourage toxic (or any other unwanted behaviour) by modifying the reward</li>
+</ul>
+<h4 id="disadvantages-of-rlhf">Disadvantages of RLHF<a class="headerlink" href="#disadvantages-of-rlhf" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>High Resource Requirement</strong>: Collecting extensive human feedback can be time-consuming and costly.</li>
+<li><strong>Consistency Challenges</strong>: Variability in human feedback can lead to inconsistencies in the reward model.</li>
+<li><strong>Complexity</strong>: Involves training both a reward model and the AI policy, increasing complexity.</li>
+</ul>
+<h4 id="comparison-with-dpo">Comparison with DPO<a class="headerlink" href="#comparison-with-dpo" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>DPO</strong>: Simplifies the process by directly using preference data without a reward model, making it computationally efficient.</li>
+<li><strong>RLHF</strong>: Offers potential for capturing more nuanced preferences but introduces complexity and resource intensity.</li>
+</ul>
+<h4 id="choosing-between-rlhf-and-dpo">Choosing Between RLHF and DPO<a class="headerlink" href="#choosing-between-rlhf-and-dpo" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>RLHF</strong>: Ideal for complex tasks where nuanced human preferences are crucial.</li>
+<li><strong>DPO</strong>: Suitable for simpler tasks or when resources are limited, offering a streamlined approach.</li>
+</ul>
+<h4 id="optimization-tips-for-rlhf">Optimization Tips for RLHF<a class="headerlink" href="#optimization-tips-for-rlhf" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Feedback Quality</strong>: Ensure high-quality, consistent human feedback to enhance the reward model's effectiveness.</li>
+<li><strong>Active Learning</strong>: Prioritize feedback collection on outputs that provide the most information to improve the model efficiently.</li>
+<li><strong>Algorithm Exploration</strong>: Investigate newer reinforcement learning algorithms beyond PPO to enhance performance and scalability.</li>
+</ol>
+<p>Among other techniques you may find: PPO and DPO.
+Proximal Policy Optimization (PPO) was one of the first highly effective techniques for RLHF. It uses a policy gradient method to update the policy based on the reward from a separate reward model</p>
+<p><a href="https://huggingface.co/blog/rlhf">https://huggingface.co/blog/rlhf</a>
+<a href="https://toloka.ai/blog/rlhf-ai/">https://toloka.ai/blog/rlhf-ai/</a>
+<a href="https://toloka.ai/blog/proximal-policy-optimization/">https://toloka.ai/blog/proximal-policy-optimization/</a></p>
+<h1 id="dpo">DPO<a class="headerlink" href="#dpo" title="Permanent link">&para;</a></h1>
+<p>Fine tuning with preference alignment</p>
+<ul>
+<li>Creating preference datasets follows the same process as instruction dataset but with for each instruction a chosen answer and a rejected answer</li>
+<li>DPO datasets require fewer samples than instruction datasets</li>
+<li>DPO is less destructive than SFT</li>
+<li>Derives a closed form expression for the optimal policy under the standard RLHF objective of max. Expected reward subject to a KL divergence constraint against a reference policy</li>
+<li>Implemented as a binary cross-entropy loss function</li>
+<li>More computationally efficient than traditional RLHF (when trained with adapters, frozen and trained models don’t need to be separated)</li>
+<li>More stable during training and less sensitive to hyper parameter</li>
+</ul>
+<p>Data Preference Optimization (DPO) is a fine-tuning technique used in Large Language Models (LLMs) that directly optimizes the model based on human preferences [1][2][3][4][5]. This approach eliminates the need for a separate reward model and instead uses comparative feedback data to refine the LLM. DPO has been shown to be a powerful approach to enhancing machine learning models by directly incorporating user feedback, enabling the creation of models that better align with human expectations and needs [1].</p>
+<p>The key benefits of DPO include its simplicity, efficiency, and direct control over LLM behavior [3]. By eliminating the need for a complex reward model, DPO significantly reduces the computational cost of fine-tuning, making it a valuable asset for developers looking to quickly upgrade their language models [2]. Additionally, DPO allows users to have a more direct influence on the LLM's behavior, guiding the model towards specific goals and ensuring it aligns with their expectations [3].</p>
+<p>DPO has been compared to other fine-tuning techniques, such as Reinforcement Learning from Human Feedback (RLHF) [2][3]. While RLHF allows for more complex and nuanced reward structures, DPO's simpler approach can be beneficial for tasks requiring rapid iteration and feedback loops [3]. DPO has also been shown to outperform RLHF in certain scenarios, particularly regarding sentiment control and response quality in tasks like summarization and dialogue [3].</p>
+<p>However, DPO also has its challenges, such as the risk of overfitting [4][5]. To prevent overfitting, it is essential to collect diverse high-quality data that covers a wide range of preferences and scenarios [5]. Additionally, DPO may not be suitable for tasks that require precise control over the LLM's output, where RLHF's flexibility in defining rewards may be beneficial [3].</p>
+<p>In conclusion, DPO is a promising fine-tuning technique that offers a simple, efficient, and direct approach to optimizing LLMs based on human preferences [1][2][3][4][5]. While it has its challenges, DPO has the potential to make LLM fine-tuning faster, cheaper, and more stable, driving innovation in the field of artificial intelligence [2]. The choice between DPO and other fine-tuning techniques, such as RLHF, depends on the specific task, available resources, and desired level of control [3].</p>
+<p>References:</p>
+<p>[1] Source 1: Collecting Preference Data
+[2] Source 2: Can DPO scale to a real preference dataset?
+[3] Source 3: D.P.O: A Simple and Direct Approach
+[4] Source 4: Alignment without Reinforcement Learning
+[5] Source 5: What is DPO?</p>
+<p><a href="https://medium.com/@mauryaanoop3/detailed-guide-on-dpo-fine-tuning-027815d15837">https://medium.com/@mauryaanoop3/detailed-guide-on-dpo-fine-tuning-027815d15837</a>
+<a href="https://huggingface.co/blog/dpo-trl">https://huggingface.co/blog/dpo-trl</a>
+<a href="https://medium.com/@sinarya.114/d-p-o-vs-r-l-h-f-a-battle-for-fine-tuning-supremacy-in-language-models-04b273e7a173">https://medium.com/@sinarya.114/d-p-o-vs-r-l-h-f-a-battle-for-fine-tuning-supremacy-in-language-models-04b273e7a173</a>
+<a href="https://toloka.ai/blog/direct-preference-optimization/">https://toloka.ai/blog/direct-preference-optimization/</a>
+<a href="https://huggingface.co/blog/pref-tuning">https://huggingface.co/blog/pref-tuning</a></p>
+<h1 id="direct-preference-optimization-dpo-explained">Direct Preference Optimization (DPO) Explained<a class="headerlink" href="#direct-preference-optimization-dpo-explained" title="Permanent link">&para;</a></h1>
+<p>Direct Preference Optimization (DPO) is a method for fine-tuning large language models (LLMs) to align their outputs with human preferences. Unlike traditional reinforcement learning (RL)-based approaches, DPO simplifies the process by directly incorporating preference data into the training process. This reduces complexity and computational requirements while maintaining or improving performance. Here's an overview, comparison with other methods, and guidance on when to use DPO.</p>
+<h4 id="overview-of-dpo">Overview of DPO<a class="headerlink" href="#overview-of-dpo" title="Permanent link">&para;</a></h4>
+<p>DPO aligns LLMs with human preferences by using preference data from human evaluators. It directly optimizes the model's policy based on this data, eliminating the need for complex reward modeling or extensive hyperparameter tuning. This streamlined approach has been shown to match or exceed the performance of more complex methods like Reinforcement Learning from Human Feedback (RLHF), particularly in tasks such as sentiment control, summarization, and dialogue generation [1][2].</p>
+<h4 id="advantages-of-dpo">Advantages of DPO<a class="headerlink" href="#advantages-of-dpo" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Simplicity</strong>: DPO avoids the complexity and instability of RLHF by directly using preference data in supervised learning [2][3].</li>
+<li><strong>Computational Efficiency</strong>: It reduces computational overhead by avoiding the need for multiple model instances and extensive hyperparameter tuning [3].</li>
+<li><strong>Performance</strong>: DPO has demonstrated comparable or superior performance in aligning LLMs with human preferences, particularly in controlling the sentiment of generated outputs [1][2].</li>
+</ul>
+<h4 id="differences-from-other-fine-tuning-techniques">Differences from Other Fine-Tuning Techniques<a class="headerlink" href="#differences-from-other-fine-tuning-techniques" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Reinforcement Learning from Human Feedback (RLHF)</strong>: RLHF involves multiple steps, including reward modeling and policy optimization, which introduces complexity and computational overhead. DPO, on the other hand, streamlines this process by directly optimizing the model using preference data [2][3].</li>
+<li><strong>Conditional Supervised Fine-tuning</strong>: This method relies on conditional prompts to guide the model's outputs. While effective, it may require additional fine-tuning and does not directly use preference data for optimization [3].</li>
+<li><strong>Other RL-Based Methods</strong>: These methods often involve complex reward functions and multiple training iterations. DPO simplifies this by directly incorporating preference data, reducing the need for extensive hyperparameter tuning and multiple model instances [2][3].</li>
+</ol>
+<h4 id="when-to-use-dpo">When to Use DPO<a class="headerlink" href="#when-to-use-dpo" title="Permanent link">&para;</a></h4>
+<p>DPO is particularly relevant in scenarios where simplicity, computational efficiency, and effective alignment with human preferences are priorities. It is ideal for:</p>
+<ul>
+<li><strong>Resource-Constrained Environments</strong>: When computational resources are limited, DPO's reduced overhead makes it a practical choice.</li>
+<li><strong>Rapid Deployment</strong>: Its straightforward implementation allows for quicker fine-tuning and deployment of models aligned with human preferences.</li>
+<li><strong>Preference-Based Tasks</strong>: For tasks requiring nuanced control over model outputs, such as sentiment management or dialogue generation, DPO's performance advantages make it a strong candidate [1][2].</li>
+</ul>
+<p><a href="https://medium.com/@lmpo/direct-preference-optimization-a-novel-approach-to-language-model-alignment-1f829d4ac306">https://medium.com/@lmpo/direct-preference-optimization-a-novel-approach-to-language-model-alignment-1f829d4ac306</a></p>
+<p>sebastien links: <a href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch07/04_preference-tuning-with-dpo">https://github.com/rasbt/LLMs-from-scratch/tree/main/ch07/04_preference-tuning-with-dpo</a></p>
+<h1 id="group-relative-policy-optimization-grpo">Group Relative Policy Optimization (GRPO)<a class="headerlink" href="#group-relative-policy-optimization-grpo" title="Permanent link">&para;</a></h1>
+<p>GRPO groups similar samples together and compares them as a group. The group-based approach provides more stable gradients and better convergence properties compared to other methods.</p>
+<p>GRPO does not use preference data like DPO, but instead compares groups of similar samples using a reward signal from a model or function.</p>
+<p>GRPO is flexible in how it obtains reward signals - it can work with a reward model (like PPO does) but doesn’t strictly require one. This is because GRPO can incorporate reward signals from any function or model that can evaluate the quality of responses.</p>
+<p>GRPO produces multiple solutions at once and group them together.
+The evaluation is made at the group with multiple evaluation possible.
+The good answer are kept while the bad answer are used to move away the model from these.
+For stability, KL divergence metrics are used to tune how fast moving away from existing solutions.</p>
+<p>It looks at multiple solutions together rather than comparing just two at a time
+The group-based normalization helps prevent issues with reward scaling
+The KL penalty acts like a safety net, ensuring the model doesn’t forget what it already knows while learning new things</p>
+<p>Limitations:
+Generation Cost: Generating multiple completions (4-16) for each prompt increases computational requirements compared to methods that generate only one or two completions.
+Batch Size Constraints: The need to process groups of completions together can limit effective batch sizes, adding complexity to the training process and potentially slowing down training.
+Reward Function Design: The quality of training heavily depends on well-designed reward functions. Poorly designed rewards can lead to unintended behaviors or optimization for the wrong objectives.
+Group Size Tradeoffs: Choosing the optimal group size involves balancing diversity of solutions against computational cost. Too few samples may not provide enough diversity, while too many increase training time and resource requirements.
+KL Divergence Tuning: Finding the right balance for the KL divergence penalty requires careful tuning - too high and the model won’t learn effectively, too low and it may diverge too far from its initial capabilities.</p>
+<h1 id="instruction-tuning">Instruction tuning<a class="headerlink" href="#instruction-tuning" title="Permanent link">&para;</a></h1>
+<p>Instruction Tuning
+Instruction fine-tuning (IFT) is a type of SFT leveraged in LLMs to improve their ability to follow instructions and generate more accurate and relevant responses. This technique involves training the model on a dataset of prompts followed by ideal responses, guiding the model to better understand and execute various types of instructions.
+(FLAN) was the first to introduce instruction tuning which finetunes the model on a large set of varied instructions that use a simple and intuitive description of the task, such as “Classify this movie review as positive or negative,” or “Translate this sentence to Danish.”
+“Creating a dataset of instructions from scratch to fine-tune the model would take a considerable amount of resources. Therefore, we instead make use of templates to transform existing datasets into an instructional format.” (source)
+The image below shows a representation of how the instruction dataset is generated via templates from the original FLAN paper:</p>
+<h1 id="how-did-we-evolve-between-different-techniques">How did we evolve between different techniques ?<a class="headerlink" href="#how-did-we-evolve-between-different-techniques" title="Permanent link">&para;</a></h1>
+<p>For most advanced readers who want to have a deeper understanding on the how did we evolve between all of these techniques, I recommend <a href="https://lightning.ai/pages/community/article/understanding-llama-adapters/">https://lightning.ai/pages/community/article/understanding-llama-adapters/</a></p>
+<h1 id="how-to-choose-one-technique-over-the-other">How to choose one technique over the other ?<a class="headerlink" href="#how-to-choose-one-technique-over-the-other" title="Permanent link">&para;</a></h1>
+<p><a href="https://docs.unsloth.ai/get-started/fine-tuning-guide/lora-hyperparameters-guide">https://docs.unsloth.ai/get-started/fine-tuning-guide/lora-hyperparameters-guide</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.select", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../assets/external/unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
