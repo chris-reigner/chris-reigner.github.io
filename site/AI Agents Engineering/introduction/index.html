@@ -1,0 +1,2778 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+      <meta name="description" content="Handbook covering ML, LLM, GenAI and Agentic AI">
+    
+    
+    
+    
+      <link rel="prev" href="../Resources/">
+    
+    
+      <link rel="next" href="../../About%20the%20Author/">
+    
+    
+    <link rel="icon" href="../../assets/logo-light.png" sizes="any">
+    <link rel="icon" href="../../assets/logo-auto.svg" type="image/svg+xml">
+    <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+
+    
+      
+        <title>Introduction - AI Engineering Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction-to-ai-agents-and-agentic-ai" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AI Engineering Handbook" class="md-header__button md-logo" aria-label="AI Engineering Handbook" data-md-component="logo">
+      <!-- Logo -->
+
+  <img src="../../assets/logo-light.svg" alt="logo" class="logo-light" />
+  <img src="../../assets/logo-dark.svg" alt="logo" class="logo-dark" />
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Engineering Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Introduction
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/chris-reigner/chris-reigner.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    chris-reigner.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Resources/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Resources
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ML%20Engineering/Chapter%201%20-%20Engineering/Async/" class="md-tabs__link">
+          
+  
+  
+  ML Engineering
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../GenAI%20Engineering/Chapter%201%20-%20Deep%20Learning/CPU%20vs%20GPU%20vs%20TPU/" class="md-tabs__link">
+          
+  
+  
+  GenAI Engineering
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Resources/" class="md-tabs__link">
+          
+  
+  
+  AI Agents Engineering
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../About%20the%20Author/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About me
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://github.com/chris-reigner/chris-reigner.github.io" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contribute ❤️
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Engineering Handbook" class="md-nav__button md-logo" aria-label="AI Engineering Handbook" data-md-component="logo">
+      <!-- Logo -->
+
+  <img src="../../assets/logo-light.svg" alt="logo" class="logo-light" />
+  <img src="../../assets/logo-dark.svg" alt="logo" class="logo-dark" />
+
+    </a>
+    AI Engineering Handbook
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/chris-reigner/chris-reigner.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    chris-reigner.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ML Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ML Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_1" id="__nav_3_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1 - Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 1 - Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ML%20Engineering/Chapter%201%20-%20Engineering/Async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ML%20Engineering/Chapter%201%20-%20Engineering/Docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ML%20Engineering/Chapter%201%20-%20Engineering/uv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    UV
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ML%20Engineering/Chapter%201%20-%20Engineering/resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    GenAI Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            GenAI Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1 - Deep Learning
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 1 - Deep Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%201%20-%20Deep%20Learning/CPU%20vs%20GPU%20vs%20TPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU vs GPU vs TPU
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%201%20-%20Deep%20Learning/Pytorch%20GPU%20Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pytorch GPU Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%201%20-%20Deep%20Learning/Debugging%20Pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging Pytorch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%201%20-%20Deep%20Learning/GPU%20Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPU Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%201%20-%20Deep%20Learning/Deep%20Learning%20Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deep Learning Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%201%20-%20Deep%20Learning/Deep%20Learning%20Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deep Learning Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%201%20-%20Deep%20Learning/Numerical%20representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Numerical representations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%201%20-%20Deep%20Learning/Entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Entropy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2 - LLM Pipeline
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2 - LLM Pipeline
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%202%20-%20LLM%20Pipeline/Tokenizers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tokenizers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%202%20-%20LLM%20Pipeline/Overview%20of%20embedding%20model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview of embedding model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%202%20-%20LLM%20Pipeline/Encoding%20and%20Decoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Encoding and Decoding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%202%20-%20LLM%20Pipeline/Transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transformers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%202%20-%20LLM%20Pipeline/LLM%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LLM Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3 - Fine Tuning techniques
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3 - Fine Tuning techniques
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%203%20-%20Fine%20Tuning%20techniques/Fine%20tuning%20overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fine tuning overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%203%20-%20Fine%20Tuning%20techniques/Training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%203%20-%20Fine%20Tuning%20techniques/Training%20Optimization%20techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Optimization techniques
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%203%20-%20Fine%20Tuning%20techniques/Quantization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quantization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%203%20-%20Fine%20Tuning%20techniques/Supervised_fine_tuning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supervised Fine Tuning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%203%20-%20Fine%20Tuning%20techniques/Model_choice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Choice
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%203%20-%20Fine%20Tuning%20techniques/Frameworks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Frameworks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%203%20-%20Fine%20Tuning%20techniques/Inference%20Optimizations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inference Optimizations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4 - LLM based solutions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4 - LLM based solutions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%204%20-%20LLM%20based%20solutions/6.0%20RAG%20Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RAG Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%204%20-%20LLM%20based%20solutions/6.1%20RAG%20Optimization%20techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RAG Optimization techniques
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%204%20-%20LLM%20based%20solutions/6.2%20Parser%20methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parser methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%204%20-%20LLM%20based%20solutions/6.3%20Chunking%20strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chunking strategies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%204%20-%20LLM%20based%20solutions/6.4%20Vector%20Similarity%20Search%20Methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vector Similarity Search Methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%204%20-%20LLM%20based%20solutions/6.5%20Retriever%20and%20re-ranker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Retriever and re-ranker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5 - Evaluation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5 - Evaluation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%205%20-%20Evaluation/Evaluation%20for%20NLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Evaluation for NLP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%205%20-%20Evaluation/Evaluation%20in%20LLM%20training%20and%20fine-tuning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Evaluation in LLM training and fine-tuning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%205%20-%20Evaluation/Red%20Teaming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Red Teaming
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%205%20-%20Evaluation/Responsible%20AI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Responsible AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6 - Other type of models
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6 - Other type of models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%206%20-%20Other%20type%20of%20models/Generative%20modelling%20beyond%20sequences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Generative modelling beyond sequences
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%206%20-%20Other%20type%20of%20models/multimodal_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multimodal models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7 - LLMOps
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7 - LLMOps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%207%20-%20LLMOps/AI%20system%20architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI system architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%207%20-%20LLMOps/Data%20for%20LLM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data for LLM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%207%20-%20LLMOps/Guardrails/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guardrails
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%207%20-%20LLMOps/LLMSECOps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LLMSECOps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%207%20-%20LLMOps/Observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Observability
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%207%20-%20LLMOps/Prompt%20Engineering%20Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prompt Engineering Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GenAI%20Engineering/Chapter%207%20-%20LLMOps/Serving%20Frameworks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Serving Frameworks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    AI Agents Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            AI Agents Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-to-ai-agents-and-agentic-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction to AI Agents and Agentic AI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-ai-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining AI Agents
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Defining AI Agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-components-of-an-ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Components of an AI Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-agents-high-level-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Agents (High-Level Overview)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-examples-of-ai-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple Examples of AI Agents
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-agentic-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Agentic AI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Agentic AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-role-of-large-language-models-llms-in-agentic-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Role of Large Language Models (LLMs) in Agentic AI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-characteristics-of-agentic-ai-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Characteristics of Agentic AI Systems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-of-agentic-ai-in-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples of Agentic AI in Action
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-differences-ai-agents-vs-agentic-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Differences: AI Agents vs. Agentic AI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Differences: AI Agents vs. Agentic AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analogy-vehicle-vs-advanced-autonomous-driving" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analogy: Vehicle vs. Advanced Autonomous Driving
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relationship" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relationship
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../About%20the%20Author/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About me
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/chris-reigner/chris-reigner.github.io" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribute ❤️
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-to-ai-agents-and-agentic-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction to AI Agents and Agentic AI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-ai-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining AI Agents
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Defining AI Agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-components-of-an-ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Components of an AI Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-agents-high-level-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Agents (High-Level Overview)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-examples-of-ai-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple Examples of AI Agents
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-agentic-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Agentic AI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Agentic AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-role-of-large-language-models-llms-in-agentic-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Role of Large Language Models (LLMs) in Agentic AI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-characteristics-of-agentic-ai-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Characteristics of Agentic AI Systems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-of-agentic-ai-in-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples of Agentic AI in Action
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-differences-ai-agents-vs-agentic-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Differences: AI Agents vs. Agentic AI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Differences: AI Agents vs. Agentic AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analogy-vehicle-vs-advanced-autonomous-driving" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analogy: Vehicle vs. Advanced Autonomous Driving
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relationship" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relationship
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Introduction</h1>
+
+<h2 id="introduction-to-ai-agents-and-agentic-ai">Introduction to AI Agents and Agentic AI<a class="headerlink" href="#introduction-to-ai-agents-and-agentic-ai" title="Permanent link">&para;</a></h2>
+<p>Artificial Intelligence (AI) is rapidly evolving. Beyond its well-known capabilities in pattern recognition, prediction, and generation, AI is increasingly being developed to act more autonomously to achieve specific goals. This shift is leading to the rise of systems often described as "AI agents" or exhibiting "agentic AI." These terms refer to AI that can perceive its environment, make decisions, and take actions in a more independent and goal-directed manner.</p>
+<p>This chapter aims to demystify AI agents and the broader concept of agentic AI. We will explore their core definitions, distinguish between them, and delve into how they are designed and built, particularly with the advent of powerful Large Language Models (LLMs) that can serve as their reasoning engines. Furthermore, we will examine their diverse applications, current limitations, and the important ethical considerations and risks associated with their increasing capabilities and autonomy. Understanding these concepts is crucial for anyone looking to leverage or navigate the next wave of AI innovation.</p>
+<h2 id="defining-ai-agents">Defining AI Agents<a class="headerlink" href="#defining-ai-agents" title="Permanent link">&para;</a></h2>
+<p>An AI agent is an autonomous entity designed to operate within an environment to achieve specific goals. It does this by perceiving its surroundings, making decisions, and then taking actions. Think of an agent as a system that can sense, think, and act.</p>
+<h3 id="core-components-of-an-ai-agent">Core Components of an AI Agent<a class="headerlink" href="#core-components-of-an-ai-agent" title="Permanent link">&para;</a></h3>
+<p>The behavior and capabilities of an AI agent are typically defined by several key components:</p>
+<ul>
+<li><strong>Perception:</strong> This is how the agent gathers information about its current state and the environment it operates in. For a software agent, this could be new data inputs, API responses, or user messages. For a robot, it would be data from its sensors (cameras, microphones, lidar, etc.).</li>
+<li><strong>Reasoning/Decision-Making:</strong> This is the "brain" of the agent. It's the process by which the agent processes its perceived information, potentially considers its internal state or knowledge, and chooses what action to take next to best achieve its goals. This logic can range from simple if-then rules in basic agents to complex machine learning models or even Large Language Models (LLMs) in more advanced agents.</li>
+<li><strong>Action:</strong> These are the operations the agent performs on its environment. An action could be generating a piece of text, calling a software API, sending a command to a robotic actuator, making a recommendation, or filtering data.</li>
+<li><strong>Environment:</strong> This is the world or context in which the agent exists and operates. It can be physical (like a room for a robot), virtual (like a software application, a game world, or the internet), or a hybrid. Agents are designed to interact with and respond to changes in their environment.</li>
+<li><strong>Goals:</strong> These are the objectives or desired outcomes the agent is programmed or has learned to achieve. Goals drive the agent's decision-making process. They can be simple (e.g., "keep the room temperature at 22°C") or complex (e.g., "successfully book a flight itinerary that meets multiple user constraints").</li>
+</ul>
+<h3 id="types-of-agents-high-level-overview">Types of Agents (High-Level Overview)<a class="headerlink" href="#types-of-agents-high-level-overview" title="Permanent link">&para;</a></h3>
+<p>AI agents can vary significantly in their complexity and how they make decisions. Based on the classic AI textbook "Artificial Intelligence: A Modern Approach" by Russell and Norvig, some general categories include:</p>
+<ul>
+<li><strong>Simple Reflex Agents:</strong> These agents select actions based only on the current percept, ignoring the rest of the percept history. They follow simple condition-action rules (e.g., "if car_in_front_brakes, then initiate_braking").</li>
+<li><strong>Model-Based Reflex Agents:</strong> These agents maintain an internal state to keep track of the part of the world they can't see currently. This internal model helps them handle partially observable environments.</li>
+<li><strong>Goal-Based Agents:</strong> These agents have explicit goal information that describes desirable situations. They combine this with information about the results of possible actions to choose actions that will achieve their goals (often involving search and planning).</li>
+<li><strong>Utility-Based Agents:</strong> When there are conflicting goals or multiple ways to achieve a goal, utility-based agents choose the action that maximizes their expected "utility" or "happiness." This allows for more nuanced decision-making in complex scenarios.</li>
+<li><strong>Learning Agents:</strong> These agents can improve their performance over time by learning from their experiences. They can adapt to new environments or become better at achieving their goals.</li>
+</ul>
+<h3 id="simple-examples-of-ai-agents">Simple Examples of AI Agents<a class="headerlink" href="#simple-examples-of-ai-agents" title="Permanent link">&para;</a></h3>
+<p>To make the concept more concrete, here are a few examples:</p>
+<ul>
+<li><strong>Thermostat:</strong> A basic example. It <em>perceives</em> the room temperature, <em>decides</em> if it's above or below the target, and <em>acts</em> by turning the heating or cooling system on or off. Its <em>goal</em> is to maintain a set temperature.</li>
+<li><strong>Robotic Vacuum (e.g., Roomba):</strong> It <em>perceives</em> its environment using sensors to detect dirt, obstacles, and room boundaries. It <em>decides</em> on a cleaning path and <em>acts</em> by moving, rotating brushes, and suctioning dirt. Its <em>goal</em> is to clean the floor area efficiently.</li>
+<li><strong>Email Spam Filter:</strong> It <em>perceives</em> the content and metadata of an incoming email. Based on learned patterns or rules, it <em>decides</em> whether the email is spam or not. It then <em>acts</em> by either allowing the email into the inbox or moving it to the spam folder. Its <em>goal</em> is to filter out unwanted emails.</li>
+<li><strong>Non-Player Character (NPC) in a Video Game:</strong> A simple enemy NPC might <em>perceive</em> the player's location and status. It <em>decides</em> whether to attack, flee, or hide based on predefined rules or simple logic. It then <em>acts</em> by moving, attacking, or playing an animation. Its <em>goal</em> might be to challenge the player or survive.</li>
+</ul>
+<h2 id="understanding-agentic-ai">Understanding Agentic AI<a class="headerlink" href="#understanding-agentic-ai" title="Permanent link">&para;</a></h2>
+<p>While "AI agent" refers to a somewhat formally defined entity, "Agentic AI" describes a broader paradigm or a set of characteristics that AI systems can exhibit. It emphasizes the AI's capacity to act with a significant degree of autonomy, proactivity, and reactivity in pursuing goals, particularly within complex and dynamic environments. Agentic AI is less about a specific system architecture and more about the <em>quality</em> and <em>degree</em> of intelligent, independent, goal-directed behavior a system demonstrates.</p>
+<h3 id="the-role-of-large-language-models-llms-in-agentic-ai">The Role of Large Language Models (LLMs) in Agentic AI<a class="headerlink" href="#the-role-of-large-language-models-llms-in-agentic-ai" title="Permanent link">&para;</a></h3>
+<p>The recent surge in interest and capability in agentic AI is largely fueled by advancements in Large Language Models (LLMs). LLMs can serve as the sophisticated "brain" or reasoning and decision-making engine for agentic systems. Their powerful capabilities enable:</p>
+<ul>
+<li><strong>Advanced Natural Language Understanding:</strong> LLMs can interpret complex user requests, extract intent, and understand nuanced information from text-based environments or tool outputs.</li>
+<li><strong>Complex Reasoning and Planning:</strong> They can break down high-level goals into smaller, manageable steps, create plans, and adapt those plans based on new information.</li>
+<li><strong>In-Context Learning and Decision-Making:</strong> LLMs can leverage their vast pretrained knowledge and the current context to make informed decisions.</li>
+<li><strong>Tool Use and Action Generation:</strong> They can learn to interact with external tools, APIs, or software by generating the necessary commands or code, and then process the results to inform subsequent actions.</li>
+</ul>
+<h3 id="key-characteristics-of-agentic-ai-systems">Key Characteristics of Agentic AI Systems<a class="headerlink" href="#key-characteristics-of-agentic-ai-systems" title="Permanent link">&para;</a></h3>
+<p>Systems exhibiting agentic AI typically showcase several key characteristics:</p>
+<ul>
+<li><strong>Autonomy:</strong> They can operate and make decisions without constant direct human supervision for extended periods to achieve their goals.</li>
+<li><strong>Proactivity:</strong> They don't just passively wait for commands; they can take initiative, anticipate needs, or explore strategies to achieve their objectives.</li>
+<li><strong>Reactivity:</strong> They can perceive changes in their environment (or new information) and respond appropriately, adjusting their plans or actions as needed.</li>
+<li><strong>Goal-Orientation:</strong> Their actions are consistently driven by and directed towards achieving predefined or dynamically set goals.</li>
+<li><strong>Learning and Adaptation (Often):</strong> Many sophisticated agentic systems possess the ability to learn from past interactions, feedback, or outcomes, improving their performance and strategies over time.</li>
+</ul>
+<h3 id="examples-of-agentic-ai-in-action">Examples of Agentic AI in Action<a class="headerlink" href="#examples-of-agentic-ai-in-action" title="Permanent link">&para;</a></h3>
+<p>Agentic AI goes beyond the simpler agent examples. Here are some illustrations of more complex agentic systems:</p>
+<ul>
+<li><strong>Advanced Virtual Assistants:</strong> Imagine an assistant that can handle a request like, "Book a flight to London for next Tuesday, find a pet-friendly hotel near Hyde Park for three nights under $200 per night, and add the details to my calendar." This requires planning, interacting with multiple tools (flight booking, hotel search, calendar API), and decision-making based on constraints.</li>
+<li><strong>Autonomous Research Agents:</strong> An AI system tasked with "Investigate the latest advancements in quantum computing for drug discovery." Such an agent might autonomously browse research paper databases, summarize key findings, identify leading researchers, and even propose new research directions based on the information gathered.</li>
+<li><strong>AI Systems with Tool Use (Tool-Augmented LLMs):</strong> An LLM-powered agent that, when asked a complex question, can decide to use a web search for current information, a calculator for precise math, or a code interpreter to run a simulation, then synthesize the results from these tools into a coherent answer.</li>
+<li><strong>Sophisticated Non-Player Characters (NPCs) in Games:</strong> NPCs in advanced simulations or games that have their own long-term goals, memories of past interactions, can form complex relationships with other characters (including the player), and adapt their behavior dynamically based on the evolving game world.</li>
+</ul>
+<p>These examples highlight how agentic AI systems leverage their components and characteristics to perform complex, multi-step tasks with a significant level of independence.</p>
+<h2 id="key-differences-ai-agents-vs-agentic-ai">Key Differences: AI Agents vs. Agentic AI<a class="headerlink" href="#key-differences-ai-agents-vs-agentic-ai" title="Permanent link">&para;</a></h2>
+<p>While the terms "AI Agent" and "Agentic AI" are closely related and often used in overlapping contexts, they have slightly different nuances:</p>
+<ul>
+<li>
+<p><strong>AI Agent:</strong> Typically refers to a more formally defined computational entity or system designed with specific components: perception, reasoning/decision-making, action capabilities, operating within an environment to achieve set goals. The definition often emphasizes the agent's architecture and its role as an individual actor.</p>
+</li>
+<li>
+<p><strong>Agentic AI:</strong> Describes a quality or characteristic of an AI system. It signifies that the system exhibits a high degree of <strong>autonomy, proactivity, reactivity, and goal-orientation</strong> in its behavior. It's less about a specific type of system and more about <em>how</em> the system operates and the sophistication of its independent, goal-driven actions.</p>
+</li>
+</ul>
+<p>Here's a breakdown of key differentiators:</p>
+<ul>
+<li><strong>Scope and Definition:</strong></li>
+<li><strong>AI Agent:</strong> Often refers to a specific instance or a well-defined class of system (e.g., a reinforcement learning agent, a BDI agent). Its definition is rooted in its structure and components.</li>
+<li>
+<p><strong>Agentic AI:</strong> A broader behavioral description. A system is "agentic" if it acts like an agent, especially with notable autonomy and intelligence.</p>
+</li>
+<li>
+<p><strong>Emphasis:</strong></p>
+</li>
+<li><strong>AI Agent:</strong> Emphasis is often on the architectural design – the mechanisms for perception, decision-making, and action.</li>
+<li>
+<p><strong>Agentic AI:</strong> Emphasis is on the observable traits – the degree of self-governance, initiative, responsiveness, and purposeful behavior.</p>
+</li>
+<li>
+<p><strong>Complexity and Sophistication:</strong></p>
+</li>
+<li><strong>AI Agent:</strong> Can range from very simple (like a thermostat) to highly complex.</li>
+<li>
+<p><strong>Agentic AI:</strong> While a simple agent is technically "agentic," the term "agentic AI" is more frequently used today to describe systems with a higher level of sophistication, often involving complex reasoning (like that provided by LLMs), learning, and adaptation in dynamic environments.</p>
+</li>
+<li>
+<p><strong>Formalism vs. Popular Usage:</strong></p>
+</li>
+<li><strong>AI Agent:</strong> Has a longer, more formal history in AI research (e.g., concepts from textbooks like Russell and Norvig's "Artificial Intelligence: A Modern Approach").</li>
+<li><strong>Agentic AI:</strong> A more recent term that has gained prominence with the rise of LLMs capable of driving more complex and autonomous behaviors, sometimes even if the system isn't explicitly designed following a classical agent architecture.</li>
+</ul>
+<h3 id="analogy-vehicle-vs-advanced-autonomous-driving">Analogy: Vehicle vs. Advanced Autonomous Driving<a class="headerlink" href="#analogy-vehicle-vs-advanced-autonomous-driving" title="Permanent link">&para;</a></h3>
+<p>Consider the difference between a "vehicle" and "advanced autonomous driving capability":</p>
+<ul>
+<li>A <strong>bicycle</strong> is a simple type of <strong>vehicle</strong> (an AI Agent). It has components for motion and direction.</li>
+<li>A <strong>self-driving truck</strong> navigating complex city traffic and long-haul routes to deliver cargo exhibits a high degree of <strong>advanced autonomous driving capability</strong> (Agentic AI). It's not just a vehicle; it's operating with significant autonomy, making complex decisions, and proactively pursuing its goal. The truck itself <em>is</em> a sophisticated agent, and "agentic" powerfully describes <em>how</em> it operates.</li>
+</ul>
+<h3 id="relationship">Relationship<a class="headerlink" href="#relationship" title="Permanent link">&para;</a></h3>
+<p>Essentially, an advanced AI agent <em>is expected</em> to exhibit strong agentic AI characteristics. The more complex, autonomous, proactive, and adaptive an AI agent is, the more "agentic" it is considered. However, a system (like an LLM orchestrating a few tools based on a prompt) might be described as demonstrating "agentic behavior" even if it's not formally defined or built as a classical AI agent from the ground up. The key is the observed capacity for intelligent, goal-directed action.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.code.select", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../assets/external/unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

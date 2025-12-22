@@ -61,9 +61,8 @@ extra_css:
   - stylesheets/extra.css
 
 nav:
-  - Welcome: 
-    - Introduction: Introduction.md
-    - Resources: Resources.md
+  - Home: index.md
+  - Resources: Resources.md
   - ML Engineering:
     - Concepts:
       - Chapter 1 - Engineering:

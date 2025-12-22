@@ -1,0 +1,2947 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+      <meta name="description" content="Handbook covering ML, LLM, GenAI and Agentic AI">
+    
+    
+    
+    
+      <link rel="prev" href="../Numerical%20representations/">
+    
+    
+      <link rel="next" href="../../Chapter%202%20-%20LLM%20Pipeline/Tokenizers/">
+    
+    
+    <link rel="icon" href="../../../assets/logo-light.png" sizes="any">
+    <link rel="icon" href="../../../assets/logo-auto.svg" type="image/svg+xml">
+    <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+
+    
+      
+        <title>Entropy - AI Engineering Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#understanding-entropy-from-information-theory-to-deep-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="AI Engineering Handbook" class="md-header__button md-logo" aria-label="AI Engineering Handbook" data-md-component="logo">
+      <!-- Logo -->
+
+  <img src="../../../assets/logo-light.svg" alt="logo" class="logo-light" />
+  <img src="../../../assets/logo-dark.svg" alt="logo" class="logo-dark" />
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Engineering Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Entropy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/chris-reigner/chris-reigner.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    chris-reigner.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Resources/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Resources
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ML%20Engineering/Chapter%201%20-%20Engineering/Async/" class="md-tabs__link">
+          
+  
+  
+  ML Engineering
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../CPU%20vs%20GPU%20vs%20TPU/" class="md-tabs__link">
+          
+  
+  
+  GenAI Engineering
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../AI%20Agents%20Engineering/Resources/" class="md-tabs__link">
+          
+  
+  
+  AI Agents Engineering
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../About%20the%20Author/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About me
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://github.com/chris-reigner/chris-reigner.github.io" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contribute ❤️
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AI Engineering Handbook" class="md-nav__button md-logo" aria-label="AI Engineering Handbook" data-md-component="logo">
+      <!-- Logo -->
+
+  <img src="../../../assets/logo-light.svg" alt="logo" class="logo-light" />
+  <img src="../../../assets/logo-dark.svg" alt="logo" class="logo-dark" />
+
+    </a>
+    AI Engineering Handbook
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/chris-reigner/chris-reigner.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    chris-reigner.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ML Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ML Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_1" id="__nav_3_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1 - Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 1 - Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML%20Engineering/Chapter%201%20-%20Engineering/Async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML%20Engineering/Chapter%201%20-%20Engineering/Docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML%20Engineering/Chapter%201%20-%20Engineering/uv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    UV
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML%20Engineering/Chapter%201%20-%20Engineering/resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    GenAI Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            GenAI Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 1 - Deep Learning
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 1 - Deep Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CPU%20vs%20GPU%20vs%20TPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU vs GPU vs TPU
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Pytorch%20GPU%20Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pytorch GPU Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Debugging%20Pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging Pytorch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GPU%20Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPU Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Deep%20Learning%20Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deep Learning Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Deep%20Learning%20Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deep Learning Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Numerical%20representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Numerical representations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Entropy
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Entropy
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Entropy?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What is Entropy?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-year-old-example-the-toy-box-game" class="md-nav__link">
+    <span class="md-ellipsis">
+      5-Year-Old Example: The Toy Box Game 🧸
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shannon-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shannon Entropy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shannon Entropy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-year-old-example-guessing-games" class="md-nav__link">
+    <span class="md-ellipsis">
+      5-Year-Old Example: Guessing Games 🎯
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross Entropy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kl-divergence-kullback-leibler-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      KL Divergence (Kullback-Leibler Divergence)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-they-all-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      How They All Connect 🔗
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-matters-in-machine-learning-and-deep-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why This Matters in Machine Learning and Deep Learning 🤖
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kl-divergence-in-llms" class="md-nav__link">
+    <span class="md-ellipsis">
+      KL Divergence in LLMs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KL Divergence in LLMs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-world-llm-example-autocomplete" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-World LLM Example: Autocomplete
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-this-matters-for-llm-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why This Matters for LLM Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perplexity-the-llm-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perplexity: The LLM Metric
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-code-snippet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python Code snippet
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 2 - LLM Pipeline
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 2 - LLM Pipeline
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%202%20-%20LLM%20Pipeline/Tokenizers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tokenizers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%202%20-%20LLM%20Pipeline/Overview%20of%20embedding%20model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview of embedding model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%202%20-%20LLM%20Pipeline/Encoding%20and%20Decoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Encoding and Decoding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%202%20-%20LLM%20Pipeline/Transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transformers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%202%20-%20LLM%20Pipeline/LLM%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LLM Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 3 - Fine Tuning techniques
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 3 - Fine Tuning techniques
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%203%20-%20Fine%20Tuning%20techniques/Fine%20tuning%20overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fine tuning overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%203%20-%20Fine%20Tuning%20techniques/Training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%203%20-%20Fine%20Tuning%20techniques/Training%20Optimization%20techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Optimization techniques
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%203%20-%20Fine%20Tuning%20techniques/Quantization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quantization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%203%20-%20Fine%20Tuning%20techniques/Supervised_fine_tuning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supervised Fine Tuning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%203%20-%20Fine%20Tuning%20techniques/Model_choice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Choice
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%203%20-%20Fine%20Tuning%20techniques/Frameworks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Frameworks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%203%20-%20Fine%20Tuning%20techniques/Inference%20Optimizations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inference Optimizations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 4 - LLM based solutions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 4 - LLM based solutions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.0%20RAG%20Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RAG Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.1%20RAG%20Optimization%20techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RAG Optimization techniques
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.2%20Parser%20methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parser methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.3%20Chunking%20strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chunking strategies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.4%20Vector%20Similarity%20Search%20Methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vector Similarity Search Methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%204%20-%20LLM%20based%20solutions/6.5%20Retriever%20and%20re-ranker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Retriever and re-ranker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 5 - Evaluation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 5 - Evaluation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%205%20-%20Evaluation/Evaluation%20for%20NLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Evaluation for NLP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%205%20-%20Evaluation/Evaluation%20in%20LLM%20training%20and%20fine-tuning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Evaluation in LLM training and fine-tuning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%205%20-%20Evaluation/Red%20Teaming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Red Teaming
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%205%20-%20Evaluation/Responsible%20AI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Responsible AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 6 - Other type of models
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 6 - Other type of models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%206%20-%20Other%20type%20of%20models/Generative%20modelling%20beyond%20sequences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Generative modelling beyond sequences
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%206%20-%20Other%20type%20of%20models/multimodal_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multimodal models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chapter 7 - LLMOps
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chapter 7 - LLMOps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/AI%20system%20architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI system architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/Data%20for%20LLM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data for LLM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/Guardrails/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guardrails
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/LLMSECOps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LLMSECOps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/Observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Observability
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/Prompt%20Engineering%20Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prompt Engineering Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Chapter%207%20-%20LLMOps/Serving%20Frameworks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Serving Frameworks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    AI Agents Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            AI Agents Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../AI%20Agents%20Engineering/Resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../AI%20Agents%20Engineering/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../About%20the%20Author/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About me
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/chris-reigner/chris-reigner.github.io" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribute ❤️
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Entropy?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What is Entropy?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-year-old-example-the-toy-box-game" class="md-nav__link">
+    <span class="md-ellipsis">
+      5-Year-Old Example: The Toy Box Game 🧸
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shannon-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shannon Entropy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shannon Entropy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-year-old-example-guessing-games" class="md-nav__link">
+    <span class="md-ellipsis">
+      5-Year-Old Example: Guessing Games 🎯
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross Entropy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kl-divergence-kullback-leibler-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      KL Divergence (Kullback-Leibler Divergence)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-they-all-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      How They All Connect 🔗
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-matters-in-machine-learning-and-deep-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why This Matters in Machine Learning and Deep Learning 🤖
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kl-divergence-in-llms" class="md-nav__link">
+    <span class="md-ellipsis">
+      KL Divergence in LLMs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KL Divergence in LLMs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-world-llm-example-autocomplete" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-World LLM Example: Autocomplete
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-this-matters-for-llm-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why This Matters for LLM Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perplexity-the-llm-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perplexity: The LLM Metric
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-code-snippet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python Code snippet
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="understanding-entropy-from-information-theory-to-deep-learning">Understanding Entropy: From Information Theory to Deep Learning<a class="headerlink" href="#understanding-entropy-from-information-theory-to-deep-learning" title="Permanent link">&para;</a></h1>
+<p>“Knowledge is power. Information is liberating. Education is the premise of progress, in every society, in every family.”, Kofi Annan.
+From my overall experience, I always want to understand what the machine (AI) is trying to model and understand.</p>
+<p>This page aims at explaining very simply what is entropy and how important it is.</p>
+<h2 id="what-is-entropy">What is Entropy?<a class="headerlink" href="#what-is-entropy" title="Permanent link">&para;</a></h2>
+<p>Machine Learning and Deep Learning is about learning, understanding information contained in some data and the ability to generalize this understanding.
+<strong>Entropy</strong> is a measure of uncertainty, randomness, or "surprise" in information. Think of it as answering the question: "How much information do I need to describe what's happening?"</p>
+<p>The more unpredictable something is, the higher its entropy. The more predictable something is, the lower its entropy.</p>
+<h3 id="5-year-old-example-the-toy-box-game">5-Year-Old Example: The Toy Box Game 🧸<a class="headerlink" href="#5-year-old-example-the-toy-box-game" title="Permanent link">&para;</a></h3>
+<p>Imagine you have a toy box with different colored balls:</p>
+<p><strong>Low Entropy Toy Box:</strong></p>
+<ul>
+<li>9 red balls, 1 blue ball</li>
+<li>If I ask you to guess what color I'll pick, you'd almost always say "red" and be right!</li>
+<li>This is predictable = LOW entropy</li>
+</ul>
+<p><strong>High Entropy Toy Box:</strong></p>
+<ul>
+<li>5 red balls, 5 blue balls  </li>
+<li>Now guessing is much harder - it's like flipping a coin!</li>
+<li>This is unpredictable = HIGH entropy</li>
+</ul>
+<hr />
+<h2 id="shannon-entropy">Shannon Entropy<a class="headerlink" href="#shannon-entropy" title="Permanent link">&para;</a></h2>
+<p>Shannon entropy measures the average amount of information needed to describe the outcome of a random event.</p>
+<p><strong>Formula:</strong></p>
+<div class="highlight"><pre><span></span><code>H(X) = -Σ p(x) × log₂(p(x))
+</code></pre></div>
+<p>Where:</p>
+<ul>
+<li>H(X) = Shannon entropy</li>
+<li>p(x) = probability of outcome x</li>
+<li>log₂ = logarithm base 2 (measures information in "bits")</li>
+</ul>
+<h3 id="5-year-old-example-guessing-games">5-Year-Old Example: Guessing Games 🎯<a class="headerlink" href="#5-year-old-example-guessing-games" title="Permanent link">&para;</a></h3>
+<p>Let's use our toy box example:</p>
+<p><strong>Low Entropy Box (9 red, 1 blue):</strong></p>
+<ul>
+<li>Probability of red: 9/10 = 0.9</li>
+<li>Probability of blue: 1/10 = 0.1</li>
+<li>Shannon entropy = -(0.9 × log₂(0.9) + 0.1 × log₂(0.1)) ≈ 0.47 bits</li>
+</ul>
+<p><strong>High Entropy Box (5 red, 5 blue):</strong></p>
+<ul>
+<li>Probability of red: 5/10 = 0.5  </li>
+<li>Probability of blue: 5/10 = 0.5</li>
+<li>Shannon entropy = -(0.5 × log₂(0.5) + 0.5 × log₂(0.5)) = 1.0 bits</li>
+</ul>
+<p><strong>What this means:</strong> You need more "yes/no questions" on average to figure out what color was picked from the balanced box!</p>
+<hr />
+<h2 id="cross-entropy">Cross Entropy<a class="headerlink" href="#cross-entropy" title="Permanent link">&para;</a></h2>
+<p><strong>Definition:</strong> Cross entropy measures how well one probability distribution (your guess) predicts another probability distribution (the actual truth).</p>
+<p><strong>Formula:</strong></p>
+<div class="highlight"><pre><span></span><code>H(p,q) = -Σ p(x) × log(q(x))
+</code></pre></div>
+<p>Where:</p>
+<ul>
+<li>p(x) = true probability distribution</li>
+<li>q(x) = predicted probability distribution</li>
+</ul>
+<hr />
+<h2 id="kl-divergence-kullback-leibler-divergence">KL Divergence (Kullback-Leibler Divergence)<a class="headerlink" href="#kl-divergence-kullback-leibler-divergence" title="Permanent link">&para;</a></h2>
+<p><strong>Definition:</strong> KL divergence measures how different one probability distribution is from another. It's like asking: "How much extra information do I need if I use the wrong distribution instead of the right one?"</p>
+<p><strong>Formula:</strong></p>
+<div class="highlight"><pre><span></span><code>D_KL(P||Q) = Σ p(x) × log(p(x)/q(x))
+</code></pre></div>
+<p>Where:</p>
+<ul>
+<li>P = true distribution</li>
+<li>Q = approximate distribution</li>
+</ul>
+<p><strong>Key Property:</strong> KL divergence is always ≥ 0, and equals 0 only when P = Q (distributions are identical)</p>
+<hr />
+<h2 id="how-they-all-connect">How They All Connect 🔗<a class="headerlink" href="#how-they-all-connect" title="Permanent link">&para;</a></h2>
+<p>Think of it like this:</p>
+<ol>
+<li><strong>Shannon Entropy:</strong> "How hard is it to guess what will happen?"</li>
+<li><strong>Cross Entropy:</strong> "How surprised am I by what actually happened, given my predictions?"</li>
+<li><strong>KL Divergence:</strong> "How much worse is my guessing strategy compared to the perfect strategy?"</li>
+</ol>
+<p><strong>Mathematical Relationship:</strong></p>
+<div class="highlight"><pre><span></span><code>Cross Entropy = Shannon Entropy + KL Divergence
+H(p,q) = H(p) + D_KL(p||q)
+</code></pre></div>
+<hr />
+<h2 id="why-this-matters-in-machine-learning-and-deep-learning">Why This Matters in Machine Learning and Deep Learning 🤖<a class="headerlink" href="#why-this-matters-in-machine-learning-and-deep-learning" title="Permanent link">&para;</a></h2>
+<p><strong>Shannon entropy</strong> helps understand data complexity and the unpredictability of language itself.
+<strong>Cross entropy</strong> is commonly used as a loss function for classification.
+<strong>KL divergence</strong> helps in regularization and comparing model outputs.</p>
+<p><strong>The Goal:</strong> Train models to make predictions that minimize cross entropy (be less surprised by the actual answers) and minimize KL divergence (be as close as possible to the true distribution).</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What it Measures</th>
+<th>5-Year-Old Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shannon Entropy</strong></td>
+<td>Uncertainty in data</td>
+<td>"How hard is the guessing game?"</td>
+</tr>
+<tr>
+<td><strong>Cross Entropy</strong></td>
+<td>Prediction quality</td>
+<td>"How surprised am I by the real answer?"</td>
+</tr>
+<tr>
+<td><strong>KL Divergence</strong></td>
+<td>Difference between distributions</td>
+<td>"How much worse is my strategy than the perfect one?"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="kl-divergence-in-llms">KL Divergence in LLMs<a class="headerlink" href="#kl-divergence-in-llms" title="Permanent link">&para;</a></h2>
+<p><strong>Application 1: Temperature Sampling</strong></p>
+<p>When generating text, LLMs can adjust their "creativity" using temperature:</p>
+<p><strong>Original model output:</strong> "sunny" (60%), "cloudy" (25%), "rainy" (10%), "windy" (5%)</p>
+<p><strong>Low temperature (0.2) - Conservative:</strong></p>
+<ul>
+<li>"sunny" (80%), "cloudy" (15%), "rainy" (4%), "windy" (1%)</li>
+<li><strong>KL divergence:</strong> Small (close to original)</li>
+<li><strong>Result:</strong> More predictable, "safer" text</li>
+</ul>
+<p><strong>High temperature (1.5) - Creative:</strong></p>
+<ul>
+<li>"sunny" (35%), "cloudy" (30%), "rainy" (20%), "windy" (15%)</li>
+<li><strong>KL divergence:</strong> Large (very different from original)</li>
+<li><strong>Result:</strong> More surprising, creative text</li>
+</ul>
+<p><strong>Application 2: Model Alignment &amp; RLHF</strong></p>
+<p>When training models to be helpful and safe:</p>
+<ul>
+<li><strong>Base Model Distribution:</strong> Might generate toxic or unhelpful content</li>
+<li><strong>Target Distribution:</strong> Should generate helpful, harmless content</li>
+</ul>
+<p><strong>KL Divergence Constraint:</strong> Keep the aligned model close enough to the base model so it doesn't "forget" how to speak naturally, but far enough to be safe and helpful.</p>
+<h3 id="real-world-llm-example-autocomplete">Real-World LLM Example: Autocomplete<a class="headerlink" href="#real-world-llm-example-autocomplete" title="Permanent link">&para;</a></h3>
+<p><strong>Scenario:</strong> You're typing an email: "Thank you for your help with the ___"</p>
+<p><strong>What happens inside the LLM:</strong></p>
+<ol>
+<li><strong>Shannon Entropy Analysis:</strong></li>
+<li>Model calculates: How predictable is this context?</li>
+<li>
+<p>High-frequency patterns → Lower entropy → More confident predictions</p>
+</li>
+<li>
+<p><strong>Cross Entropy Training:</strong></p>
+</li>
+<li>Model was trained on millions of similar sentences</li>
+<li>Learned that "project" (30%), "meeting" (20%), "presentation" (15%) are common</li>
+<li>
+<p>Training minimized cross entropy on real email data</p>
+</li>
+<li>
+<p><strong>KL Divergence in Practice:</strong></p>
+</li>
+<li><strong>Beam Search:</strong> Explores multiple completions, uses KL divergence to balance between probable and diverse options</li>
+<li><strong>Safety Filtering:</strong> Ensures suggestions don't diverge too much from appropriate business language</li>
+</ol>
+<h3 id="why-this-matters-for-llm-performance">Why This Matters for LLM Performance<a class="headerlink" href="#why-this-matters-for-llm-performance" title="Permanent link">&para;</a></h3>
+<p><strong>Better Entropy Understanding = Better Models:</strong></p>
+<ol>
+<li><strong>Training Efficiency:</strong> Cross entropy loss guides the model toward better predictions</li>
+<li><strong>Text Generation Quality:</strong> Entropy measures help balance creativity vs. coherence  </li>
+<li><strong>Model Evaluation:</strong> Perplexity (related to cross entropy) measures how "surprised" the model is by test data</li>
+<li><strong>Safety &amp; Alignment:</strong> KL divergence helps keep models helpful while maintaining capabilities</li>
+</ol>
+<h3 id="perplexity-the-llm-metric">Perplexity: The LLM Metric<a class="headerlink" href="#perplexity-the-llm-metric" title="Permanent link">&para;</a></h3>
+<p>Perplexity formula:</p>
+<div class="highlight"><pre><span></span><code>perplexity = exp( H(p,q) )
+</code></pre></div>
+<p><strong>What it means:</strong> "On average, how many reasonable word choices does the model think there are?"</p>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Cross entropy = 1.0 → Perplexity = 2 → "Like choosing between 2 equally good options"</li>
+<li>Cross entropy = 3.0 → Perplexity = 8 → "Like choosing among 8 reasonable options"</li>
+</ul>
+<p><strong>Better models have lower perplexity</strong> = they're less "confused" by language!
+Perplexity, then, is essentially a measure of how many options the model finds plausible on average, with lower values indicating fewer options (more confident predictions) and higher values indicating more options (greater uncertainty).</p>
+<p><strong>Advantage</strong>: One of the biggest advantages of perplexity is that it is highly intuitive and explainable in a field that is notoriously opaque</p>
+<p><strong>Inconvenient</strong>: The most important limitation of perplexity is that it does not convey a model’s “understanding.” Perplexity is strictly a measure of uncertainty, and a model being uncertain doesn’t mean it is right or wrong. A model may be correct but unconfident or wrong but confident. So, a perplexity score isn’t a measure of accuracy, just of confidence.</p>
+<h2 id="python-code-snippet">Python Code snippet<a class="headerlink" href="#python-code-snippet" title="Permanent link">&para;</a></h2>
+<p>Here's a simple python calculation using pytorch:</p>
+<div class="highlight"><pre><span></span><code>import torch
+
+def calculate_perplexity(logits, target):
+    &quot;&quot;&quot;
+    Calculate perplexity from logits and target labels.
+
+    Args:
+    - logits (torch.Tensor): Logits output from the model (batch_size, seq_length, vocab_size).
+    - target (torch.Tensor): Ground truth labels (batch_size, seq_length).
+
+    Returns:
+    - perplexity (float): The perplexity score.
+    &quot;&quot;&quot;
+
+    # Convert logits to log probabilities
+    log_probs = torch.nn.functional.log_softmax(logits, dim=-1)
+
+    # Gather the log probabilities for the correct target tokens
+    # log_probs has shape (batch_size, seq_length, vocab_size)
+    # target has shape (batch_size, seq_length)
+    # The gather method will pick the log probabilities of the true target tokens
+    target_log_probs = log_probs.gather(dim=-1, index=target.unsqueeze(-1)).squeeze(-1)
+
+    # Calculate the negative log likelihood
+    negative_log_likelihood = -target_log_probs
+
+    # Calculate the mean negative log likelihood over all tokens
+    mean_nll = negative_log_likelihood.mean()
+
+    # Calculate perplexity as exp(mean negative log likelihood)
+    perplexity = torch.exp(mean_nll)
+
+    return perplexity.item()
+
+# Example usage
+# Simulate a batch of logits (batch_size=2, seq_length=4, vocab_size=10)
+logits = torch.randn(2, 4, 10)
+# Simulate ground truth target tokens
+target = torch.tensor([[1, 2, 3, 4], [4, 3, 2, 1]])
+
+# Calculate perplexity
+perplexity = calculate_perplexity(logits, target)
+print(f&#39;Perplexity: {perplexity}&#39;)
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.select", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../assets/external/unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
