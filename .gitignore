@@ -26,3 +26,7 @@ SmolLM2-360M/
 # perSonal
 wip/
 RagProject/
+
+# MkDocs
+/site
+.cache/
