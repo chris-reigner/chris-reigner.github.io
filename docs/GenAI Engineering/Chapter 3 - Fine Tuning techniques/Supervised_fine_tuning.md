@@ -83,7 +83,7 @@ I like this deep dive in the paper and explanations about QLoRA: <https://mccorm
 In summary:
 
 - the 4-bit quantization does not exactly mean that your weights go 4bits. It is a compression technique that allows us to store using less memory.
-It is used during fine tuning and inference. However, you still need to decompress the weights back to 16-bit to run the model. It doesn’t make the forward or backward calculations any easier or faster, or require any less memory. Math is still done at 16-bit precision, and all of the activations, gradients, and other optimizer states are all still stored as 16-bit floats.
+It is used during fine-tuning and inference. However, you still need to decompress the weights back to 16-bit to run the model. It doesn’t make the forward or backward calculations any easier or faster, or require any less memory. Math is still done at 16-bit precision, and all of the activations, gradients, and other optimizer states are all still stored as 16-bit floats.
 - because of that, we have to store metadata which forces us to store more data. So it rathers achieve a 3.76x compression rate
 - It works by leveraging three key aspects of neural network weights:
 - Weight values are normally distributed.
@@ -96,7 +96,7 @@ Note that 1.2 represents only a 20% overhead of loading additional metadata in t
 
 For instance, a 7 Billion parameter model using 4 bytes (32-bits) needs around 17 GB of memory.
 
-### Tips for fine tuning LLMs using LoRA
+### Tips for fine-tuning LLMs using LoRA
 
 - Consistency in LLM Training: Despite the inherent randomness in training models on GPUs, the outcomes of LoRA experiments remain consistent across multiple runs, which is promising for comparative studies.
 - QLoRA Compute-Memory Trade-offs: Quantized LoRA (QLoRA) offers a 33% reduction in GPU memory usage at the cost of a 33% increase in runtime, proving to be a viable alternative to regular LoRA when facing GPU memory constraints.
@@ -123,8 +123,8 @@ Actions are defined through a policy and will imply consequences which will be a
 - A reward model is learnt from the human feedback
 - Policy optimization: with the learned reward model, standard RM algos (PPO for instance) are used to optimize the policy which generates new behavior
 - Iterative improvement: new behaviors lead to refinement of the reward model
-PB: computationnaly expensive and unstable leading to a simpler approach: direct preference optimization
--
+PB: computationally expensive and unstable leading to a simpler approach: direct preference optimization
+
 
 ### Reinforcement Learning through Human Feedback (RLHF) - A Crash Course
 
@@ -186,29 +186,14 @@ Fine tuning with preference alignment
 - More computationally efficient than traditional RLHF (when trained with adapters, frozen and trained models don’t need to be separated)
 - More stable during training and less sensitive to hyper parameter
 
-Data Preference Optimization (DPO) is a fine-tuning technique used in Large Language Models (LLMs) that directly optimizes the model based on human preferences [1][2][3][4][5]. This approach eliminates the need for a separate reward model and instead uses comparative feedback data to refine the LLM. DPO has been shown to be a powerful approach to enhancing machine learning models by directly incorporating user feedback, enabling the creation of models that better align with human expectations and needs [1].
+Data Preference Optimization (DPO) is a fine-tuning technique used in Large Language Models (LLMs) that directly optimizes the model based on human preferences. This approach eliminates the need for a separate reward model and instead uses comparative feedback data to refine the LLM. DPO has been shown to be a powerful approach to enhancing machine learning models by directly incorporating user feedback, enabling the creation of models that better align with human expectations and needs.
 
-The key benefits of DPO include its simplicity, efficiency, and direct control over LLM behavior [3]. By eliminating the need for a complex reward model, DPO significantly reduces the computational cost of fine-tuning, making it a valuable asset for developers looking to quickly upgrade their language models [2]. Additionally, DPO allows users to have a more direct influence on the LLM's behavior, guiding the model towards specific goals and ensuring it aligns with their expectations [3].
+The key benefits of DPO include its simplicity, efficiency, and direct control over LLM behavior. By eliminating the need for a complex reward model, DPO significantly reduces the computational cost of fine-tuning, making it a valuable asset for developers looking to quickly upgrade their language models. Additionally, DPO allows users to have a more direct influence on the LLM's behavior, guiding the model towards specific goals and ensuring it aligns with their expectations.
 
-DPO has been compared to other fine-tuning techniques, such as Reinforcement Learning from Human Feedback (RLHF) [2][3]. While RLHF allows for more complex and nuanced reward structures, DPO's simpler approach can be beneficial for tasks requiring rapid iteration and feedback loops [3]. DPO has also been shown to outperform RLHF in certain scenarios, particularly regarding sentiment control and response quality in tasks like summarization and dialogue [3].
+DPO has been compared to other fine-tuning techniques, such as Reinforcement Learning from Human Feedback (RLHF). While RLHF allows for more complex and nuanced reward structures, DPO's simpler approach can be beneficial for tasks requiring rapid iteration and feedback loops. DPO has also been shown to outperform RLHF in certain scenarios, particularly regarding sentiment control and response quality in tasks like summarization and dialogue.
 
-However, DPO also has its challenges, such as the risk of overfitting [4][5]. To prevent overfitting, it is essential to collect diverse high-quality data that covers a wide range of preferences and scenarios [5]. Additionally, DPO may not be suitable for tasks that require precise control over the LLM's output, where RLHF's flexibility in defining rewards may be beneficial [3].
+However, DPO also has its challenges, such as the risk of overfitting. To prevent overfitting, it is essential to collect diverse high-quality data that covers a wide range of preferences and scenarios. Additionally, DPO may not be suitable for tasks that require precise control over the LLM's output, where RLHF's flexibility in defining rewards may be beneficial.
 
-In conclusion, DPO is a promising fine-tuning technique that offers a simple, efficient, and direct approach to optimizing LLMs based on human preferences [1][2][3][4][5]. While it has its challenges, DPO has the potential to make LLM fine-tuning faster, cheaper, and more stable, driving innovation in the field of artificial intelligence [2]. The choice between DPO and other fine-tuning techniques, such as RLHF, depends on the specific task, available resources, and desired level of control [3].
-
-References:
-
-[1] Source 1: Collecting Preference Data
-[2] Source 2: Can DPO scale to a real preference dataset?
-[3] Source 3: D.P.O: A Simple and Direct Approach
-[4] Source 4: Alignment without Reinforcement Learning
-[5] Source 5: What is DPO?
-
-<https://medium.com/@mauryaanoop3/detailed-guide-on-dpo-fine-tuning-027815d15837>
-<https://huggingface.co/blog/dpo-trl>
-<https://medium.com/@sinarya.114/d-p-o-vs-r-l-h-f-a-battle-for-fine-tuning-supremacy-in-language-models-04b273e7a173>
-<https://toloka.ai/blog/direct-preference-optimization/>
-<https://huggingface.co/blog/pref-tuning>
 
 # Direct Preference Optimization (DPO) Explained
 
@@ -216,19 +201,19 @@ Direct Preference Optimization (DPO) is a method for fine-tuning large language 
 
 #### Overview of DPO
 
-DPO aligns LLMs with human preferences by using preference data from human evaluators. It directly optimizes the model's policy based on this data, eliminating the need for complex reward modeling or extensive hyperparameter tuning. This streamlined approach has been shown to match or exceed the performance of more complex methods like Reinforcement Learning from Human Feedback (RLHF), particularly in tasks such as sentiment control, summarization, and dialogue generation [1][2].
+DPO aligns LLMs with human preferences by using preference data from human evaluators. It directly optimizes the model's policy based on this data, eliminating the need for complex reward modeling or extensive hyperparameter tuning. This streamlined approach has been shown to match or exceed the performance of more complex methods like Reinforcement Learning from Human Feedback (RLHF), particularly in tasks such as sentiment control, summarization, and dialogue generation.
 
 #### Advantages of DPO
 
-- **Simplicity**: DPO avoids the complexity and instability of RLHF by directly using preference data in supervised learning [2][3].
-- **Computational Efficiency**: It reduces computational overhead by avoiding the need for multiple model instances and extensive hyperparameter tuning [3].
-- **Performance**: DPO has demonstrated comparable or superior performance in aligning LLMs with human preferences, particularly in controlling the sentiment of generated outputs [1][2].
+- **Simplicity**: DPO avoids the complexity and instability of RLHF by directly using preference data in supervised learning.
+- **Computational Efficiency**: It reduces computational overhead by avoiding the need for multiple model instances and extensive hyperparameter tuning.
+- **Performance**: DPO has demonstrated comparable or superior performance in aligning LLMs with human preferences, particularly in controlling the sentiment of generated outputs.
 
 #### Differences from Other Fine-Tuning Techniques
 
-1. **Reinforcement Learning from Human Feedback (RLHF)**: RLHF involves multiple steps, including reward modeling and policy optimization, which introduces complexity and computational overhead. DPO, on the other hand, streamlines this process by directly optimizing the model using preference data [2][3].
-2. **Conditional Supervised Fine-tuning**: This method relies on conditional prompts to guide the model's outputs. While effective, it may require additional fine-tuning and does not directly use preference data for optimization [3].
-3. **Other RL-Based Methods**: These methods often involve complex reward functions and multiple training iterations. DPO simplifies this by directly incorporating preference data, reducing the need for extensive hyperparameter tuning and multiple model instances [2][3].
+1. **Reinforcement Learning from Human Feedback (RLHF)**: RLHF involves multiple steps, including reward modeling and policy optimization, which introduces complexity and computational overhead. DPO, on the other hand, streamlines this process by directly optimizing the model using preference data.
+2. **Conditional Supervised Fine-tuning**: This method relies on conditional prompts to guide the model's outputs. While effective, it may require additional fine-tuning and does not directly use preference data for optimization.
+3. **Other RL-Based Methods**: These methods often involve complex reward functions and multiple training iterations. DPO simplifies this by directly incorporating preference data, reducing the need for extensive hyperparameter tuning and multiple model instances.
 
 #### When to Use DPO
 
@@ -236,7 +221,7 @@ DPO is particularly relevant in scenarios where simplicity, computational effici
 
 - **Resource-Constrained Environments**: When computational resources are limited, DPO's reduced overhead makes it a practical choice.
 - **Rapid Deployment**: Its straightforward implementation allows for quicker fine-tuning and deployment of models aligned with human preferences.
-- **Preference-Based Tasks**: For tasks requiring nuanced control over model outputs, such as sentiment management or dialogue generation, DPO's performance advantages make it a strong candidate [1][2].
+- **Preference-Based Tasks**: For tasks requiring nuanced control over model outputs, such as sentiment management or dialogue generation, DPO's performance advantages make it a strong candidate.
 
 <https://medium.com/@lmpo/direct-preference-optimization-a-novel-approach-to-language-model-alignment-1f829d4ac306>
 

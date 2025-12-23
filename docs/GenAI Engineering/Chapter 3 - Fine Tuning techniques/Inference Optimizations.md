@@ -1,60 +1,4 @@
-2 bottlenecks: compute-bound (computation needed) and memory bandwidth (moving data between CPU and GPU for instance)
-Batch (different than ML cause we cannot anticipate) vs online inference
-Metrics to optimize: latency, time to first token (TTFT, time per output token(TPOT), time between tokens and inter token latency
-Throughput (tokens per second) or Request Per Minute (RPM)
-New metric: Goodput aka satisfaction of the Software Level Objective
-GPU utilization (for Nvidia nvidia-smi): percentage of TIME during which the GPU is actively processing tasks —> so not useful
-MFU (model flops/s utilization) : ratio of observed throughput relative to the theoretical max. Throughput
-MBU  = Model bandwidth utilization
-
-Model Optimization
-
-- Model compression: quantization, distillation, pruning (process to remove entire node or put parameters to 0) is less common
-- Autoregressive decoding bottlenecks (can generate one token after the other) fixed are:
-  - speculative decoding: generate draft model (smaller) sequentially and validate tokens in parallel by final model
-  - Inference with reference: when an overlap between input context and output tokens answer (code, chance…) save input tokens from being generated hence send draft tokens to the model
-  - Parallel decoding: generate K future tokens —> verify for coherence and consistency —> if some fails regenerate failing ones
-  - Attention mechanism optimisation:
-    - KV (key-value) cache I.e. reuse vector generated in step t-1
-    - Modify attention mechanism
-    - KV cache reduction
-    - Writing kernels for attention computation: for instance flash attention uses a fused kernel
-- Kernels (pieces of codes optimized for specific hardware accelerators such as GPU or TPU)
-  - Optimize kerner on Nvidia or AMD chip makers
-  - Optimize framework on tensor flow or PyTorch for different accelerators
-  - Optimization techniques: vectorization, parallelization, loop tiling, operator fusion
-
-Inference Serving Optimization
-
-- Batching: continuous is the most used
-- Decouple pre-fill and decoding
-- Prompt caching
-- Parallelism
-
-Inference optimization:
-Main steps are: tokenizing, compute key and value Paris and generate output tokens
-
-- KV cache
-- Continuous batching (native in TGI, Nvidia rt, vllm)
-- Speculative decoding: compute multiple tokens simultaneously with a smaller model and validate with a bigger model
-- Optimized attention mechanisms: paged attention, flash attention-2
-- Model parralelism: distribute and computer requirements across multiple GPUs
-  - Data parallelism: duplicate model into multiple GPUs and parallels concurrent requests but mainly used for training given limitation in communication overhead limits
-  - Pipeline parallelism: partition model layer’s across different GPU (no replication)
-  - Tensor parallelism: distribute computation of LLM layers across multiple devices. Not applicable to all layers of a NN
-- Quantization
-
-Metrics for LLM:
-
-- `Time to First Token (TTFT): The time it takes for the first token to be generated`
-- `Time between Tokens (TBT): The interval between each token generation`
-- `Tokens per Second (TPS): The rate at which tokens are generated`
-- `Time per Output Token (TPOT): The time it takes to generate each output token`
-- `Total Latency: The total time required to complete a response`
-
-<https://github.com/stas00/ml-engineering/tree/master/inference>
-
-# LLM Inference Optimization techniques
+# LLM Inference Optimization techniques (WIP)
 
 ## API vs Model serving
 
@@ -172,9 +116,18 @@ Mitigation strategies are:
 - Total Latency: The total time required to complete a response
 - GPU Utilization (models using GPU): percentage of time during which the GPU is actively processing tasks
 
+
+
+## Main bottelnecks
+
+There are 2 major bottlenecks: 
+- compute-bound (computation needed) 
+- memory bandwidth (moving data between CPU and GPU for instance)
+
 ## Sources
 
 Great resource on LLM optimization: <https://multimodalai.substack.com/p/understanding-llm-optimization-techniques>
 KV cache explained: <https://magazine.sebastianraschka.com/p/coding-the-kv-cache-in-llms>
 <https://bentoml.com/llm/inference-optimization>
 continuous batching : <https://huggingface.co/blog/continuous_batching>
+

@@ -52,7 +52,15 @@ Have fun reading it !
 ## Roadmap
 
 - [ ] Finalize first version GenAI Engineering
-- [ ] Draft first version AI agents engineering
+  - [] Debugging Pytorch
+  - [] Transformers, encoding/decoding, VectorDBs
+  - [] Fine tuning techniques, quantization, inference optimization
+  - [] Rag overview, rag optimization techniques, parser methods
+  - [] Evaluating LLM, red teaming, responsible AI
+  - [] LLMOps section
+- [] Draft first version AI agents engineering !
+- [] Draft first version of ML Engineering...
+- [] Clean to iterate faster
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -1,8 +1,3 @@
-----
-
-description: Useful tips for optimizing Pytorch runs
-----
-
 # When to move from CPU to GPU
 
 With the rise of Large Models (Language, Vision, Speech...) it becomes absolutely necessary to swtich from CPU to GPU.

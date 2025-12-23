@@ -43,15 +43,14 @@ Recently, these models have lost popularity towards decoder only models.
 
 <https://magazine.sebastianraschka.com/p/understanding-encoder-and-decoder>
 
-## Cross encoder / bi-encoder
+## Cross encoder / bi-encoder (WIP)
 
 <https://osanseviero.github.io/hackerllama/blog/posts/sentence_embeddings2/>
 <https://weaviate.io/blog/cross-encoders-as-reranker>
 
-## Speech and Audio data
+## Speech and Audio data (WIP)
 
 Whisper is an encoder-decoder (sequence-to-sequence) transformer pretrained on 680,000 hours of labeled audio data. This amount of pretraining data enables zero-shot performance on audio tasks in English and many other languages. The decoder allows Whisper to map the encoders learned speech representations to useful outputs, such as text, without additional fine-tuning. Whisper just works out of the box.
 
-## Image classification
+## Image classification (WIP)
 
-## <https://huggingface.co/blog/mlabonne/decoding-strategies>

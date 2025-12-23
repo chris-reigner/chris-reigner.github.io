@@ -1,19 +1,21 @@
-----
+# Embedding overview
 
-description: Definition and overview of embedding models
-----
-
-Add check overview: <https://huggingface.co/spaces/hesamation/primer-llm-embedding?section=what_makes_a_good_embedding>?
-
-# What are embeddings ?
+## What are embeddings ?
 
 Embeddings are at the code of Language, Vision and Speech models.
 Simply put, it is the process of encoding an object (text, image, audio ...) into a vector representations.
 Once represented as a vector, we can calculate metrics that renders the quality of such an embedding model compared to new objects of the same family.
-Vectors are usually high-dimensional and we want to transform them into our lower-dimensional representation, which we call embeddings or also latent space.
+Vectors are usually high-dimensional. We want to transform them into our lower-dimensional representation, which we call embeddings or also latent space.
 This latent space captures the important features and similarities in a simpler form. For example, an embedding model might take a 2000-word document and represent it in 300-dimensional space, meaning simply 300 numbers in a list, which is much smaller than the original space but still retains the meaningful relationships between words.
 
 Embedding models understand the relationships between words, sentences or objects. The objective is to define, measure and keep a meaningful relationship between these objects.
+
+## Brief history embedding methods
+
+The [Primer LLM embedding](https://huggingface.co/spaces/hesamation/primer-llm-embedding) summarizes very well the "past" methods used to embed words.
+What did the scientist tried in the past and how we reached the recent methods used in transformers are now mostly used and keep improvement in terms of performance.
+
+![Word embedding](../../img/word_embedding.png)
 
 ## Types of embeddings
 
@@ -90,7 +92,7 @@ Here's an example of embedding model with a dimension reduction while keeping pe
 
 When running embeddings, the performance is often evaluated using the cosine similarity.
 
-## Fine tuning an embedding model
+## Fine-tuning an embedding model
 
 The main reasons you want to fine tune an embedding model are:
 
@@ -128,9 +130,11 @@ Creates multiple vectors per document to capture different aspects or granularit
 Can represent hierarchical information (document-level, paragraph-level, sentence-level)
 Allows for more nuanced retrieval by matching against the most relevant vector representation
 
-## VectorDBs
+## VectorDBs (WIP)
 
-docs/img/vectordb_weaviate.jpeg
+![Vector Databases under the hood](../../img/vectordb_weaviate.jpeg)
+
+[single_vs_multi](../../img/vector_embeddings_diagram.html)
 
 ## Resources
 
@@ -138,4 +142,4 @@ docs/img/vectordb_weaviate.jpeg
 <https://docs.weaviate.io/weaviate/tutorials/multi-vector-embeddings>
 <https://weaviate.io/blog/muvera>
 
-[single_vs_multi](../../img/vector_embeddings_diagram.html)
+

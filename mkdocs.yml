@@ -88,12 +88,11 @@ nav:
           - LLM Architecture: GenAI Engineering/Chapter 2 - LLM Pipeline/LLM Architecture.md
       - Chapter 3 - Fine Tuning techniques:
           - Fine tuning overview: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Fine tuning overview.md
+          - Supervised Fine Tuning: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Supervised_fine_tuning.md
           - Training: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Training.md
           - Training Optimization techniques: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Training Optimization techniques.md
           - Quantization: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Quantization.md
-          - Supervised Fine Tuning: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Supervised_fine_tuning.md
           - Model Choice: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Model_choice.md
-          - Frameworks: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Frameworks.md
           - Inference Optimizations: GenAI Engineering/Chapter 3 - Fine Tuning techniques/Inference Optimizations.md
       - Chapter 4 - LLM based solutions:
           - RAG Overview: GenAI Engineering/Chapter 4 - LLM based solutions/6.0 RAG Overview.md
@@ -111,7 +110,6 @@ nav:
           - Generative modelling beyond sequences: GenAI Engineering/Chapter 6 - Other type of models/Generative modelling beyond sequences.md
           - Multimodal models: GenAI Engineering/Chapter 6 - Other type of models/multimodal_models.md
       - Chapter 7 - LLMOps:
-          - AI system architecture: GenAI Engineering/Chapter 7 - LLMOps/AI system architecture.md
           - Data for LLM: GenAI Engineering/Chapter 7 - LLMOps/Data for LLM.md
           - Guardrails: GenAI Engineering/Chapter 7 - LLMOps/Guardrails.md
           - LLMSECOps: GenAI Engineering/Chapter 7 - LLMOps/LLMSECOps.md
