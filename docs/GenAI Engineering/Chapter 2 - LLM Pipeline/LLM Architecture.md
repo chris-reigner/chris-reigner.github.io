@@ -40,4 +40,13 @@ New release of expert parallelism using transformers directly:
 ## Build from scratch
 
 - Qwen3 from scratch: <https://github.com/rasbt/LLMs-from-scratch/tree/main/ch05/11_qwen3>
--
+
+# LLM architectures
+
+Transformers etc
+<>
+
+# Mixture of Experts
+
+<https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts>
+

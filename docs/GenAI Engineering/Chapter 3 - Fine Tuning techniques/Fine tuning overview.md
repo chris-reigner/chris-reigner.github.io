@@ -4,11 +4,11 @@
 Adapter-based methods add extra trainable parameters after the attention and fully-connected layers of a frozen pretrained model to reduce memory-usage and speed up training. The method varies depending on the adapter, it could simply be an extra added layer or it could be expressing the weight updates ∆W as a low-rank decomposition of the weight matrix. Either way, the adapters are typically small but demonstrate comparable performance to a fully finetuned model and enable training larger models with fewer resources.
 This is an additional module injected to a frozen base model. Each PEFT method can use one or more types of adapters.
 <https://huggingface.co/docs/peft/conceptual_guides/adapter>
-This blog offers more technical details: <https://sebastianraschka.com/blog/2023/llm-finetuning-llama-adapter.html>
 
-# feature extraction
+This [blog](https://sebastianraschka.com/blog/2023/llm-finetuning-llama-adapter.html) offers more technical details.
 
-# Fine tuning techniques
+
+# Fine tuning techniques (WIP)
 
 ## Supervised Fine Tuning (SFT)
 
@@ -28,7 +28,8 @@ Another transfer learning option is feature based (embeddings then task e.g. cla
 ### What are the limits of fine-tuning ?
 
 - knowledge that is too far (new language) than pre-training can lead to poor results
-- Fine tuning on a new knowledge could increase hallucinations and could erase some knowledge that generalized well (catastrophic forgetting)
+- Fine-tuning on a new knowledge could increase hallucinations and could erase some knowledge that generalized well (catastrophic forgetting)
+
 
 # Why memory is such a big deal ?
 
@@ -45,7 +46,7 @@ We'll go through a common example: Mistral Instruct 7 Billion
 - Backward pass: need to compute and store intermediate activations for backpropagation: Number of layers *size of activations per layer* batch size = Memory required for storing intermediate activations. It can be estimated for Mistral (not public) to 54.98 GB
 - Optimizer step: estimated to 109.96 GB for float 32
 
-# Alternatives to fine tuning
+# Alternatives to fine-tuning
 
 Alternatives to tuning a model (In context learning ; Zero/Few shot inference)
 
@@ -58,7 +59,6 @@ Alternatives to tuning a model (In context learning ; Zero/Few shot inference)
 
 ## Transfer learning
 
-²
 
 ## Data preparation for large model tuning
 

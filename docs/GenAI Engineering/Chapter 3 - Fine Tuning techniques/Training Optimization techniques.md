@@ -7,16 +7,16 @@ There is a very good and complete [Ultra scale playbook](https://huggingface.co/
 You can simulate the memory required for llama architecture families before and after optimization.
 This is the workload effort to train llama 8B before applying any optimization technique (using mixed precision):
 
-![ alt text](../assets/memory_prior_opt.png)
+![ alt text](../../img/memory_prior_opt.png)
 
 And this is the effort using 3 data parallel streams and 2 tensors streams. Quite a significant change !
 
-![ alt text](../assets/memory_post_opt.png)
+![ alt text](../../img/memory_post_opt.png)
 
 Obviously, this requires having significant compute and GPU to parallelize the workload.
-Here's a ery useful cheatsheet from their blog:
+Here's a very useful cheatsheet from their blog:
 
-![ alt text](../assets/ultra-cheatsheet.svg)
+![ alt text](../../img/ultra-cheatsheet.svg)
 
 ### Data parallelism
 
@@ -69,7 +69,7 @@ Essentially, you split model layers across GPUs.
 
 When Mixture-Of-Experts (MoE) is used (in particular during inference) one could give each expert its own accelerator (or a few if one isn't enough), which is referred to as Expert Parallelism (EP). This adds another dimension for parallelization and can significantly speed things up for large batches that are likely to hit all of the experts. Instead of communicating model weights, in EP tokens are being communicated instead. EP leads to a more efficient compute as matrix multiplication then deal with bigger inputs.
 
-### Summary of 5D parralelism techniques
+### Summary of 5D parallelism techniques
 
 | Method     | Memory savings apply specifically on...                | Parallel/sharding dimension            | Disadvantage                                         |
 |------------|---------------------------------------------------------|----------------------------------------|------------------------------------------------------|
@@ -87,31 +87,23 @@ When Mixture-Of-Experts (MoE) is used (in particular during inference) one could
 - Gradient accumulation enables larger effective batch sizes
 - Memory efficient optimizers
 - Activation checkpointing trades computation for memory by recalculating certain activations
-
-<https://www.andrew.cmu.edu/course/11-667/lectures/W10L2%20Scaling%20Up%20Parallel%20Training.pdf>
-<https://github.com/stas00/ml-engineering/tree/master/training>
-
 - Model checkpoints
 - Federated learning
-- Data parralelism (fully sharded data parallelism)
-- Model parralelism
+- Data parallelism (fully sharded data parallelism)
 - distributed training
-
-## Frameworks to accelerate
-
-- Pytorch: it has a lot of built-in features that one can use directly
-- accelerators: useful for optimizer?
-- unsloth:
-- nanotron (<https://github.com/huggingface/nanotron/tree/main>):
 
 ## Example of training process including data refinement
 
 <https://huggingface.co/spaces/HuggingFaceFW/blogpost-fineweb-v1>
+
 <https://developer.nvidia.com/blog/mastering-llm-techniques-data-preprocessing/>
+
 <https://magazine.sebastianraschka.com/p/instruction-pretraining-llms>
 
 ## Sources
 
 Picotron: for educational purposes, you can train a llama model using parralelism techniques: <https://github.com/huggingface/picotron>
 
-Sharding definition ?  FSDP ??
+<https://www.andrew.cmu.edu/course/11-667/lectures/W10L2%20Scaling%20Up%20Parallel%20Training.pdf>
+<https://github.com/stas00/ml-engineering/tree/master/training>
+
