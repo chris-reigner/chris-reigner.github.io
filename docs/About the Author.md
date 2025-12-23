@@ -21,4 +21,4 @@ While there are many excellent blogs available on specific topics, I aim to crea
 
 Thank you for visiting!
 
-![About the author](img/christophe.webp)
+![About the author](../img/christophe.webp)
