@@ -11,13 +11,6 @@
 - [Weights & Biases: AgentOps Whitepaper](https://wandb.ai/site/resources/whitepapers/agentops/)
 - [Kaggle: Agent Companion Whitepaper](https://www.kaggle.com/whitepaper-agent-companion)
 
-### Tutorials & Articles
-
-- [How to Write a Great agents.md](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) - Lessons from 2500+ repositories
-- [AI Engineers Handbook](https://github.com/swirl-ai/ai-angineers-handbook/tree/main/building_agents_from_scratch) - Building agents from scratch
-- [Demystifying Generative AI Agents](https://medium.com/@sokratis.kartakis/demystifying-generative-ai-agents-cf5ad36322bd)
-- [GenAIOps: Operationalize Generative AI](https://medium.com/@sokratis.kartakis/genaiops-operationalize-generative-ai-a-practical-guide-d5bedaa59d78)
-
 ### Video Courses & Academies
 
 **Cloud-Agnostic Courses (with code)**
@@ -41,6 +34,13 @@
 - [Agent Recipes](https://www.agentrecipes.com) - Clear agent patterns
 - [Anthropic Cookbook - Agent Patterns](https://github.com/anthropics/anthropic-cookbook/tree/main/patterns/agents)
 - [Agent Patterns Document](https://docs.google.com/document/d/1rsaK53T3Lg5KoGwvf8ukOUvbELRtH-V0LnOIFDxBryE/edit?tab=t.0)
+
+## Tutorials & Articles
+
+- [How to Write a Great agents.md](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) - Lessons from 2500+ repositories
+- [AI Engineers Handbook](https://github.com/swirl-ai/ai-angineers-handbook/tree/main/building_agents_from_scratch) - Building agents from scratch
+- [Demystifying Generative AI Agents](https://medium.com/@sokratis.kartakis/demystifying-generative-ai-agents-cf5ad36322bd)
+- [GenAIOps: Operationalize Generative AI](https://medium.com/@sokratis.kartakis/genaiops-operationalize-generative-ai-a-practical-guide-d5bedaa59d78)
 
 ## Specifications & Standards
 
