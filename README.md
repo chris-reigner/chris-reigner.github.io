@@ -61,6 +61,7 @@ Have fun reading it !
 - [] Draft first version AI agents engineering !
 - [] Draft first version of ML Engineering...
 - [] Clean to iterate faster
+- [] Clean resources and pre-commit hooks
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
