@@ -120,6 +120,7 @@ nav:
     - Resources: AI Agents Engineering/Resources.md
     - Concepts:
       - Introduction: AI Agents Engineering/introduction.md
+      - Memory: AI Agents Engineering/Memory.md
   - About me: About the Author.md
   - Contribute ❤️: https://github.com/chris-reigner/chris-reigner.github.io
 
