@@ -58,10 +58,9 @@ Have fun reading it !
   - [] Rag overview, rag optimization techniques, parser methods
   - [] Evaluating LLM, red teaming, responsible AI
   - [] LLMOps section
-- [] Draft first version AI agents engineering !
 - [] Draft first version of ML Engineering...
 - [] Clean to iterate faster
-- [] Clean resources and pre-commit hooks
+- [] Clean resources
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
