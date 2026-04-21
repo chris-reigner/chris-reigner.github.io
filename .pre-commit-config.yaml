@@ -1,7 +1,7 @@
 # .pre-commit-config.yaml
 repos:
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.22.1
+    rev: v8.24.0
     hooks:
       - id: gitleaks
         name: "🔒 security · Detect hardcoded secrets"

@@ -51,13 +51,6 @@
 
 ## Frameworks & Tools
 
-### Multi-Purpose Frameworks
-
-- [Phidata](https://docs.phidata.com/introduction) - Test with Llama or SecureGPT
-- [Bee Stack](https://github.com/i-am-bee/bee-stack) - Complete agent stack
-- [Atomic Agents](https://github.com/BrainBlend-AI/atomic-agents)
-- [Strands Agents](https://strandsagents.com/0.1.x/user-guide/safety-security/prompt-engineering/)
-
 ### Specialized Tools
 
 - [AgentOps](https://github.com/AgentOps-AI/agentops) - Agent operations monitoring
@@ -69,31 +62,3 @@
 - [A-mem](https://github.com/agiresearch/A-mem) - Agentic memory system
 - [AutoAgent](https://github.com/HKUDS/AutoAgent?tab=readme-ov-file#-quick-start) - Autonomous learning
 - [ART (Agent Reinforcement Training)](https://github.com/OpenPipe/ART?tab=readme-ov-file) - Agent training without fine-tuning
-
-## Example Implementations
-
-- [Memento](https://github.com/Agent-on-the-Fly/Memento) - Agent-on-the-fly example
-- [AWS Bedrock Agent Samples](https://github.com/awslabs/amazon-bedrock-agent-samples)
-- [AWS Multi-Agent Business Expert](https://aws.amazon.com/fr/blogs/machine-learning/build-an-intelligent-multi-agent-business-expert-using-amazon-bedrock/)
-- [Agents Towards Production](https://github.com/NirDiamant/agents-towards-production)
-
-## Advanced Topics
-
-### Multi-Agent Systems
-
-- [Mixture of Agents (MoA)](https://github.com/togethercomputer/moa)
-- [Google A2A](https://github.com/google/A2A) - Agent-to-agent communication
-
-### Kubernetes & Infrastructure
-
-- [Kagenti](https://github.com/kagenti/kagenti?tab=readme-ov-file#agent-and-tool-authorization-pattern) - Kubernetes native agents
-- [Kagent](https://github.com/kagent-dev/kagent/tree/main) - Kubernetes agent development
-
-### Compute & Automation
-
-- [Agent-S](https://github.com/simular-ai/Agent-S) - Compute agents
-
-## Evaluation & Safety
-
-- [Windows Agent Arena](https://github.com/microsoft/WindowsAgentArena) - Windows agents evaluation
-- [Agentic Misalignment](https://github.com/anthropic-experimental/agentic-misalignment) - Safety research

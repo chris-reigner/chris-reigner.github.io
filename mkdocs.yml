@@ -12,33 +12,47 @@ theme:
   logo_dark: assets/logo-dark.svg  # Safari doesn't support <style> tags inside SVGs so we need to a light and a dark SVG
   favicon: assets/logo-auto.svg
   favicon_png: assets/logo-light.png  # Safari doesn't support SVG favicons
+  font:
+    text: Inter
+    code: JetBrains Mono
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
-      primary: custom
       scheme: default
+      primary: indigo
+      accent: cyan
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
-      primary: custom
       scheme: slate
+      primary: indigo
+      accent: cyan
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
   features:
     - content.code.copy
     - content.code.select
+    - content.code.annotate
+    - content.tooltips
+    - content.footnote.tooltips
     - navigation.instant
     - navigation.instant.prefetch
     - navigation.instant.progress
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.sections
+    - navigation.indexes
+    - navigation.path
+    - navigation.footer
     - navigation.top
+    - header.autohide
     - search.highlight
-    - content.code.copy
+    - search.suggest
+    - search.share
+    - toc.follow
 
 markdown_extensions:
   - admonition
@@ -57,12 +71,10 @@ markdown_extensions:
       title: On this page
       permalink: true
 
-extra_css:
-  - stylesheets/extra.css
-
 nav:
-  - Home: index.md
-  - Resources: Resources.md
+  - Home:
+    - index.md
+    - Resources: Resources.md
   - ML Engineering:
     - Concepts:
       - Chapter 1 - Engineering:
@@ -121,6 +133,14 @@ nav:
     - Concepts:
       - Introduction: AI Agents Engineering/introduction.md
       - Memory: AI Agents Engineering/Memory.md
+      - Agent Architecture: AI Agents Engineering/agent-architecture.md
+      - Skills: AI Agents Engineering/skills.md
+      - Vulnerabilities: AI Agents Engineering/vulnerabilities.md
+    - Artifacts & Release:
+      - Agent Artifact Taxonomy: AI Agents Engineering/agent-artifacts-release.md
+    - Evaluation:
+      - Evaluating AI Agents: AI Agents Engineering/evaluation.md
+      - Evaluation Temporality: AI Agents Engineering/evaluation-temporality.md
   - About me: About the Author.md
   - Contribute ❤️: https://github.com/chris-reigner/chris-reigner.github.io
 
@@ -131,6 +151,7 @@ exclude_docs: |
 
 plugins:
   - search
+  - tags
   - privacy
   - macros
   - mike:
