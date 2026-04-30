@@ -131,9 +131,15 @@ nav:
   - AI Agents Engineering:
     - Resources: AI Agents Engineering/Resources.md
     - Concepts:
+      - Glossary: AI Agents Engineering/glossary.md
       - Introduction: AI Agents Engineering/introduction.md
       - Memory: AI Agents Engineering/Memory.md
+      - Context Manager: AI Agents Engineering/context-manager.md
       - Agent Architecture: AI Agents Engineering/agent-architecture.md
+      - Agent Architecture Patterns: AI Agents Engineering/agent-architecture-patterns.md
+      - Agent Hierarchy Design: AI Agents Engineering/agent-hierarchy.md
+      - Agent Taxonomy, Granularity & Identity: AI Agents Engineering/agent-identity-taxonomy.md
+      - Interaction Patterns, Task Decomposition & HITL: AI Agents Engineering/agent-interaction-patterns.md
       - Skills: AI Agents Engineering/skills.md
       - Vulnerabilities: AI Agents Engineering/vulnerabilities.md
     - Artifacts & Release:
