@@ -9,7 +9,10 @@
 - [Anthropic: Claude Code Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices?utm_source=alphasignal)
 - [IBM: AI Agents Guide](https://www.ibm.com/downloads/documents/gb-en/12f5a71117cdc329)
 - [Weights & Biases: AgentOps Whitepaper](https://wandb.ai/site/resources/whitepapers/agentops/)
-- [Kaggle: Agent Companion Whitepaper](https://www.kaggle.com/whitepaper-agent-companion)
+- [Google: Agent Companion Whitepaper](https://drive.google.com/file/d/1GVPdwEh48bErTNdhxD0vqxPAifSx1I6Y/view)
+- [Google: Introduction to Agents](https://drive.google.com/file/d/1C-HvqgxM7dj4G2kCQLnuMXi1fTpXRdpx/view)
+- [Google: Context Engineering - sessions & memory](https://drive.google.com/file/d/1JW6Q_wwvBjMz9xzOtTldFfPiF7BrdEeQ/view)
+
 
 ### Video Courses & Academies
 
@@ -39,7 +42,6 @@
 
 - [How to Write a Great agents.md](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) - Lessons from 2500+ repositories
 - [AI Engineers Handbook](https://github.com/swirl-ai/ai-angineers-handbook/tree/main/building_agents_from_scratch) - Building agents from scratch
-- [Demystifying Generative AI Agents](https://medium.com/@sokratis.kartakis/demystifying-generative-ai-agents-cf5ad36322bd)
 - [GenAIOps: Operationalize Generative AI](https://medium.com/@sokratis.kartakis/genaiops-operationalize-generative-ai-a-practical-guide-d5bedaa59d78)
 
 ## Specifications & Standards
@@ -55,7 +57,6 @@
 
 - [AgentOps](https://github.com/AgentOps-AI/agentops) - Agent operations monitoring
 - [MLflow Tracing](https://mlflow.org/docs/latest/tracing/integrations/openai-agent) - OpenAI agent integration
-- [LlamaCloud](https://llamacloud.com) - Cloud deployment
 
 ## Memory & Learning
 

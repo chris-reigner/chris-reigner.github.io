@@ -129,24 +129,31 @@ nav:
           - Prompt Engineering Optimization: GenAI Engineering/Chapter 7 - LLMOps/Prompt Engineering Optimization.md
           - Serving Frameworks: GenAI Engineering/Chapter 7 - LLMOps/Serving Frameworks.md
   - AI Agents Engineering:
-    - Resources: AI Agents Engineering/Resources.md
-    - Concepts:
-      - Glossary: AI Agents Engineering/glossary.md
-      - Introduction: AI Agents Engineering/introduction.md
-      - Memory: AI Agents Engineering/Memory.md
-      - Context Manager: AI Agents Engineering/context-manager.md
-      - Agent Architecture: AI Agents Engineering/agent-architecture.md
-      - Agent Architecture Patterns: AI Agents Engineering/agent-architecture-patterns.md
-      - Agent Hierarchy Design: AI Agents Engineering/agent-hierarchy.md
-      - Agent Taxonomy, Granularity & Identity: AI Agents Engineering/agent-identity-taxonomy.md
-      - Interaction Patterns, Task Decomposition & HITL: AI Agents Engineering/agent-interaction-patterns.md
-      - Skills: AI Agents Engineering/skills.md
-      - Vulnerabilities: AI Agents Engineering/vulnerabilities.md
-    - Artifacts & Release:
-      - Agent Artifact Taxonomy: AI Agents Engineering/agent-artifacts-release.md
+    - AI Agents Engineering/index.md
+    - Foundations:
+      - Glossary: AI Agents Engineering/1. Foundations/glossary.md
+      - Introduction: AI Agents Engineering/1. Foundations/introduction.md
+      - Agent Taxonomy, Granularity & Identity: AI Agents Engineering/1. Foundations/agent-identity-taxonomy.md
+      - Resources: AI Agents Engineering/resources.md
+    - Architecture & Design:
+      - Agent Architecture: AI Agents Engineering/2. Architecture and Design/agent-architecture.md
+      - Agent Architecture Patterns: AI Agents Engineering/2. Architecture and Design/agent-architecture-patterns.md
+      - Agent Hierarchy Design: AI Agents Engineering/2. Architecture and Design/agent-hierarchy.md
+      - Interaction Patterns: AI Agents Engineering/2. Architecture and Design/agent-interaction-patterns.md
+      - Task Decomposition & Conflict Resolution: AI Agents Engineering/2. Architecture and Design/task-decomposition-and-conflict-resolution.md
+    - Runtime Engineering:
+      - Memory: AI Agents Engineering/3. Runtime Engineering/memory.md
+      - Context Manager: AI Agents Engineering/3. Runtime Engineering/context-manager.md
+      - Skills: AI Agents Engineering/3. Runtime Engineering/agent skills.md
+      - Human-in-the-Loop & Feedback Loops: AI Agents Engineering/3. Runtime Engineering/human and feedback loops.md
+    - Agent Ops:
+      - Agent Artifact Taxonomy: AI Agents Engineering/5. Agent Ops/agent-artifacts-release.md
+      - Prompt Release Lifecycle: AI Agents Engineering/5. Agent Ops/prompt release lifecycle.md
+      - Coding Agent: AI Agents Engineering/5. Agent Ops/coding-agent.md
+      - Vulnerabilities: AI Agents Engineering/5. Agent Ops/vulnerabilities.md
     - Evaluation:
-      - Evaluating AI Agents: AI Agents Engineering/evaluation.md
-      - Evaluation Temporality: AI Agents Engineering/evaluation-temporality.md
+      - Evaluating AI Agents: AI Agents Engineering/4. Evaluation/evaluation.md
+      - Evaluation Temporality: AI Agents Engineering/4. Evaluation/evaluation-temporality.md
   - About me: About the Author.md
   - Contribute ❤️: https://github.com/chris-reigner/chris-reigner.github.io
 
