@@ -149,6 +149,7 @@ nav:
     - Agent Ops:
       - Agent Artifact Taxonomy: AI Agents Engineering/5. Agent Ops/agent-artifacts-release.md
       - Prompt Release Lifecycle: AI Agents Engineering/5. Agent Ops/prompt release lifecycle.md
+      - Agents orchestration: AI Agents Engineering/5. Agent Ops/agents-orchestration.md
       - Coding Agent: AI Agents Engineering/5. Agent Ops/coding-agent.md
       - Vulnerabilities: AI Agents Engineering/5. Agent Ops/vulnerabilities.md
     - Evaluation:
