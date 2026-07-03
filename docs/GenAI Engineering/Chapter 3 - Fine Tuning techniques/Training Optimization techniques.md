@@ -98,6 +98,8 @@ When Mixture-Of-Experts (MoE) is used (in particular during inference) one could
 
 <https://developer.nvidia.com/blog/mastering-llm-techniques-data-preprocessing/>
 
+https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/
+
 <https://magazine.sebastianraschka.com/p/instruction-pretraining-llms>
 
 ## Sources

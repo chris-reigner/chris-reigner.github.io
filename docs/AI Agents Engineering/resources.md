@@ -43,6 +43,7 @@
 - [How to Write a Great agents.md](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) - Lessons from 2500+ repositories
 - [AI Engineers Handbook](https://github.com/swirl-ai/ai-angineers-handbook/tree/main/building_agents_from_scratch) - Building agents from scratch
 - [GenAIOps: Operationalize Generative AI](https://medium.com/@sokratis.kartakis/genaiops-operationalize-generative-ai-a-practical-guide-d5bedaa59d78)
+- [Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness)
 
 ## Specifications & Standards
 
