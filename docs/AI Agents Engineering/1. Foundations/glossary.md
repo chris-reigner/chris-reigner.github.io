@@ -38,6 +38,37 @@ An AI system whose output can vary even when given identical inputs. Unlike trad
 **Deterministic**
 A system component whose behavior is fully predictable — same input, same output, every time. In agent architecture, deterministic components (like rule engines, validators, or database queries) are used alongside probabilistic LLM reasoning to enforce reliable behavior.
 
+
+**Agent Harness** `Agent = Model + Harness`
+
+*"If you're not the model, you're the harness."*
+
+Every piece of code, configuration, and execution logic that is not the model itself. A raw model is not an agent — it becomes one when a harness gives it state, tool execution, feedback loops, and enforceable constraints. The model supplies intelligence; the harness makes that intelligence useful.
+
+Harness components:
+
+- **System Prompts** — always-on behavioral guidance defining the agent's identity, scope, and constraints
+- **Tools, Skills & MCPs** — capability extensions with their descriptions; what the agent can call and how
+- **Bundled Infrastructure** — filesystem access, sandboxed code execution, browser — general-purpose problem-solving surfaces that don't require pre-configured tools
+- **Orchestration Logic** — subagent spawning, handoffs, model routing, planning decomposition
+- **Hooks / Middleware** — deterministic intercept points for compaction, continuation, lint checks, and test suite execution (see *Hooks* below)
+
+> Source: [The Anatomy of an Agent Harness — LangChain](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness)
+
+**Hooks**
+
+Deterministic intercept points wired into the agent execution cycle. Hooks run synchronous, predictable code at defined moments — before or after a tool call, when the agent is about to stop, when a context window fills — without relying on the LLM to decide whether to act. They are the primary mechanism for injecting hard guarantees into an otherwise probabilistic system.
+
+Hook types by trigger:
+
+- **Pre-tool** — runs before a tool call executes; used for input validation, rate limiting, permission checks, or logging the intent
+- **Post-tool** — runs after a tool returns; used for output sanitization, schema validation, or storing results to external memory
+- **Pre-LLM** — runs before each model inference; used to inject fresh context, enforce token budgets, or apply prompt guards
+- **Post-LLM / Stop** — runs when the agent is about to exit or produce a final response; used to intercept premature exits, run test suites against generated code, or trigger compaction before reinjecting the original prompt in a clean context window
+- **Notification** — fires on agent-emitted events (errors, HITL requests, cost thresholds) without blocking the main execution path
+
+In Claude Code, hooks are shell commands defined in `settings.json` and triggered by the harness at `PreToolUse`, `PostToolUse`, `Stop`, and `SubagentStop` events — giving operators deterministic control over what happens at each boundary, regardless of what the model decided.
+
 ---
 
 ## Architecture Components
