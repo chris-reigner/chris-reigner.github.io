@@ -5,7 +5,7 @@
 - complexity: include complex, multi-step reasoning problems and challenging tasks
 If your number of jobs. Is too low, use open-source instruction dataset. 70B model can be limited to 1k high quality samples , on the other hand, smaller models need more sample as they need to learn a simpler representation
 
-# Creating an instruction dataset
+## Creating an instruction dataset
 
 - Data curation:
   - Task specific: get examples of pair dataset

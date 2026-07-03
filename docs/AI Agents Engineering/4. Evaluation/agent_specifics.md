@@ -114,6 +114,7 @@ The golden dataset is the **single source of truth** for agent evaluation. It co
 **Purpose**: bridge the gap between technical metrics and business expectations. A golden dataset item doesn't just say "the answer should be X" — it defines what correct tool usage, task completion, and adherence look like for a real business scenario.
 
 **Composition**:
+
 - A **mix of representative cases** (happy paths that cover the most frequent user intents) and **edge cases** (ambiguous queries, missing data, multi-step scenarios)
 - Well curated: each item is reviewed, not bulk-generated
 - Minimum ~30 items per agent to be statistically meaningful, ideally 50–100+ covering all supported intents
@@ -147,6 +148,7 @@ The synthetic dataset is **generated from the golden dataset** using an LLM to p
 **Purpose**: volume and diversity. Where the golden dataset has 50 curated items, the synthetic dataset can have 500+ variations — different phrasings, typos, ambiguous formulations, multilingual inputs, unusual parameter combinations — all derived from the same golden scenarios.
 
 **How it works**:
+
 1. Take each golden dataset item as a seed
 2. Use an LLM to generate N variations (rephrasings, edge-case twists, adversarial formulations)
 3. Inherit the same expected tools, trajectory, and thresholds from the seed (adjusted where the variation changes the expected behaviour)
@@ -165,6 +167,7 @@ The regression dataset has a fundamentally different goal: **ensure that fixed b
 **Purpose**: quality gate for QA and development. Every bug fix, edge case discovery, or production incident becomes a new regression test case. This dataset grows monotonically — items are added, never removed.
 
 **Composition**:
+
 - Each fixed bug → a new test case with the input that triggered the bug and the now-correct expected behaviour
 - Edge cases discovered during development or QA
 - Cases from production incidents (anonymised)
@@ -191,7 +194,6 @@ The storage and versioning of evaluation datasets is an **open question** that m
 | **Git** (datasets in agent repo) | Native versioning, diff, PR review, CI/CD trigger | Limited for large datasets, no native link with traces |
 | **Object storage** (S3, Azure Blob) | Scalable, suitable for large datasets, no PII in Git | Manual versioning to manage |
 | **Langfuse/MLflow** (native datasets) | Direct integration with traces, built-in versioning, evaluation UI integration | Framework dependency, storage limits |
-
 
 ### 1.4 Dataset creation procedure
 
@@ -343,6 +345,7 @@ Offline evaluation is the process of assessing an agent's performance in a **con
 This is what was described in the dataset and experiment tracking sections: a known dataset with **ground truth** is the prerequisite. Without expected outputs, expected tools, and expected trajectories, offline evaluation cannot produce meaningful scores.
 
 **What it enables**:
+
 - Systematically measure quality and compare agent versions
 - Detect regressions before deployment
 - Validate prompt, model, or tool changes in isolation
@@ -355,11 +358,13 @@ This is what was described in the dataset and experiment tracking sections: a kn
 Online evaluation applies the **same metrics as offline evaluation but on new, unseen data** — production traces and logs from real user interactions. There is no pre-defined ground truth; instead, quality is inferred from the traces themselves and progressively enriched with human feedback (thumbs up/down, expert review, escalation signals).
 
 **What it detects**:
+
 - **Behavioural drift**: the agent starts responding differently due to prompt changes, model updates, or tool modifications
 - **Data drift**: user queries evolve (new intents, new vocabulary, seasonal patterns) or upstream services change their responses
 - **Silent regressions**: degradations that only surface with real-world traffic patterns
 
 **Evaluation methods**:
+
 - **Deterministic metrics**: agent workflow completion, tool call counts, latency, token usage — computed directly from traces
 - **LLM-as-a-Judge**: applied on sampled traces to evaluate qualitative dimensions (relevance, completeness, adherence)
 
@@ -432,6 +437,7 @@ The proposed model is **trunk-based development** with version tag promotion. En
 ```
 
 **Technical choices:**
+
 - **Single flow**: no drift between long branches, no merge conflicts
 - **Tiered evaluation**: smoke eval (heuristics, fast) on each PR, full eval (LLM-Judge) only at promotion
 - **Tags = source of truth**: Git tag determines what is deployed and evaluated in each environment
@@ -555,20 +561,18 @@ These metadata would enable data-driven promotion decisions and facilitate rollb
 
 ---
 
-
-
-
 ## 7. Appendix — Resources
 
 **Evaluation frameworks:**
-1. **Langfuse Evaluation**: scores, dataset runs, online evaluation : https://langfuse.com/docs/scores/overview
-2. **Langfuse Online Evaluation**: automatic asynchronous trace evaluation : https://langfuse.com/docs/scores/online-evaluation
-3. **MLflow LLM Evaluation**: mlflow.evaluate() for LLMs : https://mlflow.org/docs/latest/llms/llm-evaluate
-4. **LangSmith Evaluation**: datasets & evaluators : https://docs.smith.langchain.com/evaluation
-5. **RAGAS**: evaluation framework for RAG pipelines (applicable to agents) : https://docs.ragas.io
-6. **Braintrust**: eval framework : https://braintrust.dev
-7. **DeepEval**: open-source LLM evaluation framework : https://docs.confident-ai.com
-8. **OpenAI Evals**: open-source evaluation framework : https://github.com/openai/evals
+
+1. **Langfuse Evaluation**: scores, dataset runs, online evaluation : <https://langfuse.com/docs/scores/overview>
+2. **Langfuse Online Evaluation**: automatic asynchronous trace evaluation : <https://langfuse.com/docs/scores/online-evaluation>
+3. **MLflow LLM Evaluation**: mlflow.evaluate() for LLMs : <https://mlflow.org/docs/latest/llms/llm-evaluate>
+4. **LangSmith Evaluation**: datasets & evaluators : <https://docs.smith.langchain.com/evaluation>
+5. **RAGAS**: evaluation framework for RAG pipelines (applicable to agents) : <https://docs.ragas.io>
+6. **Braintrust**: eval framework : <https://braintrust.dev>
+7. **DeepEval**: open-source LLM evaluation framework : <https://docs.confident-ai.com>
+8. **OpenAI Evals**: open-source evaluation framework : <https://github.com/openai/evals>
 
 **Pricing references:**
-9. **OpenAI Pricing Calculator**: https://invertedstone.com/calculators/openai-pricing
+9. **OpenAI Pricing Calculator**: <https://invertedstone.com/calculators/openai-pricing>

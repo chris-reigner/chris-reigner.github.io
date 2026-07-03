@@ -34,7 +34,6 @@ Runtime and Gateway are platform services that both sit on infrastructure. The a
 
 <iframe src="/img/AI%20Agents%20Execution%20Diagram.html" width="100%" height="620" frameborder="0" style="border-radius:8px;border:1px solid #ccc;"></iframe>
 
-
 ### Diagram 2 — Supporting Services
 
 These services are not in the hot path of every request but are required for production operation.
@@ -98,7 +97,6 @@ Claude Code is a concrete, observable example of every term in the architecture 
 | **Policy** | Read before editing. Prefer targeted edits over full rewrites. Ask before destructive operations. Confirm before any git push. Never skip pre-commit hooks. |
 | **Rollout** | One complete session: user says "fix the login bug" → agent reads `auth.py` → reads tests → identifies missing token expiry check → edits `auth.py` → runs `pytest` → 12 tests pass → reports done. Everything from first prompt to final stop = one rollout |
 | **Reward** | *Verifiable*: `pytest` passes after the edit. *Learned*: user accepts the change without reverting it; user explicitly confirms ("yes, exactly") |
-
 
 ## Sources
 

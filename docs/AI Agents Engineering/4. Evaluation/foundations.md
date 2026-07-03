@@ -6,7 +6,6 @@
 4. [What are we trying to evaluate?](#4-what-are-we-trying-to-evaluate)
 5. [How we evaluate](#5-how-we-evaluate)
 
-
 ## 1. Introduction
 
 ### The problem
@@ -179,7 +178,6 @@ This multiplies the number of evaluation points. The recommended strategy is to 
 ```
 
 > **Note**: Non-exhaustive list.
-
 
 ### 4.2 Functional metrics
 

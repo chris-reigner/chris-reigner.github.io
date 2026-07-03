@@ -13,6 +13,7 @@ Memory is what separates a truly intelligent agent from a sophisticated autocomp
 This definition has a critical implication: **LLMs are inherently stateless**. A raw language model has no built-in memory. It carries *parametric knowledge* baked in during training, but each API call starts fresh—it has no awareness of your previous interactions, user identity, or session history. Memory is an *engineering concern*, not a model property.
 
 The moment you need an agent to:
+
 - Remember a user's name or preferences across sessions
 - Learn from a past mistake and avoid repeating it
 - Pick up a conversation where it left off last week
@@ -36,16 +37,15 @@ These axes are independent. A piece of episodic memory can be short-lived (in-co
 
 ### Short-Term Memory (In-Context / Working Memory)
 
-
 #### Chatbot Short-Term Memory
 
-
-For chatbots or application with one or several LLMs, short-term memory is everything inside the **context window** at the moment the model runs. 
+For chatbots or application with one or several LLMs, short-term memory is everything inside the **context window** at the moment the model runs.
 It includes the system prompt, conversation history, tool call outputs and any information explicitly injected for the current turn.
 
 At each new turn of conversation, the LLM takes a new context window.
 
 Within the same user session, the short-term memory consists in
+
 - Rolling buffer of recent messages (discard oldest when full)
 - Full conversation history passed on every turn
 - Scratchpad / chain-of-thought traces kept in context
@@ -55,16 +55,15 @@ Essentially, the session is the memory scope. When the user leaves, the memory d
 #### Agent Short-Term Memory
 
 For an autonomous agent running a list of tasks, there's no user session. The equivalent scope is a run — a single execution from start to finish. But what lives in that context window is fundamentally different.
-For agents, a single tool call can dump thousands of tokens into context (a full file, an API response, a database result). This means agents need more   
+For agents, a single tool call can dump thousands of tokens into context (a full file, an API response, a database result). This means agents need more
   aggressive context management:
 
-  - Summarizing or truncating large tool outputs
-  - Keeping only the relevant parts of previous steps
-  - Deciding what intermediate results to store externally vs. keep in-context
+- Summarizing or truncating large tool outputs
+- Keeping only the relevant parts of previous steps
+- Deciding what intermediate results to store externally vs. keep in-context
 
-One consequence of this difference: agent short-term memory often needs to be checkpointed. If a run fails mid-execution (tool timeout, rate limit, error), you want to resume from the last good state — not restart from 
+One consequence of this difference: agent short-term memory often needs to be checkpointed. If a run fails mid-execution (tool timeout, rate limit, error), you want to resume from the last good state — not restart from
   scratch. Chatbots rarely need this. Agents almost always do as long as they have task that can take a long time.
-
 
 ### Long-Term Memory (External / Out-of-Context Memory)
 
@@ -83,7 +82,6 @@ Think of it as **disk storage**: vast, durable, but requiring an explicit read o
 **Use when:** Information needs to persist across conversations, the agent must personalize responses based on prior history, or knowledge grows over time.
 
 ---
-
 
 ### Context Window ≠ Memory
 
@@ -110,6 +108,7 @@ Borrowed from cognitive science, this taxonomy describes *what kind of informati
 Semantic memory stores **general, factual knowledge** that is independent of any specific interaction. It represents the agent's world model: facts, definitions, relationships, rules, and domain knowledge.
 
 **Examples:**
+
 - "User prefers metric units"
 - "The capital of France is Paris"
 - "Product X supports API versions 1.2 and 2.0"
@@ -126,6 +125,7 @@ Semantic memory stores **general, factual knowledge** that is independent of any
 Episodic memory captures **specific past events and interactions** with temporal and contextual detail. It records *what happened, when, and in what context*—the agent's personal history.
 
 **Examples:**
+
 - "On March 15th, the agent failed to parse the CSV because of a malformed header"
 - "Last time this user asked about pricing, they were comparing Enterprise vs. Pro plans"
 - "In session #42, the refactoring task was interrupted at step 3 due to a merge conflict"
@@ -141,11 +141,13 @@ Episodic memory captures **specific past events and interactions** with temporal
 Procedural memory encodes **skills, workflows, and behavioral rules** that govern how the agent performs tasks. Unlike semantic memory (facts about the world), procedural memory is knowledge about *doing*.
 
 In practice, an AI agent's procedural memory lives in three places:
+
 1. **Model weights** — trained behaviors baked into the LLM
 2. **System prompt / instructions** — explicit behavioral guidelines
 3. **Agent code** — the tools, routing logic, and orchestration
 
 **Examples:**
+
 - "When a user reports a bug, always ask for reproduction steps before suggesting a fix"
 - "Use Chain-of-Thought reasoning for any math problem"
 - "Format all code examples with language tags"
@@ -257,6 +259,7 @@ Rather than compressing the full conversation, extract only the **semantically i
 ```
 
 **How it works:**
+
 1. After each turn (or every N turns), run an extraction LLM call to identify what's worth keeping
 2. Write extracted facts to a structured state (JSON, Markdown notes file, memory store)
 3. Inject the state summary at the top of the context on every turn
@@ -275,6 +278,7 @@ For agents that use tools, tool outputs (observations) are often the largest tok
 Observation masking selectively compresses or truncates **tool outputs only**, while preserving the action and reasoning trace in full.
 
 **Techniques:**
+
 - Truncate raw tool outputs to a token limit and store the full result in external memory (return a pointer/ID instead)
 - Summarize large tool outputs inline with a fast, cheap model before inserting into context
 - Design tools to return compact, structured responses rather than raw dumps
@@ -372,11 +376,9 @@ The mental model popularized by [MemGPT / Letta](https://letta.ai) is useful: tr
 
 ---
 
-
 > **Key distinction — Memory vs. RAG:** RAG (Retrieval-Augmented Generation) retrieves *static external knowledge* (documentation, policies, corpora) at inference time. It is fundamentally stateless and has no awareness of who the user is or what happened before. Agent memory, by contrast, stores *dynamic, interaction-derived* information that evolves over time. Production systems typically use **both**: RAG for factual knowledge, memory systems for personalized context.
 
 ---
-
 
 ## Memory Lifecycle: Create, Store, Retrieve
 
@@ -389,6 +391,7 @@ Memory doesn't just exist — it is actively produced, persisted, and recalled. 
 Memory formation is the process of deciding **what is worth remembering** and converting raw interaction data into a storable representation.
 
 **Triggers** — what initiates memory formation:
+
 - End of a conversation or agent run (batch)
 - After a specific tool call or agent action (event-driven)
 - After each turn (real-time, highest cost)
@@ -404,11 +407,13 @@ Memory formation is the process of deciding **what is worth remembering** and co
 | **Agent self-report** | The agent explicitly calls a `save_memory` tool | Hot-path, agent-controlled |
 
 **Encoding** — how a memory is represented before storage:
+
 - **Plain text / JSON**: for structured facts and preferences
 - **Vector embedding**: for fuzzy, semantic retrieval — the text is passed through an embedding model (e.g., `text-embedding-3-small`) to produce a high-dimensional float vector
 - **Both**: store the original text alongside its embedding for hybrid retrieval
 
 Every memory should also carry **metadata**:
+
 ```json
 {
   "id": "mem_abc123",
@@ -430,6 +435,7 @@ Every memory should also carry **metadata**:
 Once encoded, the memory is written to an external store. The critical decisions here are:
 
 **Namespace / scoping** — who can access this memory?
+
 - `user_id` — personal to one user
 - `agent_id` — shared across all users of one agent
 - `team_id` — shared across a group
@@ -462,6 +468,7 @@ At query time, relevant memories are fetched from external storage and **injecte
 | **Graph traversal** | Entity relationship walk | Complex relational facts (knowledge graphs) |
 
 **Steps in a typical retrieval pipeline:**
+
 1. The current user message (or agent task) is embedded with the same model used during storage
 2. A k-NN similarity search finds the top-N most relevant memories
 3. Optional: a reranker (cross-encoder model or LLM) scores and filters results
@@ -486,6 +493,7 @@ There are three distinct mechanisms, each addressing a different cause of memory
 The simplest form: a memory is removed because it is known to be wrong, outdated, or no longer relevant.
 
 **Triggers:**
+
 - The user explicitly contradicts a stored fact ("I've moved to Berlin, not Paris")
 - The agent detects a conflict during a new memory write
 - An admin or audit process flags a memory for removal
@@ -519,6 +527,7 @@ The general principle, backed by Mem0's production system: **prioritize recency,
 Inspired by the [Ebbinghaus Forgetting Curve](https://en.wikipedia.org/wiki/Forgetting_curve), decay mechanisms reduce the *retrieval weight* of memories over time rather than deleting them outright. A memory that hasn't been accessed or reinforced gradually becomes less likely to surface in similarity search, even if it technically still exists in the store.
 
 **How it works:**
+
 - Each memory record carries a **recency score** that decreases as a function of time elapsed since last access (common decay factor: ~0.995 per hour)
 - An **importance score** (generated by an LLM at write time) sets a floor: high-importance memories decay more slowly
 - At retrieval time, the similarity score is **multiplied by the decay score**, so stale memories rank lower than fresh ones even if semantically similar
@@ -602,16 +611,19 @@ The right database depends on what kind of memory you're storing and how you nee
 ### Database Families
 
 #### Key-Value Stores
+
 **Redis, DynamoDB, Memcached**
 
 Best for short-term session state and structured semantic memory where keys are known (e.g., `user:42:preferences`). Redis adds TTL support, pub/sub, and native vector search — making it viable as a unified memory platform for many production systems. Lookups are O(1) but retrieval is exact — no fuzzy search.
 
 #### Relational Databases
+
 **PostgreSQL, SQLite, MySQL**
 
 Best for structured, queryable facts: user profiles, event logs, audit trails. Strong ACID guarantees. Add `pgvector` extension to PostgreSQL to unlock semantic vector search without leaving the relational model — the most practical choice for teams already running Postgres.
 
 #### Vector Databases
+
 **Pinecone, Weaviate, Qdrant, ChromaDB, Milvus**
 
 Purpose-built for high-dimensional similarity search. These are the right tool when retrieval is fuzzy and semantic — "what memories are most relevant to this query?" — rather than exact. Each has tradeoffs:
@@ -625,16 +637,19 @@ Purpose-built for high-dimensional similarity search. These are the right tool w
 | **pgvector** | No new infra if you run Postgres | Slower than dedicated vector DBs at scale |
 
 **Indexing recommendations:**
+
 - **HNSW**: Best default — high recall (>95%) for datasets up to ~100M vectors
 - **IVF**: Memory-efficient for billion-scale datasets
 - **FLAT**: Exact brute-force — only for small datasets or benchmarking
 
 #### Graph Databases
+
 **Neo4j, Amazon Neptune, Memgraph**
 
 Best when memory is highly relational — entities with many named relationships (knowledge graphs). Use only when you need to traverse relationships (e.g., "who does this user work with, and what did they discuss?"). Overkill for most agent memory use cases; significant operational overhead.
 
 #### Document Databases
+
 **MongoDB, Firestore**
 
 Flexible JSON-like schema makes these a good fit when memory entries have variable structure. MongoDB Atlas adds vector search, making it a viable hybrid option. Good choice when memory entries don't fit a fixed schema.
@@ -657,7 +672,6 @@ Do you need fuzzy/semantic retrieval?
 ```
 
 ---
-
 
 ## Memory Poisoning and Corruption
 
@@ -738,6 +752,7 @@ Every point where unverified external content can reach the memory write pipelin
 Short-term (in-context) memory poisoning is bounded: the attack expires when the session ends. **Long-term memory poisoning is persistent** — the attack survives across sessions, users (if memory is shared), and system updates.
 
 The asymmetry is severe:
+
 - Writing a poisoned entry costs the attacker **one interaction**
 - The poisoned entry can influence **every future session** until it is explicitly detected and removed
 - Detection requires knowing what a "correct" memory looks like — which is often undefined
@@ -751,17 +766,20 @@ This is why the [OWASP Agentic AI Top 10 (ASI 2025)](https://swarmsignal.net/ai-
 No single defense is sufficient. Effective protection requires layering:
 
 **At write time (hardest, most important):**
+
 - **Input sanitization** — strip or reject content that contains imperative instructions, role-switching phrases ("ignore previous instructions", "you are now"), or unusual formatting patterns before the extraction LLM processes it
 - **Source attribution and trust scoring** — tag every memory with its origin (user, web, tool, system). Apply a lower trust weight to memories sourced from external/untrusted content; never elevate them to system-prompt authority
 - **Extraction model isolation** — use a separate, constrained model for the memory extraction step, not the same model that executes agent actions. The extraction model should output structured JSON only, preventing raw instruction strings from reaching the store
 - **Write authorization** — require explicit approval (human-in-the-loop or a policy check) before any externally-sourced content is written to long-term memory
 
 **At read time:**
+
 - **Memory sandboxing** — injected memories should be clearly delimited in the context (e.g., `<retrieved_memory>` blocks) and the system prompt should explicitly instruct the model that retrieved memories are *informational*, not *authoritative*
 - **Anomaly detection on retrieved content** — flag memories that contain imperative language, role-switching attempts, or instructions to call external URLs
 - **Retrieval provenance display** — show the user which memories are active and where they came from; make poisoned entries visible
 
 **Operationally:**
+
 - **Scope memory narrowly** — user-scoped memory is harder to poison at scale than global shared memory
 - **Short TTLs** — limit how long an unreviewed memory can persist before requiring re-validation
 - **Red-team your memory pipeline** — specifically test whether crafted inputs to every external data source (email, web, file) can be coerced into memory writes
@@ -819,9 +837,11 @@ These metrics appear across the major benchmarks and are the standard vocabulary
 ### Benchmarks
 
 #### LoCoMo — Long-term Conversational Memory
+
 **Paper**: [Evaluating Very Long-Term Conversational Memory of LLM Agents](https://snap-research.github.io/locomo/) — Snap Research
 
 The most widely adopted standardized benchmark for agent memory. Contains ~500 long-term conversations (~300 turns, ~9K tokens each) spanning up to 35 sessions. Tests three task types:
+
 - **QA** across five reasoning types: single-hop, multi-hop, temporal, commonsense, and adversarial
 - **Event graph summarization**: causal and temporal understanding
 - **Multi-modal dialog generation**: contextual consistency across sessions
@@ -831,9 +851,11 @@ Key finding: human performance still exceeds models by ~56% overall, with the la
 ---
 
 #### LongMemEval — Benchmarking Chat Assistants on Long-Term Interactive Memory
+
 **Paper**: [arXiv 2410.10813](https://arxiv.org/abs/2410.10813) — ICLR 2025
 
 500 carefully curated questions embedded in scalable chat histories. Tests five core memory abilities:
+
 1. **Information extraction** — accurately storing facts from conversations
 2. **Multi-session reasoning** — synthesizing information across sessions
 3. **Temporal reasoning** — understanding when things happened relative to each other
@@ -845,6 +867,7 @@ Two variants: `LongMemEvalS` (~115K tokens, 30–40 sessions) and `LongMemEvalM`
 ---
 
 #### MemoryAgentBench — Incremental Multi-Turn Memory Evaluation
+
 **Paper**: [arXiv 2507.05257](https://arxiv.org/abs/2507.05257) — ICLR 2026
 **Code**: [github.com/HUST-AI-HYZ/MemoryAgentBench](https://github.com/HUST-AI-HYZ/MemoryAgentBench)
 
@@ -853,6 +876,7 @@ Evaluates memory through *incremental* interactions — the agent accumulates in
 ---
 
 #### LoCoMo-Plus — Cognitive Memory Beyond Factual Recall
+
 **Paper**: [arXiv 2602.10715](https://arxiv.org/html/2602.10715v1)
 
 Extension of LoCoMo that tests **cognitive memory under cue-trigger semantic disconnect** — cases where the retrieval cue and the relevant memory don't share obvious keywords. Forces systems to reason about latent constraints rather than do surface-level matching.
@@ -860,6 +884,7 @@ Extension of LoCoMo that tests **cognitive memory under cue-trigger semantic dis
 ---
 
 #### MemTrack — Cross-Platform State Tracking
+
 **Paper**: [arXiv 2510.01353](https://arxiv.org/pdf/2510.01353)
 
 Evaluates memory across realistic tool integrations (Linear, Slack, Git). Tests whether agents can maintain consistent state tracking when memory is spread across external systems rather than a single store.

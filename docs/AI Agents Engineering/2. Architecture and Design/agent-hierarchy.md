@@ -27,7 +27,6 @@ tokens rapidly, requiring tasks where the business value justifies the increased
 performance costs. Design your system to scale effort appropriately—simple
 queries shouldn't trigger expensive multi-agent workflows.
 
-
 ## Tools vs Sub-Agents vs Skills
 
 These three primitives are frequently conflated. Each solves a different problem at a different layer of the architecture. Using the wrong one increases cost, creates governance gaps, or produces brittle systems.

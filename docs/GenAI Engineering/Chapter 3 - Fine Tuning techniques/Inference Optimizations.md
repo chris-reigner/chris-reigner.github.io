@@ -116,12 +116,11 @@ Mitigation strategies are:
 - Total Latency: The total time required to complete a response
 - GPU Utilization (models using GPU): percentage of time during which the GPU is actively processing tasks
 
-
-
 ## Main bottelnecks
 
-There are 2 major bottlenecks: 
-- compute-bound (computation needed) 
+There are 2 major bottlenecks:
+
+- compute-bound (computation needed)
 - memory bandwidth (moving data between CPU and GPU for instance)
 
 ## Sources
@@ -131,7 +130,6 @@ KV cache explained: <https://magazine.sebastianraschka.com/p/coding-the-kv-cache
 <https://bentoml.com/llm/inference-optimization>
 continuous batching : <https://huggingface.co/blog/continuous_batching>
 
-https://docs.vllm.ai/en/latest/configuration/optimization.html#data-parallelism-dp
-https://docs.vllm.ai/en/latest/cli/index.html#collect-env
-https://colab.research.google.com/github/ericehanley/rightsize-vllm/blob/main/HBM_Calculator.ipynb
-
+<https://docs.vllm.ai/en/latest/configuration/optimization.html#data-parallelism-dp>
+<https://docs.vllm.ai/en/latest/cli/index.html#collect-env>
+<https://colab.research.google.com/github/ericehanley/rightsize-vllm/blob/main/HBM_Calculator.ipynb>

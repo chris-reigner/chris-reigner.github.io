@@ -28,6 +28,7 @@ Every production agent is a combination of at least eight artifact types. Most f
 Traditional software promotes a single artifact: a compiled binary or a container image. The version is the deployment unit.
 
 An agent cannot follow this model cleanly. If you must cut a full release and go through your entire CI/CD pipeline every time a prompt is tuned or a document corpus is updated, you will either:
+
 - Move too slowly (blocking prompt iteration behind a 2-week sprint cycle), or
 - Move dangerously (skipping validation to ship faster).
 
@@ -90,6 +91,7 @@ system_prompt = get_prompt(
 ```
 
 **What this enables**:
+
 - A/B test two prompt variants in production without a code deploy
 - Roll back a bad prompt change in minutes by pointing the `production` alias to a previous version
 - Different environments (`staging`, `production`) each resolve to their own prompt version
@@ -134,6 +136,7 @@ response = client.messages.create(
 Sub-agents have their own artifact lifecycles. A parent agent calling a sub-agent faces the same dependency management problem as any service calling another service.
 
 **Agent Cards** (from the A2A protocol) are a natural versioning mechanism for sub-agents. An Agent Card is a JSON descriptor — typically served at `/.well-known/agent.json` — that declares the sub-agent's capabilities, skills, endpoint, and a `version` field. A parent agent can:
+
 1. Discover the sub-agent via its card at registration time
 2. Pin the card version it depends on
 3. Detect incompatible changes when the card version bumps
@@ -175,6 +178,7 @@ system_prompt = get_prompt(
 ```
 
 **What this enables**:
+
 - **Gradual rollout**: 5% → 20% → 50% → 100% without a redeployment
 - **User-segment targeting**: new prompt for premium users, old for free tier
 - **Instant kill switch**: flag off a bad artifact in seconds
@@ -214,17 +218,10 @@ When the entity implementing your declared capability can change without your kn
 
 ---
 
-
 ## Resources
 
-[^9]: Yehonatan Hess et al., "Agent Behavioral Contracts: Formal Specification and Runtime Enforcement," arxiv, 2025. https://arxiv.org/html/2602.22302
-[^10]: relari-ai, "agent-contracts," GitHub. https://github.com/relari-ai/agent-contracts
-
-[^1]: Auxiliobits, "Four-Layer Versioning Taxonomy for AI Agents," 2024. https://www.auxiliobits.com/blog/versioning-and-rollbacks-in-agent-deployments/
-[^2]: MLflow, "MLflow 3.0 — Agent Artifact Support," 2025. https://mlflow.org/docs/latest/agents
-[^3]: AWS, "Prompt Management in Amazon Bedrock," AWS Documentation, 2024. https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html
-
 Additional references:
-- AWS, "Prompt, Agents and Model lifecycle management," https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-serverless/prompt-agent-and-model.html
-- Langfuse, "Prompt Management," 2024. https://langfuse.com/docs/prompts/get-started
-- Anthropic, "Building Effective Agents," 2024. https://www.anthropic.com/research/building-effective-agents
+
+- AWS, "Prompt, Agents and Model lifecycle management," <https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-serverless/prompt-agent-and-model.html>
+- Langfuse, "Prompt Management," 2024. <https://langfuse.com/docs/prompts/get-started>
+- Anthropic, "Building Effective Agents," 2024. <https://www.anthropic.com/research/building-effective-agents>

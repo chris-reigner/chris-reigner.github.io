@@ -7,7 +7,6 @@ This is an additional module injected to a frozen base model. Each PEFT method c
 
 This [blog](https://sebastianraschka.com/blog/2023/llm-finetuning-llama-adapter.html) offers more technical details.
 
-
 # Fine tuning techniques (WIP)
 
 ## Supervised Fine Tuning (SFT)
@@ -29,7 +28,6 @@ Another transfer learning option is feature based (embeddings then task e.g. cla
 
 - knowledge that is too far (new language) than pre-training can lead to poor results
 - Fine-tuning on a new knowledge could increase hallucinations and could erase some knowledge that generalized well (catastrophic forgetting)
-
 
 # Why memory is such a big deal ?
 
@@ -58,7 +56,6 @@ Alternatives to tuning a model (In context learning ; Zero/Few shot inference)
 ## Domain tuning
 
 ## Transfer learning
-
 
 ## Data preparation for large model tuning
 

@@ -76,6 +76,7 @@ A central supervisor agent coordinates multiple specialized subagents through in
 **Key challenge — Context management:**
 
 The orchestrator faces a fundamental problem: context grows too complex for one agent to manage effectively. Mitigations:
+
 - Context editing: automatically clear stale tool calls when approaching token limits
 - Memory tools: store and retrieve information outside the context window via file-based or external stores
 - Tool pagination and truncation: cap tool responses at manageable sizes (~25,000 tokens)
@@ -107,6 +108,7 @@ Multiple specialized agents work together in real-time through direct peer-to-pe
 **Key challenge — Emergent behavior unpredictability:**
 
 Small changes can unpredictably affect how agents behave. Multi-agent systems exhibit emergent behaviors that arise without specific programming. Prevention requires:
+
 - Frameworks defining division of labor, problem-solving approaches, and effort budgets — not strict instructions
 - Mechanisms to prevent agents from bouncing tasks indefinitely
 - Explicit conflict resolution logic when agents produce contradictory results

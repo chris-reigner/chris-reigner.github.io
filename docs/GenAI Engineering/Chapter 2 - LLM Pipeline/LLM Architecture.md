@@ -26,7 +26,7 @@ Most Modern LLMs use decoder-only architecture.
 
 <https://github.com/harrisonpim/positional-embeddings?tab=readme-ov-file>
 
-## Mixture of Experts
+### Mixture of Experts (MoE)
 
 <https://huggingface.co/blog/moe#fine-tuning-moes>
 <https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts>
@@ -46,7 +46,6 @@ New release of expert parallelism using transformers directly:
 Transformers etc
 <>
 
-# Mixture of Experts
+## Mixture of Experts
 
 <https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts>
-

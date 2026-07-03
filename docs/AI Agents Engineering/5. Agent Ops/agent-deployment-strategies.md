@@ -51,11 +51,13 @@ CMD ["python", "-m", "agent.main"]
 ```
 
 **When to use:**
+
 - POC or early-stage agents with infrequent updates
 - When operational simplicity is the priority
 - When all artifacts version together (model + prompt + code are co-owned by one team)
 
 **When to avoid:**
+
 - When prompts are tuned frequently — every tweak requires a full image rebuild and redeploy
 - When different environments need different model configurations — you end up building one image per environment
 
@@ -118,6 +120,7 @@ data:
 ```
 
 **When to use:**
+
 - Production agents where model or prompt updates are frequent
 - When the same image is promoted across dev → staging → prod with only the config changing
 - When you want to roll back a bad prompt without a full redeploy
@@ -158,6 +161,7 @@ tools        = load_tools(["web_search", "crm_lookup"], env="production")
 ```
 
 **When to use:**
+
 - High-velocity teams where prompt engineers iterate daily
 - When A/B testing prompt or model variants against live traffic
 - When artifact updates must not cause any service restart
@@ -199,6 +203,7 @@ spec:
 ```
 
 **When to use:**
+
 - When tools are heavy or have independent scaling needs
 - When multiple agents share the same tool implementations
 - When tools are owned by a different team than the agent

@@ -1,11 +1,11 @@
 Docker
 
-
 # Docker Cheatsheet
 
 ## Container Management
 
 ### Start/Stop/Restart
+
 ```bash
 docker start <container>          # Start stopped container
 docker stop <container>           # Graceful stop (SIGTERM)
@@ -14,6 +14,7 @@ docker restart <container>        # Restart container
 ```
 
 ### Run Containers
+
 ```bash
 docker run -d <image>             # Run in background (detached)
 docker run -it <image>            # Interactive with TTY
@@ -24,6 +25,7 @@ docker run --name myapp <image>   # Custom name
 ```
 
 ### List & Inspect
+
 ```bash
 docker ps                         # Running containers
 docker ps -a                      # All containers (including stopped)
@@ -34,6 +36,7 @@ docker stats                      # Resource usage
 ```
 
 ### Execute Commands
+
 ```bash
 docker exec -it <container> bash  # Interactive shell
 docker exec <container> <command> # Run command
@@ -44,6 +47,7 @@ docker cp /host <container>:/path # Copy files to container
 ## Image Management
 
 ### Build & Tag
+
 ```bash
 docker build -t <name>:<tag> .    # Build from Dockerfile
 docker build -f <dockerfile> .    # Custom Dockerfile
@@ -54,6 +58,7 @@ docker buildx build -f <dockerfile> -t <name>:<tag> --platform linux/amd64 . # b
 ```
 
 ### List & Remove
+
 ```bash
 docker images                     # List images
 docker rmi <image>                # Remove image
@@ -63,6 +68,7 @@ docker rmi $(docker images -q)   # Remove all images
 ## Cleanup & Pruning
 
 ### Remove Containers
+
 ```bash
 docker rm <container>             # Remove stopped container
 docker rm -f <container>          # Force remove running container
@@ -71,6 +77,7 @@ docker container prune           # Remove all stopped containers
 ```
 
 ### Remove Images
+
 ```bash
 docker rmi <image>                # Remove image
 docker image prune               # Remove dangling images
@@ -78,6 +85,7 @@ docker image prune -a            # Remove all unused images
 ```
 
 ### System Cleanup
+
 ```bash
 docker system prune              # Remove stopped containers, dangling images, unused networks
 docker system prune -a           # Remove all unused containers, images, networks, volumes (high pruning)
@@ -86,6 +94,7 @@ docker system df                 # Show disk usage
 ```
 
 ### Volume Management
+
 ```bash
 docker volume ls                  # List volumes
 docker volume rm <volume>        # Remove volume
@@ -94,6 +103,7 @@ docker volume create <name>      # Create volume
 ```
 
 ### Network Management
+
 ```bash
 docker network ls                # List networks
 docker network rm <network>      # Remove network
@@ -104,18 +114,21 @@ docker network create <name>     # Create network
 ## Bulk Operations
 
 ### Stop All Containers
+
 ```bash
 docker stop $(docker ps -q)      # Stop all running containers
 docker kill $(docker ps -q)      # Force stop all containers
 ```
 
 ### Remove All Containers
+
 ```bash
 docker rm $(docker ps -aq)       # Remove all containers
 docker rm -f $(docker ps -aq)    # Force remove all containers
 ```
 
 ### Remove All Images
+
 ```bash
 docker rmi $(docker images -q)   # Remove all images
 docker rmi -f $(docker images -q) # Force remove all images
@@ -124,6 +137,7 @@ docker rmi -f $(docker images -q) # Force remove all images
 ## Docker Compose
 
 ### Basic Commands
+
 ```bash
 docker-compose up                 # Start services
 docker-compose up -d              # Start in background
@@ -135,6 +149,7 @@ docker-compose pull               # Pull images
 ```
 
 ### Logs & Status
+
 ```bash
 docker-compose logs               # View logs
 docker-compose logs -f            # Follow logs
@@ -145,6 +160,7 @@ docker-compose exec <service> bash # Execute command
 ## Registry Operations
 
 ### Login & Push
+
 ```bash
 docker login                      # Login to Docker Hub
 docker login <registry>           # Login to custom registry
@@ -156,6 +172,7 @@ docker search <term>              # Search Docker Hub
 ## Useful Flags & Options
 
 ### Common Flags
+
 ```bash
 -d, --detach                      # Run in background
 -it                               # Interactive + TTY
@@ -169,6 +186,7 @@ docker search <term>              # Search Docker Hub
 ```
 
 ### Resource Limits
+
 ```bash
 --memory 512m                     # Memory limit
 --cpus 1.5                        # CPU limit
@@ -178,6 +196,7 @@ docker search <term>              # Search Docker Hub
 ## Troubleshooting
 
 ### Debug Commands
+
 ```bash
 docker inspect <container>        # Detailed container info
 docker logs --details <container> # Detailed logs
@@ -187,6 +206,7 @@ docker info                       # System info
 ```
 
 ### Common Issues
+
 ```bash
 # Permission denied
 sudo docker <command>
@@ -202,6 +222,7 @@ docker kill <container>
 ```
 
 ## Quick Cleanup Script
+
 ```bash
 #!/bin/bash
 # Nuclear cleanup - removes everything

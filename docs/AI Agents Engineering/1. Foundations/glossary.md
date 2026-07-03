@@ -38,7 +38,6 @@ An AI system whose output can vary even when given identical inputs. Unlike trad
 **Deterministic**
 A system component whose behavior is fully predictable — same input, same output, every time. In agent architecture, deterministic components (like rule engines, validators, or database queries) are used alongside probabilistic LLM reasoning to enforce reliable behavior.
 
-
 **Agent Harness** `Agent = Model + Harness`
 
 *"If you're not the model, you're the harness."*
@@ -176,6 +175,12 @@ A design pattern where a human approves, reviews, or provides input at a specifi
 ---
 
 ## Context and Memory
+
+**Scaffolding**
+The content currently loaded into an agent's context window at a given point in time — a static snapshot of what the model can "see." Scaffolding is the *what*: the system prompt, retrieved documents, tool descriptions, conversation history, and skill instructions that are physically present in the context right now. Contrast with *Context Engineering* (the discipline of deciding what the scaffolding should contain) and *Harness* (the running system that assembles and updates it).
+
+**Loop Engineering**
+The discipline of designing, implementing, and optimizing the agentic execution loop itself — the think → act → observe → revise cycle that an agent repeats until it completes a task or hits a stopping condition. Loop engineering goes beyond prompt design: it determines how many iterations the loop runs, when to break or escalate, how to manage context across iterations (compaction, pruning, external memory handoff), and how to detect and recover from stalled or runaway loops. Key concerns include: setting iteration budgets (max steps), designing re-entry points after context compaction, preventing infinite loops through deterministic stopping rules, and ensuring each loop iteration starts with a clean, minimal, and sufficient context window. Well-engineered loops are resilient, cost-bounded, and observable at every turn.
 
 **Context Engineering**
 The practice of deliberately deciding what information goes into an agent's context window at each step — and what gets left out. Because context is finite and costly, passing only the minimal relevant information to each agent is a core engineering discipline. Bad context engineering (too much, too little, or the wrong information) is one of the leading causes of agent failure in production.

@@ -134,6 +134,8 @@ nav:
       - Glossary: AI Agents Engineering/1. Foundations/glossary.md
       - Introduction: AI Agents Engineering/1. Foundations/introduction.md
       - Agent Taxonomy, Granularity & Identity: AI Agents Engineering/1. Foundations/agent-identity-taxonomy.md
+      - Agent Terms & Architecture: "AI Agents Engineering/5. Agent Ops/ai agents terms.md"
+      - Skills: AI Agents Engineering/3. Runtime Engineering/agent skills.md
       - Resources: AI Agents Engineering/resources.md
     - Architecture & Design:
       - Agent Architecture: AI Agents Engineering/2. Architecture and Design/agent-architecture.md
@@ -144,19 +146,22 @@ nav:
     - Runtime Engineering:
       - Memory: AI Agents Engineering/3. Runtime Engineering/memory.md
       - Context Manager: AI Agents Engineering/3. Runtime Engineering/context-manager.md
-      - Skills: AI Agents Engineering/3. Runtime Engineering/agent skills.md
       - Human-in-the-Loop & Feedback Loops: AI Agents Engineering/3. Runtime Engineering/human and feedback loops.md
+      - Vulnerabilities: AI Agents Engineering/5. Agent Ops/vulnerabilities.md
     - Agent Ops:
       - Agent Artifact Taxonomy: AI Agents Engineering/5. Agent Ops/agent-artifacts-release.md
       - Prompt Release Lifecycle: AI Agents Engineering/5. Agent Ops/prompt release lifecycle.md
       - Deployment Strategies: AI Agents Engineering/5. Agent Ops/agent-deployment-strategies.md
-      - Agent Terms & Architecture: "AI Agents Engineering/5. Agent Ops/ai agents terms.md"
-      - Agents orchestration: AI Agents Engineering/5. Agent Ops/agents-orchestration.md
+      - Agent Orchestration: AI Agents Engineering/5. Agent Ops/agents-orchestration.md
+      - Observability: AI Agents Engineering/5. Agent Ops/observability.md
+      - Tracing Solutions: AI Agents Engineering/5. Agent Ops/tracing_solutions_2026.md
+      - ClickHouse Technical Analysis: AI Agents Engineering/5. Agent Ops/clickhouse_technical_analysis.md
       - Coding Agent: AI Agents Engineering/5. Agent Ops/coding-agent.md
-      - Vulnerabilities: AI Agents Engineering/5. Agent Ops/vulnerabilities.md
     - Evaluation:
+      - Evaluation Foundations: AI Agents Engineering/4. Evaluation/foundations.md
       - Evaluating AI Agents: AI Agents Engineering/4. Evaluation/evaluation.md
       - Evaluation Temporality: AI Agents Engineering/4. Evaluation/evaluation-temporality.md
+      - Agent-Specific Evaluation: AI Agents Engineering/4. Evaluation/agent_specifics.md
   - About me: About the Author.md
   - Contribute ❤️: https://github.com/chris-reigner/chris-reigner.github.io
 

@@ -51,7 +51,7 @@ When you want to fine-tune a pre-trained LLM for a specific downstream task and 
 It decomposes Weights matrices into 2 matrices of lower dimension. Rank r the smaller the better optimized but the potentially higher loss of information —> Lora is not applied at pre-training yet only in FT. it is applied to all query, key, value and output projection. Usually r between 4 and 64 is efficient ; also need to parameter alpha = how much the product should contribute to the new metric during merging. Merging is necessary either prior to inference or during inference to serve the new combined weights. If you have multi-lora serving it’s better to serve at runtime but that means more latency (merging on the run)
 Another great explanation for LoRA can be found here : <https://lightning.ai/pages/community/tutorial/lora-llm/>
 
-### When should I use it ?
+### When should I use LoRA ?
 
 LoRA is a good choice when you want to fine-tune a pre-trained LLM for a specific downstream task that requires task-specific attention patterns. It is also useful when you have limited computational resources and want to reduce the number of trainable parameters in the model. Specifically:
 
@@ -91,7 +91,7 @@ It is used during fine-tuning and inference. However, you still need to decompre
 - Tiny weight values are irrelevant (and 4Q just rounds these to zero).
 
 The vanilla formula to estimate the amount of GPU required to serve an LLM:
-( A Number of parameters in the model * 4Bytes) / (32 / amount of bits that should be used for loading i.e. 16, 8 or 4) * 1.2
+( A Number of parameters in the model *4Bytes) / (32 / amount of bits that should be used for loading i.e. 16, 8 or 4)* 1.2
 Note that 1.2 represents only a 20% overhead of loading additional metadata in the GPU memory
 
 For instance, a 7 Billion parameter model using 4 bytes (32-bits) needs around 17 GB of memory.
@@ -114,7 +114,7 @@ Sources:
 <https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms>
 <https://lightning.ai/pages/community/lora-insights/>
 
-# RLHF
+## RLHF
 
 Reinforcement Learning from Human Feedback (RLHF) comes first from Reinforcement learning fields.
 It composes with a try and error process where, given an environment, an agent makes some predefined actions in this environment based on observations.
@@ -124,7 +124,6 @@ Actions are defined through a policy and will imply consequences which will be a
 - Policy optimization: with the learned reward model, standard RM algos (PPO for instance) are used to optimize the policy which generates new behavior
 - Iterative improvement: new behaviors lead to refinement of the reward model
 PB: computationally expensive and unstable leading to a simpler approach: direct preference optimization
-
 
 ### Reinforcement Learning through Human Feedback (RLHF) - A Crash Course
 
@@ -174,7 +173,7 @@ Proximal Policy Optimization (PPO) was one of the first highly effective techniq
 <https://toloka.ai/blog/rlhf-ai/>
 <https://toloka.ai/blog/proximal-policy-optimization/>
 
-# DPO
+## DPO
 
 Fine tuning with preference alignment
 
@@ -194,8 +193,7 @@ DPO has been compared to other fine-tuning techniques, such as Reinforcement Lea
 
 However, DPO also has its challenges, such as the risk of overfitting. To prevent overfitting, it is essential to collect diverse high-quality data that covers a wide range of preferences and scenarios. Additionally, DPO may not be suitable for tasks that require precise control over the LLM's output, where RLHF's flexibility in defining rewards may be beneficial.
 
-
-# Direct Preference Optimization (DPO) Explained
+## Direct Preference Optimization (DPO) Explained
 
 Direct Preference Optimization (DPO) is a method for fine-tuning large language models (LLMs) to align their outputs with human preferences. Unlike traditional reinforcement learning (RL)-based approaches, DPO simplifies the process by directly incorporating preference data into the training process. This reduces complexity and computational requirements while maintaining or improving performance. Here's an overview, comparison with other methods, and guidance on when to use DPO.
 
@@ -227,7 +225,7 @@ DPO is particularly relevant in scenarios where simplicity, computational effici
 
 sebastien links: <https://github.com/rasbt/LLMs-from-scratch/tree/main/ch07/04_preference-tuning-with-dpo>
 
-# Group Relative Policy Optimization (GRPO)
+## Group Relative Policy Optimization (GRPO)
 
 GRPO groups similar samples together and compares them as a group. The group-based approach provides more stable gradients and better convergence properties compared to other methods.
 
@@ -251,7 +249,7 @@ Reward Function Design: The quality of training heavily depends on well-designed
 Group Size Tradeoffs: Choosing the optimal group size involves balancing diversity of solutions against computational cost. Too few samples may not provide enough diversity, while too many increase training time and resource requirements.
 KL Divergence Tuning: Finding the right balance for the KL divergence penalty requires careful tuning - too high and the model won’t learn effectively, too low and it may diverge too far from its initial capabilities.
 
-# Instruction tuning
+## Instruction tuning
 
 Instruction Tuning
 Instruction fine-tuning (IFT) is a type of SFT leveraged in LLMs to improve their ability to follow instructions and generate more accurate and relevant responses. This technique involves training the model on a dataset of prompts followed by ideal responses, guiding the model to better understand and execute various types of instructions.
@@ -259,10 +257,10 @@ Instruction fine-tuning (IFT) is a type of SFT leveraged in LLMs to improve thei
 “Creating a dataset of instructions from scratch to fine-tune the model would take a considerable amount of resources. Therefore, we instead make use of templates to transform existing datasets into an instructional format.” (source)
 The image below shows a representation of how the instruction dataset is generated via templates from the original FLAN paper:
 
-# How did we evolve between different techniques ?
+## How did we evolve between different techniques ?
 
 For most advanced readers who want to have a deeper understanding on the how did we evolve between all of these techniques, I recommend <https://lightning.ai/pages/community/article/understanding-llama-adapters/>
 
-# How to choose one technique over the other ?
+## How to choose one technique over the other ?
 
 <https://docs.unsloth.ai/get-started/fine-tuning-guide/lora-hyperparameters-guide>

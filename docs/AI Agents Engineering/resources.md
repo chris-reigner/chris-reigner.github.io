@@ -13,21 +13,23 @@
 - [Google: Introduction to Agents](https://drive.google.com/file/d/1C-HvqgxM7dj4G2kCQLnuMXi1fTpXRdpx/view)
 - [Google: Context Engineering - sessions & memory](https://drive.google.com/file/d/1JW6Q_wwvBjMz9xzOtTldFfPiF7BrdEeQ/view)
 
-
 ### Video Courses & Academies
 
 **Cloud-Agnostic Courses (with code)**
+
 - [DeepLearning.AI: Agentic AI](https://learn.deeplearning.ai/courses/agentic-ai/information)
 - [Hugging Face: Agents Course](https://huggingface.co/learn/agents-course/unit0/introduction)
 - [Weights & Biases: Agents Course](https://site.wandb.ai/courses/agents/)
 - [Agent Academy: Understanding Agentic AI](https://agentacademy.ai/courses/understanding-agentic-ai/) (no code)
 
 **LangChain Academy**
+
 - [Intro to Building Agents](https://academy.langchain.com/bundles/intro-to-building-agents)
 - [Intro to LangSmith](https://academy.langchain.com/courses/intro-to-langsmith)
 - [Deep Agents with LangGraph](https://academy.langchain.com/courses/deep-agents-with-langgraph)
 
 **Provider-Specific**
+
 - [DAIR.AI: Introduction to AI Agents](https://dair-ai.thinkific.com/courses/introduction-ai-agents) - Anthropic course
 - [Microsoft: AI Agents for Beginners](https://learn.microsoft.com/en-us/shows/ai-agents-for-beginners/) - Azure videos
 - [AI Agents Video Tutorial](https://www.youtube.com/watch?v=Pz9YeBs_afo)
@@ -50,7 +52,6 @@
 - [Agents.md Examples](https://agents.md/#examples) - Agent documentation standard
 - [Agent Spec (arXiv)](https://arxiv.org/pdf/2510.04173) - Formal agent specification
 - [Agent-User Integration Protocol](https://docs.ag-ui.com/introduction) - UI integration patterns
-
 
 ## Frameworks & Tools
 

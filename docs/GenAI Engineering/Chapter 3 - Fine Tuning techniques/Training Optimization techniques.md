@@ -98,7 +98,7 @@ When Mixture-Of-Experts (MoE) is used (in particular during inference) one could
 
 <https://developer.nvidia.com/blog/mastering-llm-techniques-data-preprocessing/>
 
-https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/
+<https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/>
 
 <https://magazine.sebastianraschka.com/p/instruction-pretraining-llms>
 
@@ -108,4 +108,3 @@ Picotron: for educational purposes, you can train a llama model using parralelis
 
 <https://www.andrew.cmu.edu/course/11-667/lectures/W10L2%20Scaling%20Up%20Parallel%20Training.pdf>
 <https://github.com/stas00/ml-engineering/tree/master/training>
-

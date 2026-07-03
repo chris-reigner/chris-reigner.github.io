@@ -57,6 +57,7 @@ Borrowed from software engineering: **each agent should do exactly one thing wel
 > "Every agent has one clearly defined responsibility, a defined input/output contract typed against a JSON Schema, and a clear handoff boundary."
 
 A Salesforce (2025) benchmark found:
+
 - Generic single-prompt agents succeeded **58%** of the time
 - Performance dropped to **35%** in multi-prompt scenarios requiring maintained context across domains
 
@@ -98,6 +99,7 @@ A well-scoped agent can answer: *"What structured artifact do I produce, and wha
 ```
 
 **Tool vs. agent boundary:**
+
 - If the work requires a single API call → it is a **tool**
 - If the work requires multiple tool calls, intermediate reasoning, and produces a structured result → it is an **agent**
 
@@ -126,6 +128,7 @@ As autonomy increases, granularity must tighten proportionally. The combination 
 Agent identity is the cryptographically verifiable proof of *who* or *what* is acting in a system. It answers: "When this action was taken against our database, what entity took it — a human, a service account, or an AI agent — and can we verify that claim?"
 
 Without distinct agent identity:
+
 - You cannot separate actions taken by AI agents from actions taken by employees or traditional software in your audit logs
 - You cannot apply differentiated security policies to agent traffic
 - You cannot detect when an agent is acting outside its authorized scope
@@ -171,6 +174,7 @@ Microsoft launched **Entra Agent ID** (Preview, 2025) as a first-class identity 
 - **Lifecycle design:** Built for ephemerality — agents created in bulk, policies applied consistently, retired without orphaned credentials
 
 **Delegation model:** Agents can act with:
+
 1. **Autonomous access** — permissions granted directly to the agent identity (no human in the loop)
 2. **Delegated access** — acting on behalf of a specific human user, using only the rights that user has granted
 
@@ -224,6 +228,7 @@ This distinction is critical for security and compliance:
 ### 4.2 The Delegation Chain
 
 In multi-agent systems, delegation flows through a chain. Each hop must:
+
 1. Carry the full chain history (who authorized what, at what scope)
 2. Attenuate scope — a sub-agent can only receive permissions the delegating agent already holds
 3. Be cryptographically verifiable at each step
@@ -284,12 +289,14 @@ The **OWASP Top 10 for Agentic Applications (2026)** identifies identity as the 
 An agent's effective identity is the union of everything it can touch: its own credentials, every delegated permission, every cached token, and every MCP server scope it holds. A single compromised agent gives an attacker all of those simultaneously.
 
 **Attack vectors:**
+
 - Exploiting inherited or cached credentials from a previous session
 - Forging agent-to-agent messages (which often lack authentication) to impersonate a trusted orchestrator
 - Injecting into the delegation chain to escalate a sub-agent's permissions
 - Exploiting long-lived secrets stored in agent memory or system prompts
 
 **Mitigations:**
+
 - Short-lived credentials only (hours, not months)
 - Cryptographic verification at every agent-to-agent boundary
 - Separate identity per agent, per deployment, per task (no shared credentials)

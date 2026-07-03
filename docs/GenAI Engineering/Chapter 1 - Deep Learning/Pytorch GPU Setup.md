@@ -7,7 +7,7 @@ We will see later some techniques to optimize (i.e. reduce) the use of GPU.
 However, in order to run a lot of components in this repository, it is better to setup GPU usage as early as possible.
 It will be just faster to run some code :).
 
-# How to test your current setup
+## How to test your current setup
 
 For nvidia installation and pytorch setup you will need to install
 
