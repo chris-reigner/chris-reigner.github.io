@@ -131,3 +131,7 @@ KV cache explained: <https://magazine.sebastianraschka.com/p/coding-the-kv-cache
 <https://bentoml.com/llm/inference-optimization>
 continuous batching : <https://huggingface.co/blog/continuous_batching>
 
+https://docs.vllm.ai/en/latest/configuration/optimization.html#data-parallelism-dp
+https://docs.vllm.ai/en/latest/cli/index.html#collect-env
+https://colab.research.google.com/github/ericehanley/rightsize-vllm/blob/main/HBM_Calculator.ipynb
+
