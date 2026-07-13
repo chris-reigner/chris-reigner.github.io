@@ -53,4 +53,3 @@ Recently, these models have lost popularity towards decoder only models.
 Whisper is an encoder-decoder (sequence-to-sequence) transformer pretrained on 680,000 hours of labeled audio data. This amount of pretraining data enables zero-shot performance on audio tasks in English and many other languages. The decoder allows Whisper to map the encoders learned speech representations to useful outputs, such as text, without additional fine-tuning. Whisper just works out of the box.
 
 ## Image classification (WIP)
-

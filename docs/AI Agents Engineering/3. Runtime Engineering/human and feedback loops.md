@@ -304,6 +304,7 @@ Collect human rankings or preference judgments on pairs of agent outputs → tra
 Collect preference pairs (output A preferred over output B for task T) → fine-tune directly using a contrastive loss, with no separate reward model. DPO produces comparable alignment quality to RLHF with substantially lower variance and simpler infrastructure. It is the practical default for teams with preference data who need behavioral corrections that cannot be addressed at the prompt layer.
 
 **When RLHF/DPO is warranted:**
+
 - Systematic quality degradation that persists after prompt and memory fixes
 - Enough preference data (>1k pairs) collected from real user interactions
 - The error pattern is consistent and general, not user-specific

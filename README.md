@@ -1,5 +1,4 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a id="readme-top"></a>
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
 *** that would make this better, please fork the repo and create a pull request
@@ -7,8 +6,6 @@
 *** Don't forget to give the project a star!
 *** Thanks again! Now go create something AMAZING! :D
 -->
-
-
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -19,10 +16,8 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-
 [![Unlicense License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -62,15 +57,14 @@ Have fun reading it !
 - [] Clean to iterate faster
 - [] Clean resources
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+[back to top](#about-the-project)
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, if you waant to cover a topic or improve some explanations, 
+If you have a suggestion that would make this better, if you waant to cover a topic or improve some explanations,
 please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
@@ -80,14 +74,12 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin topic/MyTopic`)
 5. Open a Pull Request
 
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the Unlicense License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+[back to top](#about-the-project)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

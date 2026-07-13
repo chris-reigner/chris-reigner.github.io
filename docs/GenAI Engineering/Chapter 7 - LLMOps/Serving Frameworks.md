@@ -86,6 +86,8 @@ Note that this benchmark table is a very high level summary and should be used w
 ## Sources
 
 - [vLLM Paper](https://arxiv.org/abs/2309.06180)
+- [vLLM Factory](https://github.com/latenceainew/vllm-factory)
+- [vLLM Omni](https://github.com/vllm-project/vllm-omni)
 - [llama.cpp Docs](https://github.com/ggml-org/llama.cpp)
 - [TGI Docs](https://huggingface.co/docs/text-generation-inference/)
 - [Ollama Docs](https://ollama.com/)

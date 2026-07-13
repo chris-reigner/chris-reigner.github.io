@@ -141,5 +141,3 @@ Allows for more nuanced retrieval by matching against the most relevant vector r
 <https://encord.com/blog/embeddings-machine-learning/?utm_source=linkedin>
 <https://docs.weaviate.io/weaviate/tutorials/multi-vector-embeddings>
 <https://weaviate.io/blog/muvera>
-
-

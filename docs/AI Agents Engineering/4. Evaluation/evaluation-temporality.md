@@ -72,6 +72,7 @@ The signal is what you use to score an output or trace. Four types exist, ordere
 A human — usually a domain expert or the product team — defined in advance what "correct" looks like. The agent's output is compared directly against this reference.
 
 **Forms:**
+
 - Expected final output: `"Confirmation number XY4821"` — exact or semantic match
 - Expected tool trajectory: `[search_flights, check_seat_availability, book_flight]`
 - Expected output fields: response must contain `confirmation_id`, `flight_id`, `price`
@@ -90,6 +91,7 @@ A human — usually a domain expert or the product team — defined in advance w
 A separate LLM evaluates the trace or output against a rubric. See the [How to Run These Metrics](./evaluation.md#how-to-run-these-metrics) section for implementation details and documented biases.
 
 **Forms:**
+
 - Binary: did the agent complete the task? (yes/no)
 - Graded: 0–1 or 0–10 scale with rubric
 - Comparative: is output A better than output B? (pairwise)
@@ -109,12 +111,14 @@ Real humans — users, annotators, domain experts — provide signal about the a
 **Two kinds:**
 
 **Explicit feedback** — the user directly rates the agent:
+
 - Thumbs up / thumbs down (binary)
 - Star ratings (ordinal)
 - Structured annotation forms (detailed rubric per response)
 - Correction: the user provides the answer that should have been given
 
 **Implicit feedback** — inferred from behavior without asking:
+
 - User re-ran the same task immediately after → likely a failure
 - User escalated to a human agent → task not completed satisfactorily
 - User copied the response and used it → likely a success
@@ -146,6 +150,7 @@ Reinforcement Learning from Human Feedback uses pairwise comparisons — "is res
 | **Cost per label** | Near zero | ~$0.01 | $1–$10 | High upfront, near zero after |
 
 **When it makes sense:** RLHF is the most powerful signal because it closes the loop from evaluation all the way back to model or policy training. But it requires:
+
 - Volume: thousands of pairwise comparisons to train a reliable reward model
 - Infrastructure: a training pipeline for continuous fine-tuning or policy updates
 - Stability: a clear, stable definition of what "better" means in your domain
@@ -167,12 +172,14 @@ The signal defines *how* you score. The dataset defines *what* you score against
 A curated, versioned collection of inputs and their verified expected outputs — the source of truth for measuring quality. Hand-labeled by domain experts. Every item has been reviewed and agreed upon.
 
 **What it contains:**
+
 - Input: the user request or agent task
 - Expected output (optional for open-ended tasks): exact string, required fields, or rubric
 - Expected trajectory (optional): the tool call sequence considered correct
 - Metadata: scenario tags, difficulty level, data source, annotator, date, version
 
 **Size guidelines** ([Maxim AI](https://www.getmaxim.ai/articles/building-a-golden-dataset-for-ai-evaluation-a-step-by-step-guide/)):
+
 - 50–100 items: minimum viable — catches obvious failures
 - 200–500 items: production-ready — covers major use cases and known edge cases
 - 1,000+: mature system — statistically meaningful per scenario slice
@@ -200,6 +207,7 @@ LLM-generated test cases that expand coverage beyond what can be manually curate
 | Scale without annotation cost | Generate 10,000 variants of a scenario at near-zero cost |
 
 **Generation approach** ([Confident AI](https://www.confident-ai.com/blog/the-definitive-guide-to-synthetic-data-generation-using-llms)):
+
 1. Start with a small seed set of real or hand-crafted examples
 2. Use a strong model (e.g., GPT-4o, Claude Opus) to generate variants
 3. Evolve the data in three directions: *in-depth* (more complex reasoning), *in-breadth* (more diverse), *elimination* (remove low-quality outputs)
@@ -217,18 +225,21 @@ The quality of synthetic data improves substantially when generated from real pr
 Raw execution logs from the live agent. Not curated, not labeled. The most realistic data available, and also the noisiest.
 
 **What production traces give you that other datasets cannot:**
+
 - The real distribution of user inputs — not what you anticipated, but what users actually do
 - Failure modes you didn't design test cases for
 - Latency and token consumption under real load
 - Edge cases that only appear after thousands of interactions
 
 **The labeling problem:** Production traces have no ground truth by default. You know what the agent did; you don't know what it *should* have done. To turn a production trace into evaluation data, you need to either:
+
 - Apply LLM-as-judge scoring (fast, scalable, imperfect)
 - Collect implicit feedback signals (escalations, retries, session abandonment)
 - Route flagged traces to human annotators for labeling
 - Use business rule checks (Layer 0) that flag policy violations automatically
 
 **Sampling strategy for labeling:** You cannot label every trace. A practical approach:
+
 - Always run deterministic checks (Layer 0 + Layer 2 tool correctness) on 100%
 - Sample 5–15% for LLM-as-judge scoring
 - Prioritize: traces that ended in error, escalation, or retry; traces from new input patterns; traces near metric thresholds
@@ -327,7 +338,7 @@ Your golden dataset is an approximation of reality. It reflects the scenarios *y
 
 ---
 
-### What it looks like
+### Stage 2 — What it looks like
 
 Your agent is live. Real users are sending real requests. You cannot control the inputs. You instrument every trace, sample a fraction for LLM-as-judge scoring, and watch for metric degradation over time. When a threshold is breached, an alert fires and a human investigates.
 
@@ -379,7 +390,7 @@ This is the central challenge of online evaluation. Two ways to partially addres
 | Traces with explicit negative feedback | 100% | High-signal failure cases |
 | Traces from new input patterns (OOD detection) | 100% | Distribution shift monitoring |
 
-### Honest limitation
+### Stage 2 — Honest limitation
 
 Online evaluation is noisier than offline. Traffic seasonality, upstream API degradation, UX changes, and user behavior shifts all affect metrics independently of agent quality. A 5% drop in task completion could mean your agent regressed — or it could mean a new user cohort with different query patterns started using the product. You need 2–4 weeks of baseline data before online trends become statistically actionable as release decisions.
 
@@ -395,7 +406,7 @@ Online evaluation is noisier than offline. Traffic seasonality, upstream API deg
 
 ---
 
-### What it looks like
+### Stage 3 — What it looks like
 
 Evaluation no longer requires a human to initiate it. Metric dashboards watch for threshold breaches. When one fires, an automated workflow activates: it exports the failing traces, clusters them by failure type, runs targeted evaluation, and surfaces a structured root cause report. A human reviews the report and decides whether to act — but the investigation has already been done.
 
@@ -431,6 +442,7 @@ This is the self-reinforcing property that defines mature evaluation: the system
 ### The role of RLHF at this stage
 
 RLHF enters the picture when three conditions are met:
+
 1. You have sufficient volume of pairwise preference data (thousands of comparisons, not dozens)
 2. You have a stable, clear definition of "better" — not "higher task completion" in the abstract, but concrete, validated preference criteria for your domain
 3. You have the infrastructure to run iterative fine-tuning or policy updates without destabilizing the production agent

@@ -7,6 +7,7 @@ Orchestrating AI agents is fundamentally different from orchestrating traditiona
 ## What Does "Orchestrating Agents" Mean?
 
 Agent orchestration is the coordination of one or more autonomous agents executing tasks that may involve:
+
 - Sequential or parallel tool calls
 - Delegation to sub-agents
 - Human-in-the-loop approval gates
@@ -41,6 +42,7 @@ The word "orchestration" is overloaded. It means very different things depending
 **1. Non-determinism changes everything about retries.**
 
 In CI/CD, retrying a flaky test is safe — the expected output is fixed. In data engineering, replaying a transform on the same input produces the same output. In agent orchestration, retrying a failed step may produce a completely different (and potentially worse) result. This means:
+
 - You must persist successful intermediate results, not just retry from scratch
 - Retry policies need to account for output quality, not just success/failure
 - Idempotency is not natural — you need explicit idempotency keys for side effects
@@ -48,6 +50,7 @@ In CI/CD, retrying a flaky test is safe — the expected output is fixed. In dat
 **2. Duration unpredictability requires durable execution.**
 
 CI/CD pipelines have predictable durations (minutes). ETL jobs have bounded batch windows. ML training is long but estimable. Agent workflows have **unbounded duration** — an agent waiting for human approval might pause for 5 minutes or 5 days. This rules out:
+
 - Worker-thread-per-task models (thread exhaustion)
 - Timeout-based scheduling (you cannot set a meaningful timeout on "wait for user")
 - In-memory state (process will restart before the workflow completes)
@@ -55,6 +58,7 @@ CI/CD pipelines have predictable durations (minutes). ETL jobs have bounded batc
 **3. Partial completion is the norm, not the exception.**
 
 A CI/CD pipeline either produces an artifact or doesn't. An ETL job either loads all rows or fails. An agent workflow routinely completes 7 of 10 steps before hitting a tool failure or a quality gate. The orchestrator must:
+
 - Track per-step completion (not just workflow-level pass/fail)
 - Support compensation for completed steps when later steps fail permanently
 - Allow resumption from the last successful step, not from the beginning
@@ -73,6 +77,7 @@ Losing the output of step 8 in a 10-step agent workflow and restarting from step
 **5. Validation is qualitative, not binary.**
 
 CI/CD has tests. ETL has schema checks. ML has metric thresholds. Agent outputs have... nothing deterministic. You cannot `assert agent_output == expected` because the output is natural language. This means:
+
 - Quality gates require LLM-as-judge or human review
 - The orchestrator must support "pause and wait for evaluation" as a first-class primitive
 - Rollback criteria are fuzzy ("output quality degraded") rather than binary ("test failed")
@@ -99,17 +104,20 @@ There are three fundamental paradigms for orchestrating agent workflows. They ar
 The workflow is a directed acyclic graph of tasks, triggered on a schedule or by an event. Each task is stateless and independent.
 
 **Characteristics:**
+
 - Tasks are defined declaratively (DAG structure)
 - Execution is time-triggered (cron) or event-triggered
 - No persistent state between tasks — data flows via external storage
 - Retries are per-task, with configurable count and delay
 
 **When it fits agents:**
+
 - Batch evaluation runs (run agent against a dataset nightly)
 - Periodic retraining or knowledge base refresh
 - Pipelines where each step is idempotent and short-lived
 
 **Limitations for agents:**
+
 - Cannot natively handle workflows that pause for days waiting on human input
 - No built-in mechanism to resume mid-workflow after a crash
 - Long waits consume worker resources (sensor polling)
@@ -121,6 +129,7 @@ The workflow is a directed acyclic graph of tasks, triggered on a schedule or by
 The workflow is written as imperative code. The platform persists every step's outcome in an event history. If the process crashes, it replays the history to rebuild state and resumes exactly where it left off.
 
 **Characteristics:**
+
 - Workflows are code (functions), not DAG definitions
 - Full execution history is persisted — deterministic replay on failure
 - Native support for long sleeps (days/months) without consuming resources
@@ -128,12 +137,14 @@ The workflow is written as imperative code. The platform persists every step's o
 - Compensation logic (Sagas) for rollback on partial failure
 
 **When it fits agents:**
+
 - Multi-step agent workflows with tool calls that may fail transiently
 - Human-in-the-loop patterns (agent pauses, waits for approval, resumes)
 - Long-running agent sessions (customer onboarding, multi-day research tasks)
 - Multi-agent coordination where one agent's output feeds another
 
 **Limitations:**
+
 - Requires deterministic workflow code (no random, no system clock in workflow logic)
 - Heavier infrastructure (server + persistence layer)
 - Learning curve for the replay/determinism model
@@ -145,17 +156,20 @@ The workflow is written as imperative code. The platform persists every step's o
 The workflow is a set of event handlers. Each event triggers a function; state is reconstructed from the event stream.
 
 **Characteristics:**
+
 - Loosely coupled — components communicate via events/messages
 - State is derived from event log (event sourcing)
 - Naturally scales horizontally
 - No central scheduler — execution is reactive
 
 **When it fits agents:**
+
 - Real-time agent responses to user actions (chat, notifications)
 - Fan-out patterns (one event triggers multiple agents in parallel)
 - Systems where agents are independently deployed microservices
 
 **Limitations:**
+
 - Ordering and exactly-once delivery are hard without additional infrastructure
 - Debugging distributed event chains is complex
 - No built-in "workflow completion" guarantee without layering durability on top
@@ -169,6 +183,7 @@ Agent workflows are uniquely vulnerable to failures that traditional orchestrati
 ### 1. Agent Calls Are Expensive and Non-Idempotent
 
 A single agent invocation may cost $0.01–$5.00 in LLM tokens, take 10–120 seconds, and produce a unique output each time. Losing the result of a completed step because the orchestrator crashed means:
+
 - **Wasted cost** — you pay again for the same work
 - **Inconsistent state** — downstream steps may have already consumed the (now lost) output
 - **User frustration** — a 30-minute research workflow restarting from zero
@@ -178,6 +193,7 @@ A single agent invocation may cost $0.01–$5.00 in LLM tokens, take 10–120 se
 ### 2. External Dependencies Fail Constantly
 
 Agents call tools: APIs, databases, search engines, other agents. These fail transiently — rate limits, timeouts, network blips, cold starts. Without automatic retries with backoff:
+
 - A single 429 from an API kills the entire workflow
 - The operator must manually re-trigger (if they even notice)
 - At scale (thousands of agent runs), manual intervention is impossible
@@ -187,6 +203,7 @@ Agents call tools: APIs, databases, search engines, other agents. These fail tra
 ### 3. Agent Workflows Are Long-Running
 
 Unlike a 200ms API call, agent workflows can span:
+
 - Minutes (multi-step reasoning with tool calls)
 - Hours (research tasks with human review gates)
 - Days (onboarding flows, approval chains)
@@ -200,6 +217,7 @@ A scheduler that holds a worker thread open for the duration is wasteful. A syst
 Consider: Agent books a flight (step 1) → Agent books a hotel (step 2, fails permanently). You cannot just retry step 2 forever — you need to **cancel the flight** (compensate step 1). This is the Saga pattern.
 
 Without compensation logic:
+
 - You accumulate orphaned side effects (charges, reservations, notifications sent)
 - Manual cleanup is error-prone and doesn't scale
 
@@ -312,32 +330,32 @@ Orchestrator (durable)
 
 ### Foundational Concepts
 
-- Temporal Technologies, "What is Durable Execution?," 2024. https://temporal.io/blog/what-is-durable-execution
+- Temporal Technologies, "What is Durable Execution?," 2024. <https://temporal.io/blog/what-is-durable-execution>
 - Bernd Ruecker, "Practical Process Automation," O'Reilly, 2021. (Saga pattern, compensation, orchestration vs. choreography)
 - Martin Kleppmann, "Designing Data-Intensive Applications," O'Reilly, 2017. (Event sourcing, exactly-once semantics, distributed systems fundamentals)
 
 ### Agent-Specific Orchestration
 
-- Anthropic, "Building Effective Agents," 2024. https://www.anthropic.com/research/building-effective-agents
-- Andrew Ng, "Agentic Design Patterns," DeepLearning.AI, 2024. https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/
-- LangGraph Documentation, "Persistence and Human-in-the-Loop." https://langchain-ai.github.io/langgraph/concepts/persistence/
+- Anthropic, "Building Effective Agents," 2024. <https://www.anthropic.com/research/building-effective-agents>
+- Andrew Ng, "Agentic Design Patterns," DeepLearning.AI, 2024. <https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/>
+- LangGraph Documentation, "Persistence and Human-in-the-Loop." <https://langchain-ai.github.io/langgraph/concepts/persistence/>
 
 ### Durable Execution Platforms
 
-- Temporal. https://temporal.io
-- Restate. https://restate.dev
-- Inngest. https://www.inngest.com
-- Azure Durable Functions. https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview
-- AWS Step Functions. https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html
+- Temporal. <https://temporal.io>
+- Restate. <https://restate.dev>
+- Inngest. <https://www.inngest.com>
+- Azure Durable Functions. <https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview>
+- AWS Step Functions. <https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html>
 
 ### DAG-Based / Scheduled Orchestration
 
-- Apache Airflow. https://airflow.apache.org
-- Prefect. https://www.prefect.io
-- Dagster. https://dagster.io
+- Apache Airflow. <https://airflow.apache.org>
+- Prefect. <https://www.prefect.io>
+- Dagster. <https://dagster.io>
 
 ### Comparison Articles
 
-- ZenML, "Temporal vs Airflow: Which Orchestrator Fits Your Workflows?," 2025. https://www.zenml.io/blog/temporal-vs-airflow
-- ZenML, "Temporal Alternatives: 9 Tools ML and Data Teams Prefer," 2025. https://www.zenml.io/blog/temporal-alternatives
-- Akka, "The 10 Best Temporal Alternatives for Enterprise Teams," 2025. https://akka.io/blog/temporal-alternatives
+- ZenML, "Temporal vs Airflow: Which Orchestrator Fits Your Workflows?," 2025. <https://www.zenml.io/blog/temporal-vs-airflow>
+- ZenML, "Temporal Alternatives: 9 Tools ML and Data Teams Prefer," 2025. <https://www.zenml.io/blog/temporal-alternatives>
+- Akka, "The 10 Best Temporal Alternatives for Enterprise Teams," 2025. <https://akka.io/blog/temporal-alternatives>

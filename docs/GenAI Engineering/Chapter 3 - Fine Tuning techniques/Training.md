@@ -29,8 +29,6 @@ Quality filtering: Traditional techniques involve rule-based filtering, removing
 <https://github.com/NVIDIA/NeMo-Curator>
 <https://distilabel.argilla.io/dev/sections/pipeline_samples/>
 
-
-
 ## Model Merging
 
 Model merging
@@ -44,7 +42,6 @@ A few methods (experimentals):
 - Concatenation:
 
 <https://magazine.sebastianraschka.com/p/research-papers-in-january-2024?open=false#%C2%A7understanding-model-merging-and-weight-averaging>
-
 
 ## Resources
 

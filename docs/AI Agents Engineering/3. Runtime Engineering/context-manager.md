@@ -186,17 +186,17 @@ The design space spans five major strategies, ranging from zero-overhead truncat
 
 **Mechanism:** Maintain a FIFO buffer of the most recent N messages or T tokens. When the buffer overflows, the oldest entry is discarded.
 
-```
-History:  [msg1, msg2, msg3, msg4, msg5, msg6]
-Window=4: [            msg3, msg4, msg5, msg6]
-                       ^ hard cut here
-```
+    History:  [msg1, msg2, msg3, msg4, msg5, msg6]
+    Window=4: [            msg3, msg4, msg5, msg6]
+                           ^ hard cut here
 
 **Two variants:**
+
 - **Message-based**: discard when `len(messages) > N` — simple but ignores token length variance.
 - **Token-based**: discard when `token_count(messages) > T` — strictly superior, respects actual model constraints.
 
 **Properties:**
+
 - Zero computation overhead (no LLM call required)
 - Completely lossless for retained content
 - Hard information loss: anything outside the window is permanently gone
@@ -212,14 +212,13 @@ Window=4: [            msg3, msg4, msg5, msg6]
 
 **Mechanism:** When total history tokens exceed a threshold T, send the entire history to an LLM and generate a summary from scratch. The summary replaces the full history.
 
-```
-History:  [msg1, msg2, msg3, msg4, msg5] → LLM → [SUMMARY_1]
-Next run: [SUMMARY_1, msg6, msg7, msg8] → LLM → [SUMMARY_2]
-```
+    History:  [msg1, msg2, msg3, msg4, msg5] → LLM → [SUMMARY_1]
+    Next run: [SUMMARY_1, msg6, msg7, msg8] → LLM → [SUMMARY_2]
 
 **Used by:** Early `ConversationSummaryMemory` in LangChain, OpenAI's `compact` endpoint.
 
 **Properties:**
+
 - High compression ratio (OpenAI's compact endpoint achieves 99.3% token removal)
 - Progressive information loss across cycles ("summary drift") — details gradually disappear
 - High compute cost: must process full history each time compression triggers
@@ -243,24 +242,23 @@ Full reconstruction consistently scores lowest on accuracy. Structured approache
 
 **Mechanism:** Rather than regenerating the full summary, maintain a persistent **anchor state** and only process the *newly-evicted span* when compression triggers. The partial summary is merged into the anchor.
 
-```
-Anchor state (always present):
-  session_intent: "Refactor the auth module"
-  file_modifications: [auth.py, tests/test_auth.py]
-  decisions_made: ["Use JWT tokens", "Deprecate session cookies"]
-  next_steps: ["Update middleware", "Add refresh token logic"]
+    Anchor state (always present):
+      session_intent: "Refactor the auth module"
+      file_modifications: [auth.py, tests/test_auth.py]
+      decisions_made: ["Use JWT tokens", "Deprecate session cookies"]
+      next_steps: ["Update middleware", "Add refresh token logic"]
 
-On compression trigger:
-  1. Identify the newly-truncated span [msg_n .. msg_n+k]
-  2. Summarize ONLY that span
-  3. Merge partial summary → anchor state
-  4. Discard the span
-```
+    On compression trigger:
+      1. Identify the newly-truncated span [msg_n .. msg_n+k]
+      2. Summarize ONLY that span
+      3. Merge partial summary → anchor state
+      4. Discard the span
 
 **Why structure matters:** *"Structure forces preservation — by dedicating sections to specific information types, the summary cannot silently drop file paths or skip decisions. Each section acts as a checklist."*
 — Factory.ai Engineering
 
 **Properties:**
+
 - Low overhead: only the newly-evicted delta is processed, not the full history
 - High accuracy: structured sections prevent silent omission of critical details
 - Weak spot: artifact tracking (exact file path retention) remains challenging — scores 2.19–2.45/5.0 across all tested methods
@@ -275,22 +273,21 @@ On compression trigger:
 
 **Mechanism:** Replace older tool outputs (observations) with a lightweight placeholder token or label, rather than summarizing them. The reasoning trace and action decisions are preserved verbatim; only the raw observations are masked.
 
-```
-Before masking:
-  [TOOL_CALL: search("React hooks")]
-  [OBSERVATION: "React hooks are functions that let you use state and lifecycle..."
-   ... 4,000 tokens of search results ...]
+    Before masking:
+      [TOOL_CALL: search("React hooks")]
+      [OBSERVATION: "React hooks are functions that let you use state and lifecycle..."
+       ... 4,000 tokens of search results ...]
 
-After masking:
-  [TOOL_CALL: search("React hooks")]
-  [OBSERVATION: <masked>]
-```
+    After masking:
+      [TOOL_CALL: search("React hooks")]
+      [OBSERVATION: <masked>]
 
 **Key insight from JetBrains Research (NeurIPS DL4C Workshop, December 2025):**
 
 Simple observation masking is **as effective as LLM summarization** for most agent tasks, at a fraction of the cost.
 
 Results on SWE-bench:
+
 - Observation masking: 2.6% **higher** solve rate than summarization with Qwen3-Coder 480B
 - Both methods cut costs by 50%+ vs. unbounded context
 - LLM summarization ran ~15% more steps (agents ran longer), partially offsetting efficiency gains
@@ -311,11 +308,9 @@ Results on SWE-bench:
 
 **Three-tier pattern (production):**
 
-```
-Tier 1 (verbatim):    Last 5–10 turns — exact wording, full tool outputs
-Tier 2 (compressed):  Recent session summary — medium abstraction, key decisions preserved
-Tier 3 (extracted):   Long-term facts — entity states, critical file paths, system decisions
-```
+    Tier 1 (verbatim):    Last 5–10 turns — exact wording, full tool outputs
+    Tier 2 (compressed):  Recent session summary — medium abstraction, key decisions preserved
+    Tier 3 (extracted):   Long-term facts — entity states, critical file paths, system decisions
 
 **NexusSum** (arXiv:2505.24575, 2025): A three-stage hierarchical multi-agent framework that formalizes this:
 
@@ -334,18 +329,17 @@ Tier 3 (extracted):   Long-term facts — entity states, critical file paths, sy
 
 **Mechanism:** Treat context compression as an optimization problem with iterative self-improvement. A compression policy (expressed as natural language guidelines) is refined based on observed failures.
 
-```
-Loop:
-  1. Collect paired trajectories:
-       (full-context success, compressed-context failure) pairs
-  2. Failure analysis: LLM examines why the compressed context caused failure
-       → "The agent lost track of the current file path after compression"
-  3. Guideline update: compression prompt is updated to preserve that info class
-       → "Always preserve all file paths and their modification status"
-  4. Distillation: optimized logic is distilled into a smaller, cheaper compressor
-```
+    Loop:
+      1. Collect paired trajectories:
+           (full-context success, compressed-context failure) pairs
+      2. Failure analysis: LLM examines why the compressed context caused failure
+           → "The agent lost track of the current file path after compression"
+      3. Guideline update: compression prompt is updated to preserve that info class
+           → "Always preserve all file paths and their modification status"
+      4. Distillation: optimized logic is distilled into a smaller, cheaper compressor
 
 **Results** (ACON, arXiv:2510.00615, ICLR 2025):
+
 - 26–54% reduction in peak token usage
 - Maintains **95%+ task accuracy** when distilled into smaller models
 - +32% on AppWorld, +20% on OfficeBench, +46% on Multi-objective QA
@@ -380,6 +374,7 @@ Loop:
 The original paper introduced the LLM-as-operating-system paradigm: the model manages its own memory like an OS manages RAM and disk via paging.
 
 **Two-tier architecture:**
+
 - **Main context ("RAM")**: system instructions + writeable core memory blocks + recent message history
 - **External context ("Disk")**: recall storage (full message history) + archival storage (semantic facts)
 
@@ -394,21 +389,20 @@ The agent uses dedicated tools (`archival_memory_insert`, `core_memory_replace`,
 
 Server-side automatic summarization triggered by a token threshold:
 
-```python
-context_management={
-    "edits": [
-        {
-            "type": "compact_20260112",
-            "trigger": {"type": "input_tokens", "value": 150000},  # min: 50,000
-            "pause_after_compaction": False,
-            "instructions": "Preserve all file paths, variable names, and technical decisions."
-            # Custom instructions REPLACE the default prompt entirely
-        }
-    ]
-}
-```
+    context_management={
+        "edits": [
+            {
+                "type": "compact_20260112",
+                "trigger": {"type": "input_tokens", "value": 150000},  # min: 50,000
+                "pause_after_compaction": False,
+                "instructions": "Preserve all file paths, variable names, and technical decisions."
+                # Custom instructions REPLACE the default prompt entirely
+            }
+        ]
+    }
 
 When triggered:
+
 1. Generates a `compaction` block containing the summary
 2. On subsequent requests, all message blocks prior to the compaction block are automatically dropped
 3. Prompt caching is preserved across compaction events
@@ -422,16 +416,15 @@ When triggered:
 
 The most sophisticated of LangChain's built-in memory types — a hybrid buffer + summarization approach:
 
-```python
-from langchain.memory import ConversationSummaryBufferMemory
+    from langchain.memory import ConversationSummaryBufferMemory
 
-memory = ConversationSummaryBufferMemory(
-    llm=llm,              # can be a cheaper/faster model than the agent LLM
-    max_token_limit=2000  # token threshold (not message count)
-)
-```
+    memory = ConversationSummaryBufferMemory(
+        llm=llm,              # can be a cheaper/faster model than the agent LLM
+        max_token_limit=2000  # token threshold (not message count)
+    )
 
 **Behavior:**
+
 - Recent messages stay verbatim in the buffer up to `max_token_limit`
 - When the buffer exceeds the limit, the **oldest** messages are summarized and the raw content is dropped
 - `prune()`: explicitly triggers compression of the oldest buffer content
@@ -447,15 +440,15 @@ The key advantage over `ConversationSummaryMemory`: recent interactions remain i
 ### OpenAI Agents SDK: Sessions + Compaction
 
 **Two session modes:**
+
 - `OpenAIConversationsSession`: server-side history via the Conversations API
 - `OpenAIResponsesCompactionSession`: wraps the Responses API with automatic compaction
 
 **Explicit management API:**
-```python
-session.get_items()   # retrieve all items in history
-session.pop_item()    # remove and return most recent item
-session.clear()       # remove all items
-```
+
+    session.get_items()   # retrieve all items in history
+    session.pop_item()    # remove and return most recent item
+    session.clear()       # remove all items
 
 **Memory distillation** (a separate capability): extracts high-quality, durable signals (facts, preferences, key decisions) from conversation history and records them as persistent "memory notes" that survive across sessions.
 

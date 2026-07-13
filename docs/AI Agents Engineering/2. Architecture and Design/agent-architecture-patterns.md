@@ -22,7 +22,7 @@ Before examining patterns, Anthropic's guidance from production systems establis
 
 A single LLM operates in a continuous loop: perceive the environment, decide next steps, act using tools, observe results, adjust approach based on feedback.
 
-![Single Agent architecture diagram — Anthropic](../assets/agent-patterns/single-agent.png)
+![Single Agent architecture diagram — Anthropic](../../assets/agent-patterns/single-agent.png)
 *Source: Anthropic — Building Effective AI Agents (2025)*
 
 **Core components:**
@@ -54,7 +54,7 @@ A single LLM operates in a continuous loop: perceive the environment, decide nex
 
 A central supervisor agent coordinates multiple specialized subagents through intelligent task delegation. The supervisor analyzes requests, routes them to appropriate specialists, and synthesizes responses. Subagents are treated as tools — the supervisor uses a tool-calling model to decide which agent to invoke.
 
-![Multi-agent hierarchical workflow — Anthropic](../assets/agent-patterns/hierarchical-workflow.png)
+![Multi-agent hierarchical workflow — Anthropic](../../assets/agent-patterns/hierarchical-workflow.png)
 *Source: Anthropic — Building Effective AI Agents (2025)*
 
 **Key structural properties:**
@@ -76,6 +76,7 @@ A central supervisor agent coordinates multiple specialized subagents through in
 **Key challenge — Context management:**
 
 The orchestrator faces a fundamental problem: context grows too complex for one agent to manage effectively. Mitigations:
+
 - Context editing: automatically clear stale tool calls when approaching token limits
 - Memory tools: store and retrieve information outside the context window via file-based or external stores
 - Tool pagination and truncation: cap tool responses at manageable sizes (~25,000 tokens)
@@ -95,7 +96,7 @@ The orchestrator faces a fundamental problem: context grows too complex for one 
 
 Multiple specialized agents work together in real-time through direct peer-to-peer communication. Coordination emerges from agent interactions rather than being imposed by a central authority. Agents negotiate roles dynamically and collectively solve problems through distributed intelligence.
 
-![Multi-agent collaborative workflow — Anthropic](../assets/agent-patterns/collaborative-workflow.png)
+![Multi-agent collaborative workflow — Anthropic](../../assets/agent-patterns/collaborative-workflow.png)
 *Source: Anthropic — Building Effective AI Agents (2025)*
 
 **Coordination mechanisms:**
@@ -107,6 +108,7 @@ Multiple specialized agents work together in real-time through direct peer-to-pe
 **Key challenge — Emergent behavior unpredictability:**
 
 Small changes can unpredictably affect how agents behave. Multi-agent systems exhibit emergent behaviors that arise without specific programming. Prevention requires:
+
 - Frameworks defining division of labor, problem-solving approaches, and effort budgets — not strict instructions
 - Mechanisms to prevent agents from bouncing tasks indefinitely
 - Explicit conflict resolution logic when agents produce contradictory results
@@ -128,7 +130,7 @@ Small changes can unpredictably affect how agents behave. Multi-agent systems ex
 
 A predetermined control flow with defined execution paths. Agents hand off work sequentially, each adding specific value that the next stage depends on. Provides predictable, auditable behavior ideal for regulated environments.
 
-![Multi-agent sequential workflow — Anthropic](../assets/agent-patterns/sequential-workflow.png)
+![Multi-agent sequential workflow — Anthropic](../../assets/agent-patterns/sequential-workflow.png)
 *Source: Anthropic — Building Effective AI Agents (2025)*
 
 **Key properties:**
@@ -160,7 +162,7 @@ A predetermined control flow with defined execution paths. Agents hand off work 
 
 Independent tasks distributed across multiple agents simultaneously, with results merged afterward. Resembles the fan-out/fan-in cloud design pattern. Enables significant speed improvements and diverse perspective coverage.
 
-![Multi-agent parallel workflow — Anthropic](../assets/agent-patterns/parallel-workflow.png)
+![Multi-agent parallel workflow — Anthropic](../../assets/agent-patterns/parallel-workflow.png)
 *Source: Anthropic — Building Effective AI Agents (2025)*
 
 **Two sub-patterns:**
@@ -193,7 +195,7 @@ Independent tasks distributed across multiple agents simultaneously, with result
 
 Two AI systems in iterative cycles: a **generator** creates content, an **evaluator** assesses it against predefined criteria and provides actionable feedback, the generator incorporates feedback and produces a revised version. Repeats until quality standards are met.
 
-![Multi-agent evaluator workflow — Anthropic](../assets/agent-patterns/evaluator-optimizer.png)
+![Multi-agent evaluator workflow — Anthropic](../../assets/agent-patterns/evaluator-optimizer.png)
 *Source: Anthropic — Building Effective AI Agents (2025)*
 
 **Key properties:**

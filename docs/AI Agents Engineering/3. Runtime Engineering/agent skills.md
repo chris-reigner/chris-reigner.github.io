@@ -105,6 +105,7 @@ Routing is the most common failure mode. The agent either activates the skill on
 Once a skill activates correctly, evaluate whether the agent follows the instructions faithfully and produces correct output.
 
 **Define expected outputs.** For each test case, specify what a correct execution looks like. This can be:
+
 - A reference output to compare against (exact or semantic match)
 - A checklist of required elements (steps completed, files touched, constraints respected)
 - A rubric scored by a judge model (useful for open-ended skills)

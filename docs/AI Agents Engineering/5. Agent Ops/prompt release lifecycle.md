@@ -9,7 +9,6 @@ An agent is composed of several building blocks: code, prompts, tools, sub-agent
 - Non-developer stakeholders (product owners, domain experts) often need to iterate on them.
 - They need to be compared, evaluated, and rolled back independently of code deployments.
 
-
 ## Problem Statement
 
 Coupling prompts to the code release cycle creates unnecessary friction: every prompt tweak requires a commit, a PR, a build, and a full redeploy.
@@ -121,11 +120,9 @@ In all cases, the agent should implement a fallback: if the store is unreachable
 | Runtime dependency | ❌ Agent depends on registry availability  | ✅ Agent depends on config store availability |
 | Cross-squad coordination |   ❌ Required (shared platform service)    |                  ✅ Minimal                   |
 
-
 ## Prompt Release Lifecycle
 
 The lifecycle applies regardless of the storage mechanism (Option A or B). It spans four environments, each with its own purpose, iteration speed, and promotion gate.
-
 
 ### Lifecycle by Environment (Local → Dev → Staging)
 

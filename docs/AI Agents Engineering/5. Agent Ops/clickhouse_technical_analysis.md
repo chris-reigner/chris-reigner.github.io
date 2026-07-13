@@ -10,6 +10,7 @@
 ClickHouse is an **open-source, column-oriented OLAP database** developed originally at Yandex (2009), open-sourced in 2016, and now maintained by ClickHouse Inc. (Linux Foundation Data & AI project since 2024).
 
 **Core characteristics:**
+
 - Column-oriented storage (reads only needed columns)
 - Vectorized query execution (SIMD CPU instructions, processes data in batches)
 - Aggressive data compression (LZ4, ZSTD — typically 5-10× compression ratios)
@@ -40,6 +41,7 @@ ClickHouse is an **open-source, column-oriented OLAP database** developed origin
 ```
 
 **Key architectural components:**
+
 - **MergeTree Engine:** Data written as immutable "parts" (sorted by primary key). Background merges consolidate parts. This is the core — all production tables use ReplicatedMergeTree.
 - **ClickHouse Keeper (or ZooKeeper):** Coordination service for replication metadata (not data). Tracks which parts exist, coordinates merges, handles leader election.
 - **Distributed Tables:** Query fan-out across shards for horizontal scaling.
@@ -136,6 +138,7 @@ ClickHouse is an **open-source, column-oriented OLAP database** developed origin
 | Generic pattern | Background merges stall, parts explode to 85,000, query performance degrades | Queued mutations (7 over 14 days) each rewriting 40% of 2TB table | [medium.com/@rakesh.therani](https://medium.com/@rakesh.therani/the-70-of-clickhouse-metrics-youre-not-monitoring-a-deep-dive-into-hidden-operational-risks-c313463ae6d1) |
 
 **Common failure modes:**
+
 1. **Part explosion** — too many small inserts without batching
 2. **OOM kills** — queries or mutations consuming all memory
 3. **Keeper/ZooKeeper failures** — replication halts, writes may block
@@ -261,26 +264,26 @@ Langfuse's migration rationale (from their engineering blog + ClickHouse case st
 
 | Source | URL |
 |--------|-----|
-| ClickHouse Architecture Overview | https://clickhouse.com/docs/en/development/architecture/ |
-| ClickHouse Security Changelog | https://clickhouse.com/docs/whats-new/security-changelog |
-| CVE-2024-6873 (DoS/RCE) | https://nvd.nist.gov/vuln/detail/cve-2024-6873 |
-| CVE-2025-1385 (RCE via library-bridge) | https://github.com/ClickHouse/ClickHouse/security/advisories/GHSA-5phv-x8x4-83x5 |
-| Langfuse + ClickHouse Case Study | https://clickhouse.com/blog/langfuse-llm-analytics |
-| Cloudflare Quadrillion-Row Scale | https://clickhouse.com/blog/cloudflare |
-| Cloudflare Outage (ClickHouse root cause) | https://cybersecurefox.com/en/cloudflare-outage-clickhouse-bot-management-configuration-failure/ |
-| Trigger.dev "Too Many Parts" Post-Mortem | https://trigger.dev/blog/clickhouse-too-many-parts-postmortem |
-| PostHog ClickHouse OOM Incident | https://isdown.app/status/posthog-us/incidents/319398-clickhouse-memory-issues |
-| ClickHouse Benchmarks | https://clickhouse.com/benchmarks |
-| ClickHouse vs Databricks/Snowflake | https://clickhouse.com/blog/join-me-if-you-can-clickhouse-vs-databricks-snowflake-join-performance |
-| ClickHouse vs Elasticsearch (Billion Row) | https://clickhouse.com/blog/clickhouse_vs_elasticsearch_the_billion_row_matchup |
-| When Not to Use ClickHouse | https://chistadata.com/when-not-to-use-clickhouse/ |
-| ClickHouse JOINs Limitations | https://www.glassflow.dev/blog/clickhouse-limitations-joins |
-| ClickHouse Keeper Explained | https://oneuptime.com/blog/post/2026-03-31-clickhouse-keeper-explained/view |
-| Scaling to Billions of Rows | https://oneuptime.com/blog/post/2026-03-31-clickhouse-scale-billions-rows/view |
-| ClickHouse Pricing | https://clickhouse.com/pricing |
-| ClickHouse Series D + Langfuse Acquisition | https://clickhouse.com/blog/clickhouse-raises-400-million-series-d-acquires-langfuse-launches-postgres |
-| Langfuse Architecture Handbook | https://langfuse.com/handbook/product-engineering/architecture |
-| ClickHouse Production Architecture | https://markaicode.com/architecture/clickhouse-production-system-design-architecture/ |
-| ClickHouse Kubernetes Pitfalls | https://pulse.support/kb/clickhouse-kubernetes-operator |
-| ClickHouse ACID Limitations | https://www.singlestore.com/blog/the-acid-dilemma-clickhouse-falls-short-singlestore-delivers |
-| ClickHouse UPDATE Support (2026) | https://dataanalyticsguide.substack.com/p/clickhouse-update-support |
+| ClickHouse Architecture Overview | <https://clickhouse.com/docs/en/development/architecture/> |
+| ClickHouse Security Changelog | <https://clickhouse.com/docs/whats-new/security-changelog> |
+| CVE-2024-6873 (DoS/RCE) | <https://nvd.nist.gov/vuln/detail/cve-2024-6873> |
+| CVE-2025-1385 (RCE via library-bridge) | <https://github.com/ClickHouse/ClickHouse/security/advisories/GHSA-5phv-x8x4-83x5> |
+| Langfuse + ClickHouse Case Study | <https://clickhouse.com/blog/langfuse-llm-analytics> |
+| Cloudflare Quadrillion-Row Scale | <https://clickhouse.com/blog/cloudflare> |
+| Cloudflare Outage (ClickHouse root cause) | <https://cybersecurefox.com/en/cloudflare-outage-clickhouse-bot-management-configuration-failure/> |
+| Trigger.dev "Too Many Parts" Post-Mortem | <https://trigger.dev/blog/clickhouse-too-many-parts-postmortem> |
+| PostHog ClickHouse OOM Incident | <https://isdown.app/status/posthog-us/incidents/319398-clickhouse-memory-issues> |
+| ClickHouse Benchmarks | <https://clickhouse.com/benchmarks> |
+| ClickHouse vs Databricks/Snowflake | <https://clickhouse.com/blog/join-me-if-you-can-clickhouse-vs-databricks-snowflake-join-performance> |
+| ClickHouse vs Elasticsearch (Billion Row) | <https://clickhouse.com/blog/clickhouse_vs_elasticsearch_the_billion_row_matchup> |
+| When Not to Use ClickHouse | <https://chistadata.com/when-not-to-use-clickhouse/> |
+| ClickHouse JOINs Limitations | <https://www.glassflow.dev/blog/clickhouse-limitations-joins> |
+| ClickHouse Keeper Explained | <https://oneuptime.com/blog/post/2026-03-31-clickhouse-keeper-explained/view> |
+| Scaling to Billions of Rows | <https://oneuptime.com/blog/post/2026-03-31-clickhouse-scale-billions-rows/view> |
+| ClickHouse Pricing | <https://clickhouse.com/pricing> |
+| ClickHouse Series D + Langfuse Acquisition | <https://clickhouse.com/blog/clickhouse-raises-400-million-series-d-acquires-langfuse-launches-postgres> |
+| Langfuse Architecture Handbook | <https://langfuse.com/handbook/product-engineering/architecture> |
+| ClickHouse Production Architecture | <https://markaicode.com/architecture/clickhouse-production-system-design-architecture/> |
+| ClickHouse Kubernetes Pitfalls | <https://pulse.support/kb/clickhouse-kubernetes-operator> |
+| ClickHouse ACID Limitations | <https://www.singlestore.com/blog/the-acid-dilemma-clickhouse-falls-short-singlestore-delivers> |
+| ClickHouse UPDATE Support (2026) | <https://dataanalyticsguide.substack.com/p/clickhouse-update-support> |

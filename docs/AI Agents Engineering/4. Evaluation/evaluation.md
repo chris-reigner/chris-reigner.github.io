@@ -1,6 +1,6 @@
 # Evaluating AI Agents (Under review)
 
-Evaluating AI agents is fundamentally harder than evaluating LLMs. 
+Evaluating AI agents is fundamentally harder than evaluating LLMs.
 An agent produces a **trajectory** — a sequence of decisions, tool calls, sub-agent handoffs, and reasoning steps — before you ever see a final response. Any step in that chain can fail silently, and the final output may look correct even when the path to it was wrong.
 
 We cover here some evaluation strategy an how to think about agent evaluation systematically: the three evaluation layers, the metrics that matter at each layer, the tools available, and a concrete worked example showing how to run these metrics against a real agent.
@@ -24,10 +24,10 @@ Write it in one sentence. Be specific.
 
 > ❌ "Improve our customer support with AI"
 > ✓ "Reduce tier-1 support ticket resolution time from 8 minutes to under 3 minutes"
-
+>
 > ❌ "Automate procurement"
 > ✓ "Process 80% of purchase orders under €10,000 without human review"
-
+>
 > ❌ "Use AI for onboarding"
 > ✓ "Reduce time-to-first-commit for new engineers from 5 days to 2 days"
 
@@ -88,7 +88,6 @@ A metric without a threshold is an observation, not a criterion. Define the mini
 
 This also gives you a release gate: the agent ships when all thresholds are met. No subjective debates.
 
-
 ---
 
 ## The Three Evaluation Layers
@@ -126,6 +125,7 @@ A weak base model that hallucinates tool arguments or misreads retrieval results
 ### Metrics
 
 #### Faithfulness
+
 Measures whether the model's response is grounded in the provided context — retrieved documents, tool outputs, or memory — without fabricating information.
 
 - **Input**: retrieved context + model response
@@ -133,6 +133,7 @@ Measures whether the model's response is grounded in the provided context — re
 - **Failure signal**: response includes facts not present in any retrieved source
 
 #### Answer Relevancy
+
 Measures whether the response actually addresses the user's input rather than drifting to tangential content.
 
 - **Input**: user query + model response
@@ -140,17 +141,20 @@ Measures whether the response actually addresses the user's input rather than dr
 - **Failure signal**: response is coherent but answers a different question
 
 #### Hallucination Rate
+
 The fraction of responses that contain at least one fabricated factual claim. Operationalized through FactScore — decompose the response into atomic claims, then verify each against a source.
 
 - **Failure signal**: agent states a flight price, booking ID, or entity that doesn't exist in any tool output
 
 #### Reasoning Quality
+
 Evaluates whether the model's reasoning trace (if visible via CoT or scratchpad) is logically sound: premises are valid, conclusions follow, no contradictions.
 
 - **Input**: reasoning trace
 - **Score**: LLM-as-judge rubric (0–10 or categorical: SOUND / FLAWED / CIRCULAR)
 
 #### Noise Robustness
+
 Measures whether model performance degrades when irrelevant context is added to the prompt. Relevant for agents with large tool outputs injected into context.
 
 ---
@@ -159,12 +163,14 @@ Measures whether model performance degrades when irrelevant context is added to 
 
 This layer evaluates the **action layer**: how the agent selects, calls, and sequences tools. Tool failures are often the most impactful because they block downstream steps and can cascade into complete task failure.
 
-### Metrics
+### Tool Evaluation Metrics
 
 #### Tool Correctness
+
 Validates that the agent called the **right tools** for the task — no more, no less. Measured by comparing the actual tool call sequence to a ground-truth reference set.
 
 Evaluation dimensions:
+
 - **Tool name match**: was the correct tool selected?
 - **Parameter correctness**: were inputs well-formed and accurate?
 - **Ordering**: for tasks where sequence matters, were tools called in the right order?
@@ -180,6 +186,7 @@ actual_tools       = ["search_hotels", "book_flight"]                           
 Implementations (e.g. DeepEval's `ToolCorrectnessMetric`) support configurable strictness: exact ordering vs. order-independent matching, and exact count vs. frequency tolerance.
 
 #### Argument Correctness
+
 Even when the right tool is called, the arguments may be wrong. This metric evaluates whether the tool inputs match expected values or fall within valid ranges.
 
 ```json
@@ -193,6 +200,7 @@ Even when the right tool is called, the arguments may be wrong. This metric eval
 - **Score**: exact match for enumerables; semantic similarity for free-text fields; range check for numeric fields
 
 #### Tool Efficiency
+
 Measures whether the agent took the **most direct path** via tool calls — no unnecessary calls, no redundant lookups, no loops.
 
 - **Input**: tool call sequence + task description + list of available tools
@@ -200,6 +208,7 @@ Measures whether the agent took the **most direct path** via tool calls — no u
 - **Failure signal**: agent called `search_flights` three times with identical parameters, or called `get_weather` for a booking task where weather is irrelevant
 
 #### Tool Failure Recovery
+
 Assesses how the agent handles a tool returning an error, timeout, or unexpected output.
 
 - Does it retry intelligently (with modified parameters)?
@@ -212,9 +221,10 @@ Assesses how the agent handles a tool returning an error, timeout, or unexpected
 
 This is the top layer — evaluating the agent as a whole system. It answers whether the agent understood the user's goal, pursued it coherently, and completed it successfully. These metrics require observing the **full execution trace**, not just individual steps.
 
-### Metrics
+### Agentic Evaluation Metrics
 
 #### Task Completion
+
 Binary or graded measure of whether the agent accomplished the user's stated goal by the end of the run.
 
 - **Binary**: did the agent complete the task? (yes/no, LLM-as-judge)
@@ -223,6 +233,7 @@ Binary or graded measure of whether the agent accomplished the user's stated goa
 - **Failure signal**: agent ran out of steps, got stuck in a loop, or produced output that doesn't satisfy the original request
 
 #### Task Adherence / Intent Resolution
+
 Evaluates whether the agent correctly understood the user's **underlying intent** — not just the surface request — and oriented its plan accordingly.
 
 Critical for catching failures where the agent appears to complete a task but addresses the wrong objective (e.g. user asks "find me cheap flights" and the agent books first-class).
@@ -231,27 +242,32 @@ Critical for catching failures where the agent appears to complete a task but ad
 - **Score**: alignment between inferred goal and actual plan (LLM-as-judge)
 
 #### Trajectory Quality
+
 Evaluates the entire sequence of reasoning and action steps for coherence, efficiency, and correctness — independent of the final output. This is the "glass-box" metric.
 
 Sub-dimensions:
+
 - **Coherence**: do consecutive steps follow logically from each other?
 - **Loop detection**: does the agent ever repeat the same action without new information?
 - **Recovery quality**: when a step fails, does the agent adapt appropriately?
 - **Progress rate**: at each step, is the agent closer to the goal? (AgentBoard metric)
 
 #### Plan Quality
+
 For planning agents that generate an explicit plan before executing, this metric scores the plan itself: is it logically complete, correctly ordered, and achievable with available tools?
 
 - **Score**: LLM-as-judge rubric covering completeness, feasibility, and ordering (0–10)
 - **Evaluated**: before execution begins — catches plan-level failures before they cause step-level failures
 
 #### Plan Adherence
+
 Did the agent follow its own plan? An agent that generates a good plan but then deviates from it is a reliability risk.
 
 - **Score**: fraction of plan steps actually executed in the order planned
 - **Failure signal**: agent generated a 5-step plan, executed steps 1–2, then skipped to step 5
 
 #### Step Efficiency
+
 Measures the ratio of useful steps to total steps. Steps that don't advance the goal (redundant lookups, excessive self-questioning, repeated summarization) waste tokens and add latency.
 
 ```
@@ -259,6 +275,7 @@ efficiency = goal_advancing_steps / total_steps
 ```
 
 #### Handoff Accuracy (Multi-Agent)
+
 For systems where agents delegate to sub-agents, this metric evaluates whether the orchestrator correctly identified when to hand off, to which agent, and with what context.
 
 ---
@@ -593,6 +610,7 @@ Examining `search_flights` arguments field by field:
 **Tool Efficiency: 0.60**
 
 LLM-as-judge prompt:
+
 ```
 Task: "Book the cheapest economy flight from Paris to New York on June 15."
 Available tools: search_flights, check_seat_availability, get_weather, book_flight
@@ -674,6 +692,7 @@ Efficiency = 3 / 4 = 0.75
 Both failures are invisible from the final output alone. Only trajectory evaluation surfaces them.
 
 **Fixes:**
+
 1. Tighten system prompt: *"Call only tools required to complete the user's stated task. Do not call auxiliary tools unless explicitly requested."*
 2. Update `search_flights` tool description to specify: *"destination: IATA airport code (e.g. 'JFK', not 'NYC')"*
 3. Add regression test that asserts `get_weather` is NOT called for any pure booking task
@@ -779,6 +798,7 @@ for item in result.items:
 **LLM-as-judge scorer (reusable pattern):**
 
 {% raw %}
+
 ```python
 from anthropic import Anthropic
 
@@ -810,6 +830,7 @@ Respond in JSON:
     import json
     return json.loads(response.content[0].text)
 ```
+
 {% endraw %}
 
 ---
