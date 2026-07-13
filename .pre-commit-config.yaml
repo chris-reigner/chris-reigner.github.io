@@ -32,3 +32,20 @@ repos:
 #      - id: codespell
 #        files: ^.*\.(py|c|h|md|rst|yml)$
 #        args: ["--skip", "*.git,*.pyc,node_modules,build,dist,site"]
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.8.3
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.9.11
+    hooks:
+      # Update the uv lockfile
+      - id: uv-lock
+
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.10.0
+    hooks:
+      - id: pip-audit
