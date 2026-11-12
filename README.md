@@ -55,7 +55,6 @@ Have fun reading it !
   - [] LLMOps section
 - [] Draft first version of ML Engineering...
 - [] Clean to iterate faster
-- [] Clean resources
 
 [back to top](#about-the-project)
 
