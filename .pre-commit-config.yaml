@@ -45,7 +45,13 @@ repos:
       # Update the uv lockfile
       - id: uv-lock
 
-  - repo: https://github.com/pypa/pip-audit
-    rev: v2.10.0
-    hooks:
-      - id: pip-audit
+  # Audit the project's locked dependencies (not the hook's own venv).
+  # Disabled: pip-audit crashes locally (OPENSSL_Uplink / TLS cert error).
+#  - repo: local
+#    hooks:
+#      - id: pip-audit
+#        name: "🛡️ security · pip-audit (uv.lock)"
+#        entry: bash -c 'uv export --no-emit-project -o .audit-req.txt && uvx pip-audit -r .audit-req.txt --disable-pip --require-hashes; rc=$?; rm -f .audit-req.txt; exit $rc'
+#        language: system
+#        pass_filenames: false
+#        files: ^(pyproject\.toml|uv\.lock)$

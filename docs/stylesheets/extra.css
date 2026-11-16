@@ -1,0 +1,39 @@
+/* Wide benchmark tables (scoped to the Tracing Solutions page via its H1 id) */
+.md-content:has(#tracing-solutions-2026) .md-typeset__scrollwrap {
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.md-content:has(#tracing-solutions-2026) .md-typeset table:not([class]) {
+  font-size: 0.68rem;
+}
+
+/* Sticky header row */
+.md-content:has(#tracing-solutions-2026) .md-typeset table:not([class]) thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: var(--md-default-bg-color);
+  vertical-align: bottom;
+}
+
+/* Sticky first column (feature names) */
+.md-content:has(#tracing-solutions-2026) .md-typeset table:not([class]) td:first-child,
+.md-content:has(#tracing-solutions-2026) .md-typeset table:not([class]) th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  min-width: 11rem;
+  background-color: var(--md-default-bg-color);
+  box-shadow: inset -1px 0 0 var(--md-typeset-table-color);
+}
+
+.md-content:has(#tracing-solutions-2026) .md-typeset table:not([class]) thead th:first-child {
+  z-index: 3;
+}
+
+/* Long text and URLs wrap instead of stretching the table */
+.md-content:has(#tracing-solutions-2026) .md-typeset table:not([class]) td {
+  overflow-wrap: anywhere;
+  vertical-align: top;
+}
