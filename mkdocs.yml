@@ -54,11 +54,15 @@ theme:
     - search.share
     - toc.follow
 
+extra_css:
+  - stylesheets/extra.css
+
 markdown_extensions:
   - admonition
   - codehilite
   - pymdownx.highlight
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.details
   - pymdownx.emoji
   - tables
@@ -121,6 +125,7 @@ nav:
       - Chapter 6 - Other type of models:
           - Generative modelling beyond sequences: GenAI Engineering/Chapter 6 - Other type of models/Generative modelling beyond sequences.md
           - Multimodal models: GenAI Engineering/Chapter 6 - Other type of models/multimodal_models.md
+          - Weight-Space Programming: GenAI Engineering/Chapter 6 - Other type of models/weight_space_programming.md
       - Chapter 7 - LLMOps:
           - Data for LLM: GenAI Engineering/Chapter 7 - LLMOps/Data for LLM.md
           - Guardrails: GenAI Engineering/Chapter 7 - LLMOps/Guardrails.md
@@ -162,6 +167,8 @@ nav:
       - Evaluating AI Agents: AI Agents Engineering/4. Evaluation/evaluation.md
       - Evaluation Temporality: AI Agents Engineering/4. Evaluation/evaluation-temporality.md
       - Agent-Specific Evaluation: AI Agents Engineering/4. Evaluation/agent_specifics.md
+  - Interviews:
+    - Senior AI Engineer Interview Guide: Interviews/senior-ai-engineer-interview-guide.md
   - About me: About the Author.md
   - Contribute ❤️: https://github.com/chris-reigner/chris-reigner.github.io
 
